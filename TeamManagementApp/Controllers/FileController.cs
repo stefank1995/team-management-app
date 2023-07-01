@@ -52,7 +52,7 @@ namespace TeamManagementApp.Controllers
                     Name = fileName,
                     Description = description,
                     UploadedById = _userManager.GetUserId(User),
-                    UploadedBy = _userManager.GetUserAsync(User).Result.FirstName + " " + _userManager.GetUserAsync(User).Result.LastName
+                    UploadedBy = _userManager.GetUserAsync(User).Result.FullName
                 };
                 using (var dataStream = new MemoryStream())
                 {

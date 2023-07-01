@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.EJ2.Base;
-
+using Syncfusion.EJ2.Linq;
 using TeamManagementApp.Data;
 using TeamManagementApp.Models;
 
@@ -36,6 +36,39 @@ namespace TeamManagementApp.Controllers
         [HttpPost]
         public List<KanbanData> LoadCard([FromBody] ExtendedDataManagerRequest param)
         {
+            var users = _context.Users.Select(x => x.Id).ToList();
+            var assignees = _context.KanbanData.Select(y => y.AssigneeId).ToList();
+            foreach (var user in users)
+            {
+                int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.Id) : 0;
+                if (_context.KanbanData.Where(x => x.AssigneeId == user).FirstOrDefault() == null)
+                {
+                    KanbanData card = new KanbanData()
+                    {
+                        Id = intMax + 1,
+                        AssigneeId = user,
+                        Assignee = _context.Users.Where(x => x.Id == user).FirstOrDefault().FullName,
+                        RankId = 1,
+                        Status = "Open",
+                        Summary = System.String.Empty
+                    };
+
+                    _context.KanbanData.Add(card);
+                    _context.Database.OpenConnection();
+                    try
+                    {
+                        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.KanbanData ON;");
+                        _context.SaveChanges();
+                        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.KanbanData OFF;");
+                    }
+                    finally
+                    {
+                        _context.Database.CloseConnection();
+                    }
+
+                }
+            }
+
             return _context.KanbanData.ToList();
         }
 
@@ -85,12 +118,13 @@ namespace TeamManagementApp.Controllers
         public List<KanbanData> InsertCard([FromBody] ICRUDModel<KanbanData> value)
         {
             var data = value.value;
-            int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.Id) : 1;
+            int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.Id) : 0;
 
             KanbanData card = new KanbanData()
             {
                 Id = intMax + 1,
-                Assignee = data.Assignee,
+                AssigneeId = data.AssigneeId,
+                Assignee = _context.Users.Where(x => x.Id == data.AssigneeId).FirstOrDefault().FullName,
                 RankId = data.RankId,
                 Status = data.Status,
                 Summary = data.Summary
@@ -117,6 +151,7 @@ namespace TeamManagementApp.Controllers
             if (card != null)
             {
                 _context.KanbanData.Remove(card);
+
             }
             _context.SaveChanges();
             return _context.KanbanData.ToList();
@@ -128,11 +163,12 @@ namespace TeamManagementApp.Controllers
             if (param.action == "insert" || (param.action == "batch" && param.added.Count > 0))
             {
                 var value = (param.action == "insert") ? param.value : param.added[0];
-                int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.Id) : 1;
+                int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.Id) : 0;
                 KanbanData card = new KanbanData()
                 {
                     Id = intMax + 1,
-                    Assignee = value.Assignee,
+                    AssigneeId = value.AssigneeId,
+                    Assignee = _context.Users.Where(x => x.Id == value.AssigneeId).FirstOrDefault().FullName,
                     RankId = value.RankId,
                     Status = value.Status,
                     Summary = value.Summary
@@ -190,13 +226,20 @@ namespace TeamManagementApp.Controllers
             }
             return _context.KanbanData.ToList();
         }
+        [HttpPost]
+        public async Task<IActionResult> RemoveAllCards()
+        {
+            await _context.KanbanData.ExecuteDeleteAsync();
+            _context.SaveChanges();
+            return View();
+        }
     }
 
-    public class DataResult
-    {
-        public IEnumerable<Object> result { get; set; }
-        public int count { get; set; }
-    }
+    //public class Dataresult
+    //{
+    //    public IEnumerable<Object> result { get; set; }
+    //    public int count { get; set; }
+    //}
 
 
 
