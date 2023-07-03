@@ -278,11 +278,8 @@ namespace TeamManagementApp.Migrations
 
             modelBuilder.Entity("TeamManagementApp.Models.KanbanData", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Assignee")
                         .IsRequired()

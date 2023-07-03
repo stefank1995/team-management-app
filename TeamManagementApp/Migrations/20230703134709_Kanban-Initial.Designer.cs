@@ -12,7 +12,7 @@ using TeamManagementApp.Data;
 namespace TeamManagementApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230323191522_Kanban-Initial")]
+    [Migration("20230703134709_Kanban-Initial")]
     partial class KanbanInitial
     {
         /// <inheritdoc />
@@ -281,23 +281,14 @@ namespace TeamManagementApp.Migrations
 
             modelBuilder.Entity("TeamManagementApp.Models.KanbanData", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Assignee")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Estimate")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ImgUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Priority")
+                    b.Property<string>("AssigneeId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -309,15 +300,6 @@ namespace TeamManagementApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Summary")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

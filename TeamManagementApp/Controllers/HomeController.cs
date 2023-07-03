@@ -40,35 +40,23 @@ namespace TeamManagementApp.Controllers
             var assignees = _context.KanbanData.Select(y => y.AssigneeId).ToList();
             foreach (var user in users)
             {
-                int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.Id) : 0;
+                int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.RankId) : 0;
                 if (_context.KanbanData.Where(x => x.AssigneeId == user).FirstOrDefault() == null)
                 {
                     KanbanData card = new KanbanData()
                     {
-                        Id = intMax + 1,
                         AssigneeId = user,
                         Assignee = _context.Users.Where(x => x.Id == user).FirstOrDefault().FullName,
-                        RankId = 1,
+                        RankId = intMax + 1,
                         Status = "Open",
                         Summary = System.String.Empty
                     };
 
                     _context.KanbanData.Add(card);
-                    _context.Database.OpenConnection();
-                    try
-                    {
-                        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.KanbanData ON;");
-                        _context.SaveChanges();
-                        _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.KanbanData OFF;");
-                    }
-                    finally
-                    {
-                        _context.Database.CloseConnection();
-                    }
-
+                    _context.SaveChanges();
                 }
-            }
 
+            }
             return _context.KanbanData.ToList();
         }
 
@@ -118,35 +106,24 @@ namespace TeamManagementApp.Controllers
         public List<KanbanData> InsertCard([FromBody] ICRUDModel<KanbanData> value)
         {
             var data = value.value;
-            int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.Id) : 0;
+            int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.RankId) : 0;
 
             KanbanData card = new KanbanData()
             {
-                Id = intMax + 1,
                 AssigneeId = data.AssigneeId,
                 Assignee = _context.Users.Where(x => x.Id == data.AssigneeId).FirstOrDefault().FullName,
-                RankId = data.RankId,
+                RankId = intMax + 1,
                 Status = data.Status,
                 Summary = data.Summary
             };
             _context.KanbanData.Add(card);
-            _context.Database.OpenConnection();
-            try
-            {
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.KanbanData ON;");
-                _context.SaveChanges();
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.KanbanData OFF;");
-            }
-            finally
-            {
-                _context.Database.CloseConnection();
-            }
+            _context.SaveChanges();
             return _context.KanbanData.ToList();
         }
         [HttpPost]
         public List<KanbanData> RemoveCard([FromBody] ICRUDModel<KanbanData> value)
         {
-            int key = Convert.ToInt32(value.key.ToString());
+            string key = value.key.ToString();
             KanbanData card = _context.KanbanData.Where(c => c.Id == key).FirstOrDefault();
             if (card != null)
             {
@@ -163,13 +140,12 @@ namespace TeamManagementApp.Controllers
             if (param.action == "insert" || (param.action == "batch" && param.added.Count > 0))
             {
                 var value = (param.action == "insert") ? param.value : param.added[0];
-                int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.Id) : 0;
+                int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.RankId) : 0;
                 KanbanData card = new KanbanData()
                 {
-                    Id = intMax + 1,
                     AssigneeId = value.AssigneeId,
                     Assignee = _context.Users.Where(x => x.Id == value.AssigneeId).FirstOrDefault().FullName,
-                    RankId = value.RankId,
+                    RankId = intMax + 1,
                     Status = value.Status,
                     Summary = value.Summary
                 };
@@ -190,10 +166,10 @@ namespace TeamManagementApp.Controllers
             if (param.action == "update" || (param.action == "batch" && param.changed.Count > 0))
             {
                 KanbanData value = (param.action == "update") ? param.value : param.changed[0];
-                IQueryable<KanbanData> filterData = _context.KanbanData.Where(c => c.Id == Convert.ToInt32(value.Id));
+                IQueryable<KanbanData> filterData = _context.KanbanData.Where(c => c.Id == value.Id);
                 if (filterData.Count() > 0)
                 {
-                    KanbanData card = _context.KanbanData.Single(A => A.Id == Convert.ToInt32(value.Id));
+                    KanbanData card = _context.KanbanData.Single(A => A.Id == value.Id);
                     card.Summary = value.Summary;
                     card.Status = value.Status;
                 }
@@ -204,7 +180,7 @@ namespace TeamManagementApp.Controllers
             {
                 if (param.action == "remove")
                 {
-                    int key = Convert.ToInt32(param.key);
+                    string key = param.key.ToString();
                     KanbanData card = _context.KanbanData.Where(c => c.Id == key).FirstOrDefault();
                     if (card != null)
                     {
