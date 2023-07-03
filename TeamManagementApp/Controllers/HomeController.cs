@@ -97,6 +97,8 @@ namespace TeamManagementApp.Controllers
             var ord = value.value;
             KanbanData val = _context.KanbanData.Where(or => or.Id == ord.Id).FirstOrDefault();
             val.Status = ord.Status;
+            val.AssigneeId = ord.AssigneeId;
+            val.Assignee = _context.Users.Where(x => x.Id == ord.AssigneeId).FirstOrDefault().FullName;
             val.Summary = ord.Summary;
             _context.SaveChanges();
             return _context.KanbanData.ToList();
@@ -173,6 +175,8 @@ namespace TeamManagementApp.Controllers
                 {
                     KanbanData card = _context.KanbanData.Single(A => A.Id == value.Id);
                     card.Summary = value.Summary;
+                    card.AssigneeId = value.AssigneeId;
+                    card.Assignee = _context.Users.Where(x => x.Id == value.AssigneeId).FirstOrDefault().FullName;
                     card.Status = value.Status;
                 }
                 _context.SaveChanges();

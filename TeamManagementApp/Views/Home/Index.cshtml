@@ -12,7 +12,7 @@
     </div>
     <div class="control-section">
         <div class="content-wrapper">
-            <ejs-kanban id="Kanban" keyField="Status" created="onKanbanCreated">
+            <ejs-kanban id="Kanban" keyField="Status" created="onKanbanCreated"  >
 			    <e-data-manager url="/Home/LoadCard" updateUrl="/Home/UpdateCard" removeUrl="/Home/RemoveCard" insertUrl="/Home/InsertCard" crudUrl="/Home/CrudCard" adaptor="UrlAdaptor" crossDomain="false"></e-data-manager>
 			    <e-kanban-columns>
 				    <e-kanban-column headerText="To Do" keyField="Open" showAddButton="true" ></e-kanban-column>
@@ -21,7 +21,7 @@
 				    <e-kanban-column headerText="Done" keyField="Close"></e-kanban-column>
 			    </e-kanban-columns>
 			    <e-kanban-cardsettings headerField="RankId" contentField="Summary" template="#cardTemplate" selectionType = "Multiple"></e-kanban-cardsettings>
-			    <e-kanban-swimlanesettings keyField="AssigneeId" textField="Assignee" showEmptyRow=true ></e-kanban-swimlanesettings>
+                <e-kanban-swimlanesettings keyField="AssigneeId" textField="Assignee" showEmptyRow=true allowDragAndDrop="true"></e-kanban-swimlanesettings>
 		 
 			    <e-kanban-stackedHeaders>
 						    <e-kanban-stackedHeader text="To Do" keyFields="Open"></e-kanban-stackedHeader>
@@ -55,6 +55,10 @@
                             <tr>
                                 <td class="CardHeader">Summary:</td>
                                 <td>${Summary}</td>
+                            </tr>
+                            <tr>
+                                <td class="CardHeader">Assignee:</td>
+                                <td>${Assignee}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -116,5 +120,6 @@
 		kanbanObj = this;
 	}
 
+    
 	
 </script>
