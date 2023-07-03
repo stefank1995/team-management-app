@@ -3,8 +3,6 @@
 	ViewData["Title"] = "Home Page";   
 }
 
-<h2>Team Management App</h2>
-
 <div class="">
     <div>
         <h3>Kanban Board</h3>
@@ -12,25 +10,28 @@
             <button type="button" class="btn btn-close" onclick="location.href='@Url.Action("RemoveAllCards", "HomeController")'"></button>
         </form>
     </div>
-	<div class="control-section">
-        <ejs-kanban id="Kanban" keyField="Status" created="onKanbanCreated">
-			<e-data-manager url="/Home/LoadCard" updateUrl="/Home/UpdateCard" removeUrl="/Home/RemoveCard" insertUrl="/Home/InsertCard" crudUrl="/Home/CrudCard" adaptor="UrlAdaptor" crossDomain="false"></e-data-manager>
-			<e-kanban-columns>
-				<e-kanban-column headerText="To Do" keyField="Open" showAddButton="true" ></e-kanban-column>
-				<e-kanban-column headerText="In Progress" keyField="InProgress"></e-kanban-column>
-				<e-kanban-column headerText="In Review" keyField="Review"></e-kanban-column>
-				<e-kanban-column headerText="Done" keyField="Close"></e-kanban-column>
-			</e-kanban-columns>
-			<e-kanban-cardsettings headerField="Id" contentField="Summary" template="#cardTemplate" selectionType = "Multiple"></e-kanban-cardsettings>
-			<e-kanban-swimlanesettings keyField="AssigneeId" textField="Assignee" showEmptyRow=true ></e-kanban-swimlanesettings>
+    <div class="control-section">
+        <div class="content-wrapper">
+            <ejs-kanban id="Kanban" keyField="Status" created="onKanbanCreated">
+			    <e-data-manager url="/Home/LoadCard" updateUrl="/Home/UpdateCard" removeUrl="/Home/RemoveCard" insertUrl="/Home/InsertCard" crudUrl="/Home/CrudCard" adaptor="UrlAdaptor" crossDomain="false"></e-data-manager>
+			    <e-kanban-columns>
+				    <e-kanban-column headerText="To Do" keyField="Open" showAddButton="true" ></e-kanban-column>
+				    <e-kanban-column headerText="In Progress" keyField="InProgress"></e-kanban-column>
+				    <e-kanban-column headerText="In Review" keyField="Review"></e-kanban-column>
+				    <e-kanban-column headerText="Done" keyField="Close"></e-kanban-column>
+			    </e-kanban-columns>
+			    <e-kanban-cardsettings headerField="RankId" contentField="Summary" template="#cardTemplate" selectionType = "Multiple"></e-kanban-cardsettings>
+			    <e-kanban-swimlanesettings keyField="AssigneeId" textField="Assignee" showEmptyRow=true ></e-kanban-swimlanesettings>
 		 
-			<e-kanban-stackedHeaders>
-						<e-kanban-stackedHeader text="To Do" keyFields="Open"></e-kanban-stackedHeader>
-						<e-kanban-stackedHeader text="Development Phase" keyFields="InProgress, Review"></e-kanban-stackedHeader>
-						<e-kanban-stackedHeader text="Done" keyFields="Close"></e-kanban-stackedHeader>
-			</e-kanban-stackedHeaders>
-		</ejs-kanban>
+			    <e-kanban-stackedHeaders>
+						    <e-kanban-stackedHeader text="To Do" keyFields="Open"></e-kanban-stackedHeader>
+						    <e-kanban-stackedHeader text="Development Phase" keyFields="InProgress, Review"></e-kanban-stackedHeader>
+						    <e-kanban-stackedHeader text="Done" keyFields="Close"></e-kanban-stackedHeader>
+			    </e-kanban-stackedHeaders>
+		    </ejs-kanban>
+        </div>
 	</div>
+    
 </div>
 
 <script id="cardTemplate" type="text/x-jsrender">
@@ -77,26 +78,6 @@
         text-align: center;
     }
 
-    .e-kanban .header-template-wrap {
-        color: #e3165b;
-        display: inline-flex;
-        font-size: 18px;
-        font-weight: 500;
-    }
-
-        .e-kanban .header-template-wrap .header-icon {
-            margin-top: 3px;
-            width: 10%;
-        }
-
-            .e-kanban .header-template-wrap .header-icon::before {
-                font-size: 18px;
-            }
-
-        .e-kanban .header-template-wrap .header-text {
-            margin-left: 15px;
-        }
-
     .e-kanban .e-card {
         height: auto !important;
     }
@@ -117,57 +98,23 @@
         width: 100%;
     }
 
-        .e-kanban .card-template-wrap td {
-            background: none !important;
-            border: none !important;
-            height: auto !important;
-            padding: 2px;
-            line-height: 1.6;
-        }
-
-        .e-kanban .card-template-wrap .card-icon-wrap {
-            padding-left: 6%;
-            vertical-align: middle !important;
-        }
-
-    .e-kanban .card-details-wrap .CardHeader {
-        font-weight: 500;
+    .e-kanban .card-template-wrap td {
+        background: none !important;
+        border: none !important;
+        height: auto !important;
+        padding: 2px;
+        line-height: 1.6;
     }
-
-    .e-kanban .Backlog::before,
-    .e-kanban .Open::before {
-        content: '\e607';
-        color: #6495ed;
-        font-size: 16px;
-    }
-
-    .e-kanban .InProgress::before {
-        content: '\e606';
-        color: #0000ff;
-        font-size: 16px;
-    }
-
-    .e-kanban .Testing::before {
-        content: '\e345';
-        color: #ffa500;
-        font-size: 16px;
-    }
-
-    .e-kanban .Close::before {
-        content: '\ea84';
-        color: #008000;
-        font-size: 16px;
-    }
+   
 </style>
 
 <script>
-	var kanbanObj;
+    var kanbanObj;
 	var statusData = ['Open', 'InProgress', 'Testing', 'Close'];
 
 	function onKanbanCreated() {
 		kanbanObj = this;
 	}
 
-    
 	
 </script>

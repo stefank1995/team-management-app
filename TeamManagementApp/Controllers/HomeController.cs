@@ -123,12 +123,22 @@ namespace TeamManagementApp.Controllers
         [HttpPost]
         public List<KanbanData> RemoveCard([FromBody] ICRUDModel<KanbanData> value)
         {
-            string key = value.key.ToString();
-            KanbanData card = _context.KanbanData.Where(c => c.Id == key).FirstOrDefault();
+            int key = Convert.ToInt32(value.key.ToString());
+            KanbanData card = _context.KanbanData.Where(c => c.RankId == key).FirstOrDefault();
             if (card != null)
             {
                 _context.KanbanData.Remove(card);
+                int deletedCardId = _context.KanbanData.Where(c => c.RankId == key).FirstOrDefault().RankId;
+                List<KanbanData> updatedCards = _context.KanbanData.Where(c => c.RankId > deletedCardId).ToList();
 
+                foreach (KanbanData updatedCard in updatedCards)
+                {
+                    updatedCard.RankId--;
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(card));
             }
             _context.SaveChanges();
             return _context.KanbanData.ToList();
@@ -150,17 +160,9 @@ namespace TeamManagementApp.Controllers
                     Summary = value.Summary
                 };
                 _context.KanbanData.Add(card);
-                _context.Database.OpenConnection();
-                try
-                {
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.KanbanData ON;");
-                    _context.SaveChanges();
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.KanbanData OFF;");
-                }
-                finally
-                {
-                    _context.Database.CloseConnection();
-                }
+                _context.SaveChanges();
+
+
             }
             // this block of code will execute while updating the existing cards
             if (param.action == "update" || (param.action == "batch" && param.changed.Count > 0))
@@ -180,21 +182,36 @@ namespace TeamManagementApp.Controllers
             {
                 if (param.action == "remove")
                 {
-                    string key = param.key.ToString();
-                    KanbanData card = _context.KanbanData.Where(c => c.Id == key).FirstOrDefault();
+                    int key = Convert.ToInt32(param.key.ToString());
+                    KanbanData card = _context.KanbanData.Where(c => c.RankId == key).FirstOrDefault();
                     if (card != null)
                     {
                         _context.KanbanData.Remove(card);
+                        int deletedCardId = _context.KanbanData.Where(c => c.RankId == key).FirstOrDefault().RankId;
+                        List<KanbanData> updatedCards = _context.KanbanData.Where(c => c.RankId > deletedCardId).ToList();
+
+                        foreach (KanbanData updatedCard in updatedCards)
+                        {
+                            updatedCard.RankId--;
+                        }
                     }
                 }
                 else
                 {
                     foreach (KanbanData cards in param.deleted)
                     {
+                        string key = param.key.ToString();
                         KanbanData card = _context.KanbanData.Where(c => c.Id == cards.Id).FirstOrDefault();
                         if (cards != null)
                         {
                             _context.KanbanData.Remove(card);
+                            int deletedCardId = _context.KanbanData.Where(c => c.Id == key).FirstOrDefault().RankId;
+                            List<KanbanData> updatedCards = _context.KanbanData.Where(c => c.RankId > deletedCardId).ToList();
+
+                            foreach (KanbanData updatedCard in updatedCards)
+                            {
+                                updatedCard.RankId--;
+                            }
                         }
                     }
                 }
