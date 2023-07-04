@@ -47,6 +47,7 @@ namespace TeamManagementApp.Controllers
                     {
                         AssigneeId = user,
                         Assignee = _context.Users.Where(x => x.Id == user).FirstOrDefault().FullName,
+                        AssignedBy = System.String.Empty,
                         RankId = intMax + 1,
                         Status = "Open",
                         Summary = System.String.Empty,
@@ -242,7 +243,7 @@ namespace TeamManagementApp.Controllers
         {
             await _context.KanbanData.ExecuteDeleteAsync();
             _context.SaveChanges();
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 
