@@ -22,7 +22,10 @@
 				    <e-kanban-column headerText="In Review" keyField="Review"></e-kanban-column>
 				    <e-kanban-column headerText="Done" keyField="Close"></e-kanban-column>
 			    </e-kanban-columns>
-			    <e-kanban-cardsettings headerField="RankId" contentField="Summary" template="#cardTemplate" selectionType = "Multiple"></e-kanban-cardsettings>
+			    <e-kanban-cardsettings headerField="RankId" contentField="Summary" template="#cardTemplate" selectionType="Multiple">
+                    
+                </e-kanban-cardsettings>
+                <e-kanban-dialogsettings template="#dialogTemplate"></e-kanban-dialogsettings>
                 
                 <e-kanban-swimlanesettings keyField="AssigneeId" textField="Assignee" showEmptyRow=true allowDragAndDrop="true"></e-kanban-swimlanesettings>
 		 
@@ -31,12 +34,83 @@
 						    <e-kanban-stackedHeader text="Development Phase" keyFields="InProgress, Review"></e-kanban-stackedHeader>
 						    <e-kanban-stackedHeader text="Done" keyFields="Close"></e-kanban-stackedHeader>
 			    </e-kanban-stackedHeaders>
+
 		    </ejs-kanban>
         </div>
 	</div>
     
 </div>
 
+<script id="dialogTemplate" type="text/x-jsrender">
+    <div>
+        <table class="custom-dialog-table">
+            <tbody>
+                <tr style="display: none;">
+                    <td class="custom-dialog-label">ID:</td>
+                    <td>
+                        <input type="hidden" class="e-field e-input" id="Id" name="Id" value="${Id}" disabled required />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="custom-dialog-label">Task:</td>
+                    <td>
+                        <input type="text" class="e-field e-input" id="RankId" name="RankId" value="${RankId}" disabled required />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="custom-dialog-label">Status:</td>
+                    <td>
+                        <select id="Status" name="Status" class="e-field">
+                            <option value="Open">Open</option>
+                            <option value="InProgress">InProgress</option>
+                            <option value="Review">Review</option>
+                            <option value="Close">Close</option> 
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="custom-dialog-label">Summary:</td>
+                    <td>
+                        <input type="text" class="e-field e-input" id="Summary" name="Summary" value="${Summary}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="custom-dialog-label">Assigned By:</td>
+                    <td>
+                        <select id="AssignedById" name="AssignedById" class="e-field" value="${AssignedById}">
+                            @foreach (var user in UserManager.Users.ToList())
+                            {
+                                 <option value="@user.Id">@user.FullName</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="custom-dialog-label">Assignee:</td>
+                    <td>
+                        <select id="AssigneeId" name="AssigneeId" class="e-field" value="${AssigneeId}">
+                            @foreach (var user in UserManager.Users.ToList())
+                            {
+                                <option value="@user.Id">@user.FullName</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="custom-dialog-label">Priority:</td>
+                    <td>
+                        <select id="Priority" name="Priority" class="e-field">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                            <option value="Critical">Critical</option> 
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
 
 
 <script id="cardTemplate" type="text/x-jsrender">
@@ -128,9 +202,21 @@
 <script>
     var kanbanObj;
     var statusData = ['Open', 'InProgress', 'Review', 'Close'];
+    var assigneeData = @Html.Raw(Json.Serialize(ViewBag.AssigneeData));
+    var assignedByData = @Html.Raw(Json.Serialize(ViewBag.AssignedByData));
+    var priorityData = ['High', 'Medium', 'Low'];
+
     function onKanbanCreated() {
         kanbanObj = this;
-    }
+        var statusField = document.getElementById("Status");
+        var assignedByField = document.getElementById("AssignedBy");
+        var assigneeField = document.getElementById("Assignee");
+        var priorityField = document.getElementById("Priority");
 
-  
+        // Initialize dropdowns
+        new ej.dropdowns.DropDownList({ dataSource: statusData, placeholder: 'Select Status' }, statusField);
+        new ej.dropdowns.DropDownList({ dataSource: assignedByData, placeholder: 'Select Assigned By' }, assignedByField);
+        new ej.dropdowns.DropDownList({ dataSource: assigneeData, placeholder: 'Select Assignee' }, assigneeField);
+        new ej.dropdowns.DropDownList({ dataSource: priorityData, placeholder: 'Select Priority' }, priorityField);
+    }
 </script>

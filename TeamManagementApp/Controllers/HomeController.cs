@@ -30,6 +30,15 @@ namespace TeamManagementApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // Retrieve data for Assignee and AssignedBy from the controller
+            var assigneeData = GetAssigneeData();
+            var assignedByData = GetAssignedByData();
+
+            ViewData["AssigneeData"] = assigneeData;
+            ViewData["AssignedByData"] = assignedByData;
+
+
+
             return View();
         }
 
@@ -245,14 +254,34 @@ namespace TeamManagementApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+
+        private List<string> GetAssigneeData()
+        {
+            // Retrieve the Assignee data from the data source (e.g., database)
+            // Return the data as a list of strings
+            List<string> assigneeData = new List<string>
+    {
+        "Robert Brown",
+        "Emily Davis",
+        "Michael Wilson"
+    };
+
+            return assigneeData;
+        }
+
+        private List<string> GetAssignedByData()
+        {
+            // Retrieve the AssignedBy data from the data source (e.g., database)
+            // Return the data as a list of strings
+            List<string> assignedByData = new List<string>
+    {
+        "John Doe",
+        "Jane Smith",
+        "Alice Johnson"
+    };
+
+            return assignedByData;
+        }
+
     }
-
-    //public class Dataresult
-    //{
-    //    public IEnumerable<Object> result { get; set; }
-    //    public int count { get; set; }
-    //}
-
-
-
 }
