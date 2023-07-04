@@ -1,4 +1,5 @@
 ﻿@using TeamManagementApp.Controllers;
+@inject UserManager<AppUser> UserManager
 @{
 	ViewData["Title"] = "Home Page";   
 }
@@ -49,7 +50,7 @@
                     <table>
                         <tbody>
                             <tr>
-                                <td class="CardHeader">Id:</td>
+                                <td class="CardHeader">Task:</td>
                                 <td>${RankId}</td>
                             </tr>
                             <tr>
@@ -57,8 +58,16 @@
                                 <td>${Summary}</td>
                             </tr>
                             <tr>
+                                <td class="CardHeader">Assigned by:</td>
+                                <td>${AssignedBy}</td>
+                            </tr>
+                            <tr>
                                 <td class="CardHeader">Assignee:</td>
                                 <td>${Assignee}</td>
+                            </tr>
+                            <tr>
+                                <td class="CardHeader">Priority:</td>
+                                <td>${Priority}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -114,7 +123,8 @@
 
 <script>
     var kanbanObj;
-	var statusData = ['Open', 'InProgress', 'Testing', 'Close'];
+    var statusData = ['Open', 'InProgress', 'Testing', 'Close'];
+    var priorityData = ['Low', 'Medium', 'High', 'Critical'];
 
 	function onKanbanCreated() {
 		kanbanObj = this;

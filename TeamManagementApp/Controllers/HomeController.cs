@@ -49,7 +49,8 @@ namespace TeamManagementApp.Controllers
                         Assignee = _context.Users.Where(x => x.Id == user).FirstOrDefault().FullName,
                         RankId = intMax + 1,
                         Status = "Open",
-                        Summary = System.String.Empty
+                        Summary = System.String.Empty,
+                        Priority = "Low"
                     };
 
                     _context.KanbanData.Add(card);
@@ -100,6 +101,9 @@ namespace TeamManagementApp.Controllers
             val.AssigneeId = ord.AssigneeId;
             val.Assignee = _context.Users.Where(x => x.Id == ord.AssigneeId).FirstOrDefault().FullName;
             val.Summary = ord.Summary;
+            val.AssignedById = ord.AssignedById;
+            val.AssignedBy = _context.Users.Where(x => x.Id == ord.AssignedById).FirstOrDefault().FullName;
+            val.Priority = ord.Priority;
             _context.SaveChanges();
             return _context.KanbanData.ToList();
         }
@@ -116,7 +120,10 @@ namespace TeamManagementApp.Controllers
                 Assignee = _context.Users.Where(x => x.Id == data.AssigneeId).FirstOrDefault().FullName,
                 RankId = intMax + 1,
                 Status = data.Status,
-                Summary = data.Summary
+                Summary = data.Summary,
+                Priority = data.Priority,
+                AssignedById = _userManager.GetUserAsync(User).Result.Id,
+                AssignedBy = _userManager.GetUserAsync(User).Result.FullName
             };
             _context.KanbanData.Add(card);
             _context.SaveChanges();
@@ -159,7 +166,11 @@ namespace TeamManagementApp.Controllers
                     Assignee = _context.Users.Where(x => x.Id == value.AssigneeId).FirstOrDefault().FullName,
                     RankId = intMax + 1,
                     Status = value.Status,
-                    Summary = value.Summary
+                    Summary = value.Summary,
+                    Priority = value.Priority,
+                    AssignedById = _userManager.GetUserAsync(User).Result.Id,
+                    AssignedBy = _userManager.GetUserAsync(User).Result.FullName
+
                 };
                 _context.KanbanData.Add(card);
                 _context.SaveChanges();
@@ -178,6 +189,9 @@ namespace TeamManagementApp.Controllers
                     card.AssigneeId = value.AssigneeId;
                     card.Assignee = _context.Users.Where(x => x.Id == value.AssigneeId).FirstOrDefault().FullName;
                     card.Status = value.Status;
+                    card.AssignedById = value.AssignedById;
+                    card.AssignedBy = _context.Users.Where(x => x.Id == value.AssignedById).FirstOrDefault().FullName;
+                    card.Priority = value.Priority;
                 }
                 _context.SaveChanges();
             }

@@ -10,6 +10,9 @@ namespace TeamManagementApp.Models
         public int RankId { get; set; }
         public string AssigneeId { get; set; }
         public string Assignee { get; set; }
+        public string? AssignedById { get; set; }
+        public string? AssignedBy { get; set; }
+        public string Priority { get; set; } = "Low";
         public string Status { get; set; }
 
         public KanbanData()
