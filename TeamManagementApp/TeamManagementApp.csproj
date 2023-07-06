@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Models\Enums\" />
     <Folder Include="Views\Projects\" />
   </ItemGroup>
 

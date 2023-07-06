@@ -30,16 +30,9 @@ namespace TeamManagementApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Retrieve data for Assignee and AssignedBy from the controller
-            var assigneeData = GetAssigneeData();
-            var assignedByData = GetAssignedByData();
 
-            ViewData["AssigneeData"] = assigneeData;
-            ViewData["AssignedByData"] = assignedByData;
-
-
-
-            return View();
+            var kanbanData = await _context.KanbanData.ToListAsync();
+            return View(kanbanData);
         }
 
         [HttpPost]

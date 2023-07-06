@@ -1,15 +1,15 @@
 ﻿@using TeamManagementApp.Controllers;
 @inject UserManager<AppUser> UserManager
-
+@model List<KanbanData>
 @{
 	ViewData["Title"] = "Home Page";   
 }
 
 <div class="">
-    <div>
-        <h3>Kanban Board</h3>
-        <form asp-area="" asp-controller="Home" asp-action="RemoveAllCards" method="post">
-            <button type="submit" class="btn btn-close">Reset board</button>
+    <div class="board-container">
+    <h3>Kanban Board</h3>
+        <form id="reset-form" asp-area="" asp-controller="Home" asp-action="RemoveAllCards" method="post" onsubmit="return confirmReset();">
+            <button type="submit" class="reset-button">Reset Board</button>
         </form>
     </div>
     <div class="control-section">
@@ -80,7 +80,7 @@
                         <select id="AssignedById" name="AssignedById" class="e-field" value="${AssignedById}">
                             @foreach (var user in UserManager.Users.ToList())
                             {
-                                 <option value="@user.Id">@user.FullName</option>
+                                <option value="@user.Id" selected>@user.FullName</option>
                             }
                         </select>
                     </td>
@@ -91,7 +91,16 @@
                         <select id="AssigneeId" name="AssigneeId" class="e-field" value="${AssigneeId}">
                             @foreach (var user in UserManager.Users.ToList())
                             {
-                                <option value="@user.Id">@user.FullName</option>
+                                <option value="@user.Id" selected>@user.FullName</option>
+                                @*@if (user.Id == Model.AssigneeId)
+                                {
+                                    <option value="@user.Id" selected>@user.FullName</option>
+                                }
+                                else
+                                {
+                                    <option value="@user.Id">@user.FullName</option>
+                                }*@
+
                             }
                         </select>
                     </td>
@@ -199,24 +208,53 @@
    
 </style>
 
+<style>
+    .board-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .reset-button {
+        background-color: #f44336;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .reset-button:hover {
+        background-color: #d32f2f;
+    }
+</style>
+
 <script>
     var kanbanObj;
-    var statusData = ['Open', 'InProgress', 'Review', 'Close'];
-    var assigneeData = @Html.Raw(Json.Serialize(ViewBag.AssigneeData));
-    var assignedByData = @Html.Raw(Json.Serialize(ViewBag.AssignedByData));
-    var priorityData = ['High', 'Medium', 'Low'];
+
 
     function onKanbanCreated() {
         kanbanObj = this;
-        var statusField = document.getElementById("Status");
-        var assignedByField = document.getElementById("AssignedBy");
-        var assigneeField = document.getElementById("Assignee");
-        var priorityField = document.getElementById("Priority");
-
-        // Initialize dropdowns
-        new ej.dropdowns.DropDownList({ dataSource: statusData, placeholder: 'Select Status' }, statusField);
-        new ej.dropdowns.DropDownList({ dataSource: assignedByData, placeholder: 'Select Assigned By' }, assignedByField);
-        new ej.dropdowns.DropDownList({ dataSource: assigneeData, placeholder: 'Select Assignee' }, assigneeField);
-        new ej.dropdowns.DropDownList({ dataSource: priorityData, placeholder: 'Select Priority' }, priorityField);
     }
+
+    
+    function confirmReset() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This action will reset the board. This cannot be undone.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, reset it!',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form if confirmed
+                document.getElementById('reset-form').submit();
+            }
+        });
+        return false; // Prevent form submission by default
+    }
+
 </script>
