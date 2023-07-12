@@ -12,8 +12,8 @@ using TeamManagementApp.Data;
 namespace TeamManagementApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230704105549_Kanban-rev1.1")]
-    partial class Kanbanrev11
+    [Migration("20230712132652_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

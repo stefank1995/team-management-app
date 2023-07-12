@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TeamManagementApp.Data;
+using TeamManagementApp.Extensions;
 using TeamManagementApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,5 +46,13 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.MigrateDatabase<ApplicationDbContext>((context, services) =>
+{
+    var logger = services.GetService<ILogger<ApplicationDbContextSeed>>();
+    ApplicationDbContextSeed
+        .SeedAsync(context, logger)
+        .Wait();
+});
 
 app.Run();
