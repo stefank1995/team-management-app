@@ -248,33 +248,9 @@ namespace TeamManagementApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private List<string> GetAssigneeData()
-        {
-            // Retrieve the Assignee data from the data source (e.g., database)
-            // Return the data as a list of strings
-            List<string> assigneeData = new List<string>
-    {
-        "Robert Brown",
-        "Emily Davis",
-        "Michael Wilson"
-    };
 
-            return assigneeData;
-        }
 
-        private List<string> GetAssignedByData()
-        {
-            // Retrieve the AssignedBy data from the data source (e.g., database)
-            // Return the data as a list of strings
-            List<string> assignedByData = new List<string>
-    {
-        "John Doe",
-        "Jane Smith",
-        "Alice Johnson"
-    };
 
-            return assignedByData;
-        }
 
     }
 }
