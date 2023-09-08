@@ -25,6 +25,9 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 
 });
 
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["Syncfusion:LicenseKey"]);
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
