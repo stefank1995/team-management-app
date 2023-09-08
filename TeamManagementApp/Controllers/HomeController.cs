@@ -14,18 +14,14 @@ namespace TeamManagementApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _logger = logger;
             _context = context;
-            _signInManager = signInManager;
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
         public async Task<IActionResult> Index()
@@ -49,7 +45,8 @@ namespace TeamManagementApp.Controllers
                     {
                         AssigneeId = user,
                         Assignee = _context.Users.Where(x => x.Id == user).FirstOrDefault().FullName,
-                        AssignedBy = System.String.Empty,
+                        AssignedBy = _context.Users.Where(x => x.Id == user).FirstOrDefault().FullName,
+                        AssignedById = _context.Users.Where(x => x.Id == user).FirstOrDefault().Id,
                         RankId = intMax + 1,
                         Status = "Open",
                         Summary = System.String.Empty,
@@ -64,10 +61,7 @@ namespace TeamManagementApp.Controllers
             return _context.KanbanData.ToList();
         }
 
-        public class Params
-        {
-            public string Status { get; set; }
-        }
+
 
         public class ExtendedDataManagerRequest : DataManagerRequest     //inherit the class to show age as property of DataManager 
         {
