@@ -30,22 +30,29 @@ namespace TeamManagementApp.Controllers
             return View(kanbanData);
         }
 
+        public class Card<T> where T : class
+        {
+            public object key { get; set; }
+
+            public T value { get; set; }
+        }
+
         [HttpPost]
         public List<KanbanData> LoadCard()
         {
-            var users = _context.Users.Select(x => x.Id).ToList();
-            var assignees = _context.KanbanData.Select(y => y.AssigneeId).ToList();
+            var users = _context.Users.Select(u => u.Id).ToList();
+            var assignees = _context.KanbanData.Select(c => c.AssigneeId).ToList();
             foreach (var user in users)
             {
                 int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.RankId) : 0;
-                if (_context.KanbanData.Where(x => x.AssigneeId == user).FirstOrDefault() == null)
+                if (_context.KanbanData.Where(c => c.AssigneeId == user).FirstOrDefault() == null)
                 {
                     KanbanData card = new KanbanData()
                     {
                         AssigneeId = user,
-                        Assignee = _context.Users.Where(x => x.Id == user).FirstOrDefault().FullName,
-                        AssignedBy = _context.Users.Where(x => x.Id == user).FirstOrDefault().FullName,
-                        AssignedById = _context.Users.Where(x => x.Id == user).FirstOrDefault().Id,
+                        Assignee = _context.Users.Where(u => u.Id == user).FirstOrDefault().FullName,
+                        AssignedBy = _context.Users.Where(u => u.Id == user).FirstOrDefault().FullName,
+                        AssignedById = _context.Users.Where(u => u.Id == user).FirstOrDefault().Id,
                         RankId = intMax + 1,
                         Status = "Open",
                         Summary = System.String.Empty,
@@ -60,44 +67,20 @@ namespace TeamManagementApp.Controllers
             return _context.KanbanData.ToList();
         }
 
-
-        public class CRUD<T> where T : class
-        {
-            public object key { get; set; }
-
-            public T value { get; set; }
-        }
-
         [HttpPost]
-        public List<KanbanData> UpdateCard([FromBody] CRUD<KanbanData> value)
+        public List<KanbanData> InsertCard([FromBody] Card<KanbanData> inputKanbanData)
         {
-            var ord = value.value;
-            KanbanData val = _context.KanbanData.Where(or => or.Id == ord.Id).FirstOrDefault();
-            val.Status = ord.Status;
-            val.AssigneeId = ord.AssigneeId;
-            val.Assignee = _context.Users.Where(x => x.Id == ord.AssigneeId).FirstOrDefault().FullName;
-            val.Summary = ord.Summary;
-            val.AssignedById = ord.AssignedById;
-            val.AssignedBy = _context.Users.Where(x => x.Id == ord.AssignedById).FirstOrDefault().FullName;
-            val.Priority = ord.Priority;
-            _context.SaveChanges();
-            return _context.KanbanData.ToList();
-        }
-
-        [HttpPost]
-        public List<KanbanData> InsertCard([FromBody] CRUD<KanbanData> value)
-        {
-            var data = value.value;
+            var kanbanData = inputKanbanData.value;
             int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.RankId) : 0;
 
             KanbanData card = new KanbanData()
             {
-                AssigneeId = data.AssigneeId,
-                Assignee = _context.Users.Where(x => x.Id == data.AssigneeId).FirstOrDefault().FullName,
+                AssigneeId = kanbanData.AssigneeId,
+                Assignee = _context.Users.Where(x => x.Id == kanbanData.AssigneeId).FirstOrDefault().FullName,
                 RankId = intMax + 1,
-                Status = data.Status,
-                Summary = data.Summary,
-                Priority = data.Priority,
+                Status = kanbanData.Status,
+                Summary = kanbanData.Summary,
+                Priority = kanbanData.Priority,
                 AssignedById = _userManager.GetUserAsync(User).Result.Id,
                 AssignedBy = _userManager.GetUserAsync(User).Result.FullName
             };
@@ -105,15 +88,32 @@ namespace TeamManagementApp.Controllers
             _context.SaveChanges();
             return _context.KanbanData.ToList();
         }
+
         [HttpPost]
-        public List<KanbanData> RemoveCard([FromBody] CRUD<KanbanData> value)
+        public List<KanbanData> UpdateCard([FromBody] Card<KanbanData> inputKanbanData)
         {
-            int key = Convert.ToInt32(value.key.ToString());
-            KanbanData card = _context.KanbanData.Where(c => c.RankId == key).FirstOrDefault();
+            var newKanbanData = inputKanbanData.value;
+            KanbanData kanbanData = _context.KanbanData.Where(c => c.Id == newKanbanData.Id).FirstOrDefault();
+            kanbanData.Status = newKanbanData.Status;
+            kanbanData.AssigneeId = newKanbanData.AssigneeId;
+            kanbanData.Assignee = _context.Users.Where(c => c.Id == newKanbanData.AssigneeId).FirstOrDefault().FullName;
+            kanbanData.Summary = newKanbanData.Summary;
+            kanbanData.AssignedById = newKanbanData.AssignedById;
+            kanbanData.AssignedBy = _context.Users.Where(c => c.Id == newKanbanData.AssignedById).FirstOrDefault().FullName;
+            kanbanData.Priority = newKanbanData.Priority;
+            _context.SaveChanges();
+            return _context.KanbanData.ToList();
+        }
+
+        [HttpPost]
+        public List<KanbanData> RemoveCard([FromBody] Card<KanbanData> selectedCard)
+        {
+            int cardNumber = Convert.ToInt32(selectedCard.key.ToString());
+            KanbanData card = _context.KanbanData.Where(c => c.RankId == cardNumber).FirstOrDefault();
             if (card != null)
             {
                 _context.KanbanData.Remove(card);
-                int deletedCardId = _context.KanbanData.Where(c => c.RankId == key).FirstOrDefault().RankId;
+                int deletedCardId = _context.KanbanData.Where(c => c.RankId == cardNumber).FirstOrDefault().RankId;
                 List<KanbanData> updatedCards = _context.KanbanData.Where(c => c.RankId > deletedCardId).ToList();
 
                 foreach (KanbanData updatedCard in updatedCards)
@@ -131,7 +131,7 @@ namespace TeamManagementApp.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> RemoveAllCards()
+        public async Task<IActionResult> ResetBoard()
         {
             await _context.KanbanData.ExecuteDeleteAsync();
             _context.SaveChanges();
