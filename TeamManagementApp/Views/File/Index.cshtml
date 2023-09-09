@@ -59,6 +59,10 @@ else
                                         {
                                             <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">Delete</a>
                                         }
+                                        else
+                                        {
+                                            <a type="button" class="btn btn-danger disabled" disabled style="background-color: grey; cursor: not-allowed;">Delete</a>
+                                        }
                                     </td>
                                 </tr>
             }

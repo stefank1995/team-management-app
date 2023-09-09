@@ -30,13 +30,6 @@ namespace TeamManagementApp.Controllers
             return View(kanbanData);
         }
 
-        public class Card<T> where T : class
-        {
-            public object key { get; set; }
-
-            public T value { get; set; }
-        }
-
         [HttpPost]
         public List<KanbanData> LoadCard()
         {
