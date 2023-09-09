@@ -7,7 +7,7 @@ using TeamManagementApp.Models;
 
 namespace TeamManagementApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Administrator")]
     public class RoleController : Controller
     {
         private readonly ApplicationDbContext _context;
