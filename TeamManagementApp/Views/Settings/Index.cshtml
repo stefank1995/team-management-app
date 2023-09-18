@@ -1,54 +1,49 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-    <!-- Add Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Add your custom CSS for night mode here -->
-    <style>
-        /* Define your night mode styles here */
-        body.night-mode {
-            background-color: #333;
-            color: #fff;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="form-group">
-            <label for="nightModeSwitch">Night Mode</label>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="nightModeSwitch">
-                <label class="custom-control-label" for="nightModeSwitch">Enable Night Mode</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="swimlaneToggle">Swimlanes</label>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="swimlaneToggle">
-                <label class="custom-control-label" for="swimlaneToggle">Show Swimlanes</label>
-            </div>
+﻿@{
+    ViewData["Title"] = "App Settings";
+}
+
+<div class="container">
+    <div class="form-group">
+        <label for="nightModeSwitch">Night Mode</label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" id="nightModeSwitch">
+            <label class="form-check-label" for="nightModeSwitch">Enable Night Mode</label>
         </div>
     </div>
+    <div class="form-group">
+        <label for="swimlaneToggle">Swimlanes</label>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" id="swimlaneToggle">
+            <label class="form-check-label" for="swimlaneToggle">Show Swimlanes</label>
+        </div>
+    </div>
+</div>
 
-    <!-- Add Bootstrap and custom JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
 
-    <script>
-        // JavaScript to toggle night mode
-        const nightModeSwitch = document.getElementById("nightModeSwitch");
-        const body = document.body;
+    body.night-mode {
+        background-color: #333;
+        color: #fff;
+    }
+</style>
 
-        nightModeSwitch.addEventListener("change", function () {
-            if (this.checked) {
-                body.classList.add("night-mode");
-            } else {
-                body.classList.remove("night-mode");
-            }
-        });
-    </script>
-</body>
-</html>
+<!-- Add Bootstrap and custom JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"></script>
+
+<script>
+    // JavaScript to toggle night mode
+    const nightModeSwitch = document.getElementById("nightModeSwitch");
+    const body = document.body;
+
+    nightModeSwitch.addEventListener("change", function () {
+        if (this.checked) {
+            body.classList.add("night-mode");
+        } else {
+            body.classList.remove("night-mode");
+        }
+    });
+</script>
+
+

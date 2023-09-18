@@ -6,66 +6,75 @@
 @inject UserManager<AppUser> UserManager
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Files";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h4>Start Uploading Files Here</h4>
-<hr />
-@if (ViewBag.Message != null)
-{
-        <div class="alert alert-success alert-dismissible" style="margin-top:20px">
-        @ViewBag.Message
-        </div>
-}
-<form method="post" enctype="multipart/form-data">
-    <input type="file" name="files" multiple required />
-    <input type="text" autocomplete="off" placeholder="Enter File Description" name="description" required />
-    <button class="btn btn-success" type="submit" asp-controller="File" asp-action="UploadToDatabase">Upload to Database</button>
-</form>
 
-<h4>Files on Database</h4>
-@if (Model.FilesOnDatabase.Count == 0)
-{
-    <caption>No Records Found</caption>
-}
-else
-{
-            <caption>List of Files on Database</caption>
-            <table class="table table-striped">
-                <thead>
+
+    <h4>Start Uploading Files Here</h4>
+    <hr />
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+            @ViewBag.Message
+        </div>
+    }
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="files" multiple required />
+        <input type="text" autocomplete="off" placeholder="Enter File Description" name="description" required />
+        <button class="btn btn-success" type="submit" asp-controller="File" asp-action="UploadToDatabase">Upload to Database</button>
+    </form>
+
+    <h4>Files on Database</h4>
+    @if (Model.FilesOnDatabase.Count == 0)
+    {
+        <caption>No Records Found</caption>
+    }
+    else
+    {
+        <caption>List of Files on Database</caption>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>File Type</th>
+                    <th>Created On</th>
+                    <th>Uploaded By</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var file in Model.FilesOnDatabase)
+                {
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>File Type</th>
-                        <th>Created On</th>
-                        <th>Uploaded By</th>
-                        <th>Actions</th>
+                        <th>@file.Id</th>
+                        <td>@file.Name</td>
+                        <td>@file.Description</td>
+                        <td>@file.FileType</td>
+                        <td>@file.CreatedOn</td>
+                        <td>@file.UploadedBy</td>
+                        <td>
+                            <a type="button" class="btn btn-primary" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">Download</a>
+                            @if (file.UploadedById == UserManager.GetUserId(User))
+                            {
+                                <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">Delete</a>
+                            }
+                            else
+                            {
+                                <a type="button" class="btn btn-danger disabled" disabled style="background-color: grey; cursor: not-allowed; border: none;">Delete</a>
+                            }
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-            @foreach (var file in Model.FilesOnDatabase)
-            {
-                                <tr>
-                                    <th>@file.Id</th>
-                                    <td>@file.Name</td>
-                                    <td>@file.Description</td>
-                                    <td>@file.FileType</td>
-                                    <td>@file.CreatedOn</td>
-                                    <td>@file.UploadedBy</td>
-                                    <td>
-                                        <a type="button" class="btn btn-primary" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">Download</a>
-                                        @if (file.UploadedById == UserManager.GetUserId(User))
-                                        {
-                                            <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">Delete</a>
-                                        }
-                                        else
-                                        {
-                            <a type="button" class="btn btn-danger disabled" disabled style="background-color: grey; cursor: not-allowed; border: none;">Delete</a>
-                                        }
-                                    </td>
-                                </tr>
-            }
-                </tbody>
-            </table>
-}
+                }
+            </tbody>
+        </table>
+    }
+    <style>
+        /* Define your night mode styles here */
+        body.night-mode {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>

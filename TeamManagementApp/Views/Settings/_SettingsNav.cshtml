@@ -4,15 +4,15 @@
 
 <ul class="nav nav-pills flex-column">
     <li class="nav-item">
-        <a class="nav-link " asp-area="" asp-controller="Settings" asp-action="Index">App Settings</a>
+        <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">App Settings</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link " asp-area="" asp-controller="Role" asp-action="Index">Configure Roles</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link " asp-area="" asp-controller="User" asp-action="Index">Manage Users</a>
-    </li>
-    
-    
-    
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Role" asp-action="Index">Configure Roles</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Manage Users</a>
+        </li>
+    }
 </ul>

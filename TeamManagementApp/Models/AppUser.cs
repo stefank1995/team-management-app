@@ -11,5 +11,6 @@ namespace TeamManagementApp.Models
         {
             get { return FirstName + " " + LastName; }
         }
+
     }
 }

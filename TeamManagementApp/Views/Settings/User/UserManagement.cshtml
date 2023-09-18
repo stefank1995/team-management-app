@@ -9,14 +9,20 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Settings/_Layout.cshtml";
 }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+
 @if (ViewBag.Message != null)
 {
             <div class="alert alert-success alert-dismissible" style="margin-top:20px">
-        @ViewBag.Message
+                @ViewBag.Message
             </div>
 }
-<h3>Manage Users</h3>
-<hr />
+
 <h4>User List</h4>
 @if (Model.Count == 0)
 {

@@ -67,7 +67,9 @@ namespace TeamManagementApp.Data
                     LastName = "Kolaric",
                     UserName = "stefan@gmail.com",
                     NormalizedUserName = "STEFAN@GMAIL.COM",
-                    PasswordHash = hasher.HashPassword(null, "Xo123456789.")
+                    PasswordHash = hasher.HashPassword(null, "Xo123456789."),
+                    Email = "stefan@gmail.com",
+                    NormalizedEmail = "STEFAN@GMAIL.COM"
                 },
                 new AppUser()
                 {
@@ -76,7 +78,9 @@ namespace TeamManagementApp.Data
                     LastName = "Petrovic",
                     UserName = "petar@gmail.com",
                     NormalizedUserName = "PETAR@GMAIL.COM",
-                    PasswordHash = hasher.HashPassword(null, "Xo123456789.")
+                    PasswordHash = hasher.HashPassword(null, "Xo123456789."),
+                    Email = "petar@gmail.com",
+                    NormalizedEmail = "PETAR@GMAIL.COM"
                 },
                 new AppUser()
                 {
@@ -85,7 +89,9 @@ namespace TeamManagementApp.Data
                     LastName = "Ivanovic",
                     UserName = "ivan@gmail.com",
                     NormalizedUserName = "IVAN@GMAIL.COM",
-                    PasswordHash = hasher.HashPassword(null, "Xo123456789.")
+                    PasswordHash = hasher.HashPassword(null, "Xo123456789."),
+                    Email = "ivan@gmail.com",
+                    NormalizedEmail = "IVAN@GMAIL.COM"
                 },
                 new AppUser()
                 {
@@ -94,7 +100,9 @@ namespace TeamManagementApp.Data
                     LastName = "Nenadovic",
                     UserName = "nenad@gmail.com",
                     NormalizedUserName = "NENAD@GMAIL.COM",
-                    PasswordHash = hasher.HashPassword(null, "Xo123456789.")
+                    PasswordHash = hasher.HashPassword(null, "Xo123456789."),
+                    Email = "nenad@gmail.com",
+                    NormalizedEmail = "NENAD@GMAIL.COM"
                 }
             };
         }
@@ -107,19 +115,19 @@ namespace TeamManagementApp.Data
                 {
                     Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
                     Name = "Administrator",
-                    NormalizedName = "ADMINISTRATOR".ToUpper()
+                    NormalizedName = "ADMINISTRATOR"
                 },
                 new IdentityRole()
                 {
                     Id = "4f823f4e-1c26-11ee-be56-0242ac120002",
                     Name = "Manager",
-                    NormalizedName = "MANAGER".ToUpper()
+                    NormalizedName = "MANAGER"
                 },
                 new IdentityRole()
                 {
                     Id = "5b57be66-1c26-11ee-be56-0242ac120002",
                     Name = "Engineer",
-                    NormalizedName = "ENGINEER".ToUpper()
+                    NormalizedName = "ENGINEER"
                 }
 
             };
