@@ -64,7 +64,7 @@ namespace TeamManagementApp.Data
                 {
                     Id = "04ab739e-ab75-4e1f-bb0e-c2c77d6b6a28", // primary key
                     FirstName = "Stefan",
-                    LastName = "Kolaric",
+                    LastName = "Stefanovic",
                     UserName = "stefan@gmail.com",
                     NormalizedUserName = "STEFAN@GMAIL.COM",
                     PasswordHash = hasher.HashPassword(null, "Xo123456789."),
