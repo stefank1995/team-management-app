@@ -11,7 +11,7 @@
 		<div class="board-container">
 			<h3>Kanban Board</h3>
 			<form id="reset-form" asp-area="" asp-controller="Home" asp-action="ResetBoard" method="post" onsubmit="return confirmReset();">
-				<button type="submit" class="reset-button">Reset Board</button>
+				<button type="submit" class="btn btn-danger">Reset Board</button>
 			</form>
 		</div>
 		<div class="control-section">
@@ -44,223 +44,211 @@
 	</div>
 </div>
 
-	<script id="dialogTemplate" type="text/x-jsrender">
-		<div>
-			<table class="custom-dialog-table">
-				<tbody>
-					<tr style="display: none;">
-						<td class="custom-dialog-label">ID:</td>
-						<td>
-							<input type="hidden" class="e-field e-input" id="Id" name="Id" value="${Id}" disabled required />
-						</td>
-					</tr>
-					<tr>
-						<td class="custom-dialog-label">Task:</td>
-						<td>
-							<input type="text" class="e-field e-input" id="RankId" name="RankId" value="${RankId}" disabled required />
-						</td>
-					</tr>
-					<tr>
-						<td class="custom-dialog-label">Status:</td>
-						<td>
-							<select id="Status" name="Status" class="e-field">
-								<option value="Open">Open</option>
-								<option value="InProgress">InProgress</option>
-								<option value="Review">Review</option>
-								<option value="Close">Close</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td class="custom-dialog-label">Summary:</td>
-						<td>
-							<input type="text" class="e-field e-input" id="Summary" name="Summary" value="${Summary}" />
-						</td>
-					</tr>
-					<tr>
-						<td class="custom-dialog-label">Assigned By:</td>
-						<td>
-							<select id="AssignedById" name="AssignedById" class="e-field" value="${AssignedById}">
-		@foreach (var user in UserManager.Users.ToList())
-		{
-										<option value="@user.Id" selected>@user.FullName</option>
-		}
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td class="custom-dialog-label">Assignee:</td>
-						<td>
-							<select id="AssigneeId" name="AssigneeId" class="e-field" value="${AssigneeId}">
-		@foreach (var user in UserManager.Users.ToList())
-		{
-										<option value="@user.Id" selected>@user.FullName</option>
-			@*@if (user.Id == Model.AssigneeId)
-									{
-										<option value="@user.Id" selected>@user.FullName</option>
-									}
-									else
-									{
-										<option value="@user.Id">@user.FullName</option>
-									}*@
-
-		}
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td class="custom-dialog-label">Priority:</td>
-						<td>
-							<select id="Priority" name="Priority" class="e-field">
-								<option value="Low">Low</option>
-								<option value="Medium">Medium</option>
-								<option value="High">High</option>
-								<option value="Critical">Critical</option>
-							</select>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</script>
-
-
-	<script id="cardTemplate" type="text/x-jsrender">
-		<table class="card-template-wrap">
-			<colgroup>
-				<col style="width:15%">
-				<col style="width:85%">
-			</colgroup>
+<script id="dialogTemplate" type="text/x-jsrender">
+	<div>
+		<table class="custom-dialog-table">
 			<tbody>
-				<tr>
-					<td class="card-icon-wrap">
-						<div class="card-icon e-icons ${Status}"></div>
+				<tr style="display: none;">
+					<td class="custom-dialog-label">ID:</td>
+					<td>
+						<input type="hidden" class="e-field e-input" id="Id" name="Id" value="${Id}" disabled required />
 					</td>
-					<td class="card-details-wrap">
-						<table>
-							<tbody>
-								<tr>
-									<td class="CardHeader">Task:</td>
-									<td>${RankId}</td>
-								</tr>
-								<tr>
-									<td class="CardHeader">Summary:</td>
-									<td>${Summary}</td>
-								</tr>
-								<tr>
-									<td class="CardHeader">Assigned by:</td>
-									<td>${AssignedBy}</td>
-								</tr>
-								<tr>
-									<td class="CardHeader">Assignee:</td>
-									<td>${Assignee}</td>
-								</tr>
-								<tr>
-									<td class="CardHeader">Priority:</td>
-									<td>${Priority}</td>
-								</tr>
-							</tbody>
-						</table>
+				</tr>
+				<tr>
+					<td class="custom-dialog-label">Task:</td>
+					<td>
+						<input type="text" class="e-field e-input" id="RankId" name="RankId" value="${RankId}" disabled required />
+					</td>
+				</tr>
+				<tr>
+					<td class="custom-dialog-label">Status:</td>
+					<td>
+						<select id="Status" name="Status" class="e-field">
+							<option value="Open">Open</option>
+							<option value="InProgress">InProgress</option>
+							<option value="Review">Review</option>
+							<option value="Close">Close</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="custom-dialog-label">Summary:</td>
+					<td>
+						<input type="text" class="e-field e-input" id="Summary" name="Summary" value="${Summary}" />
+					</td>
+				</tr>
+				<tr>
+					<td class="custom-dialog-label">Assigned By:</td>
+					<td>
+						<select id="AssignedById" name="AssignedById" class="e-field" value="${AssignedById}">
+	@foreach (var user in UserManager.Users.ToList())
+	{
+									<option value="@user.Id" selected>@user.FullName</option>
+	}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="custom-dialog-label">Assignee:</td>
+					<td>
+						<select id="AssigneeId" name="AssigneeId" class="e-field" value="${AssigneeId}">
+	@foreach (var user in UserManager.Users.ToList())
+	{
+									<option value="@user.Id" selected>@user.FullName</option>
+		@*@if (user.Id == Model.AssigneeId)
+								{
+									<option value="@user.Id" selected>@user.FullName</option>
+								}
+								else
+								{
+									<option value="@user.Id">@user.FullName</option>
+								}*@
+
+	}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="custom-dialog-label">Priority:</td>
+					<td>
+						<select id="Priority" name="Priority" class="e-field">
+							<option value="Low">Low</option>
+							<option value="Medium">Medium</option>
+							<option value="High">High</option>
+							<option value="Critical">Critical</option>
+						</select>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-	</script>
+	</div>
+</script>
+
+
+<script id="cardTemplate" type="text/x-jsrender">
+	<table class="card-template-wrap">
+		<colgroup>
+			<col style="width:15%">
+			<col style="width:85%">
+		</colgroup>
+		<tbody>
+			<tr>
+				<td class="card-icon-wrap">
+					<div class="card-icon e-icons ${Status}"></div>
+				</td>
+				<td class="card-details-wrap">
+					<table>
+						<tbody>
+							<tr>
+								<td class="CardHeader">Task:</td>
+								<td>${RankId}</td>
+							</tr>
+							<tr>
+								<td class="CardHeader">Summary:</td>
+								<td>${Summary}</td>
+							</tr>
+							<tr>
+								<td class="CardHeader">Assigned by:</td>
+								<td>${AssignedBy}</td>
+							</tr>
+							<tr>
+								<td class="CardHeader">Assignee:</td>
+								<td>${Assignee}</td>
+							</tr>
+							<tr>
+								<td class="CardHeader">Priority:</td>
+								<td>${Priority}</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</script>
 
 
 
 
 
-	<style type="text/css">
+<style type="text/css">
 
-		.prop-grid .row {
-			padding: 10px 0;
-		}
+	.prop-grid .row {
+		padding: 10px 0;
+	}
 
-		.e-kanban th.e-template {
-			text-align: center;
-		}
+	.e-kanban th.e-template {
+		text-align: center;
+	}
 
-		.e-kanban .e-card {
-			height: auto !important;
-		}
+	.e-kanban .e-card {
+		height: auto !important;
+	}
 
-		.e-kanban.e-rtl th.e-template {
-			text-align: right;
-		}
+	.e-kanban.e-rtl th.e-template {
+		text-align: right;
+	}
 
-		.e-kanban.e-rtl .header-template-wrap .header-text {
-			margin-right: 15px;
-		}
+	.e-kanban.e-rtl .header-template-wrap .header-text {
+		margin-right: 15px;
+	}
 
-		.e-kanban .card-template-wrap {
-			line-height: 1.2;
-			font-size: 12px;
-			height: 100%;
-			table-layout: fixed;
-			width: 100%;
-		}
+	.e-kanban .card-template-wrap {
+		line-height: 1.2;
+		font-size: 12px;
+		height: 100%;
+		table-layout: fixed;
+		width: 100%;
+	}
 
-			.e-kanban .card-template-wrap td {
-				background: none !important;
-				border: none !important;
-				height: auto !important;
-				padding: 2px;
-				line-height: 1.6;
+	.e-kanban .card-template-wrap td {
+		background: none !important;
+		border: none !important;
+		height: auto !important;
+		padding: 2px;
+		line-height: 1.6;
+	}
+
+
+
+
+	.board-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 20px;
+	}
+	 
+</style>
+
+<script>
+	var kanbanObj;
+
+
+	function onKanbanCreated() {
+		kanbanObj = this;
+	}
+
+
+	function confirmReset() {
+		Swal.fire({
+			title: 'Are you sure?',
+			text: 'This action will reset the board. This cannot be undone.',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, reset it!',
+			cancelButtonText: 'Cancel',
+			reverseButtons: true
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// Submit the form if confirmed
+				document.getElementById('reset-form').submit();
 			}
+		});
+		return false; // Prevent form submission by default
+	}
 
-
-
-
-		.board-container {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 20px;
-		}
-
-		.reset-button {
-			background-color: #f44336;
-			color: #ffffff;
-			border: none;
-			padding: 10px 20px;
-			font-size: 16px;
-			cursor: pointer;
-		}
-
-			.reset-button:hover {
-				background-color: #d32f2f;
-			}
-	</style>
-
-	<script>
-		var kanbanObj;
-
-
-		function onKanbanCreated() {
-			kanbanObj = this;
-		}
-
-
-		function confirmReset() {
-			Swal.fire({
-				title: 'Are you sure?',
-				text: 'This action will reset the board. This cannot be undone.',
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonText: 'Yes, reset it!',
-				cancelButtonText: 'Cancel',
-				reverseButtons: true
-			}).then((result) => {
-				if (result.isConfirmed) {
-					// Submit the form if confirmed
-					document.getElementById('reset-form').submit();
-				}
-			});
-			return false; // Prevent form submission by default
-		}
-
-	</script>
+</script>
 
 
 

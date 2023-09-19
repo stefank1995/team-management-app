@@ -18,8 +18,80 @@ body {
 }
 
 
-
+/*settings nav active link*/
 .active-link {
     background-color: #f0f0f0; /* Greyish background color */
     color: #333; /* Text color for active link */
 }
+
+
+/*bootstrap button styles*/
+.btn-danger {
+    background-color: #f44336;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0; /* border-radius to 0 for square corners */
+}
+
+    .btn-danger:hover {
+        background-color: #F28C85;
+    }
+
+
+.btn-primary {
+    background-color: #5DB8FF;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0; /* border-radius to 0 for square corners */
+}
+
+.btn-primary:hover {
+    background-color: #ADDBFF;
+}
+
+
+.btn-success {
+    background-color: #49B242;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0; /* border-radius to 0 for square corners */
+}
+
+.btn-success:hover {
+    background-color: #88F181;
+}
+
+
+
+.btn-secondary {
+    background-color: #868686;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0; /* border-radius to 0 for square corners */
+}
+
+.btn-secondary:hover {
+    background-color: #B8B8B8;
+}
+
+
+
+
+.align-center {
+    text-align: center;
+}
+
+
+

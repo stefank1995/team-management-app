@@ -22,7 +22,7 @@
     <form method="post" enctype="multipart/form-data">
         <input type="file" name="files" multiple required />
         <input type="text" autocomplete="off" placeholder="Enter File Description" name="description" required />
-        <button class="btn btn-success" type="submit" asp-controller="File" asp-action="UploadToDatabase">Upload to Database</button>
+        <button class="btn btn-secondary" type="submit" asp-controller="File" asp-action="UploadToDatabase">Upload to Database</button>
     </form>
 
     <h4>Files on Database</h4>
@@ -63,7 +63,7 @@
                             }
                             else
                             {
-                                <a type="button" class="btn btn-danger disabled" disabled style="background-color: grey; cursor: not-allowed; border: none;">Delete</a>
+                            <a type="button" class="btn btn-danger disabled" disabled style="background-color: #D3D3D3; cursor: not-allowed; border: none;">Delete</a>
                             }
                         </td>
                     </tr>

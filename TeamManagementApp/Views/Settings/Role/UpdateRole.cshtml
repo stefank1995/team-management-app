@@ -15,7 +15,7 @@
                         <input type="hidden" name="roleName" value="@Model.Role.Name" />
                         <input type="hidden" name="roleId" value="@Model.Role.Id" />
 
-                        <h3 class="p-1 text-black-50">Add To @Model.Role.Name</h3>
+                        <h3 class="p-1 text-black-50">Add @Model.Role.Name Role</h3>
                         <table class="table table-bordered table-sm">
                             @if (Model.NonMembers.Count() == 0)
                             {
@@ -37,7 +37,7 @@
                             }
                         </table>
 
-                        <h3 class="p-1 text-black-50">Remove From @Model.Role.Name</h3>
+                        <h3 class="p-1 text-black-50">Remove @Model.Role.Name Role</h3>
                         <table class="table table-bordered table-sm">
                             @if (Model.Members.Count() == 0)
                             {
