@@ -2,17 +2,12 @@
 @using TeamManagementApp.Data
 @inject SignInManager<AppUser> SignInManager
 
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-        <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">App Settings</a>
-    </li>
+<div class="list-group">
+    <a class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Settings" && Context.Request.RouteValues["action"].ToString() == "Index" ? "active-link" : "")" asp-area="" asp-controller="Settings" asp-action="Index">App Settings</a>
+
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
     {
-        <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="Role" asp-action="Index">Configure Roles</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Manage Users</a>
-        </li>
+        <a class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Role" && Context.Request.RouteValues["action"].ToString() == "Index" ? "active-link" : "")" asp-area="" asp-controller="Role" asp-action="Index">Configure Roles</a>
+        <a class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "User" && Context.Request.RouteValues["action"].ToString() == "Index" ? "active-link" : "")" asp-area="" asp-controller="User" asp-action="Index">Manage Users</a>
     }
-</ul>
+</div>
