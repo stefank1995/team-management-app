@@ -8,6 +8,8 @@
 @{
     ViewData["Title"] = "Files";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int counter = Model.FilesOnDatabase.Count;
 }
 
 <div class="container">
@@ -24,14 +26,15 @@
                         </div>
                     }
                     <form method="post" enctype="multipart/form-data">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 20px">
                             <label for="files">Choose File(s)</label>
                             <input type="file" id="files" name="files" class="form-control-file" multiple required />
                         </div>
                         <div class="form-group">
                             <label for="description">File Description</label>
-                            <input type="text" id="description" name="description" class="form-control" autocomplete="off" placeholder="Enter File Description" required />
+                            <textarea id="description" name="description" class="form-control" autocomplete="off" placeholder="Enter File Description" required></textarea>
                         </div>
+                        <hr />
                         <button class="btn btn-secondary" type="submit" asp-controller="File" asp-action="UploadToDatabase">Upload</button>
                     </form>
                 </div>
@@ -49,7 +52,7 @@
                     else
                     {
                         <div class="table-responsive">
-                            <table id="myTable" class="table table-striped table-bordered">
+                            <table id="filesTable" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 20px;">#</th>
@@ -65,7 +68,7 @@
                                     @foreach (var file in Model.FilesOnDatabase)
                                     {
                                         <tr>
-                                            <td>@file.Id</td>
+                                            <td>@counter</td>
                                             <td>@file.Name</td>
                                             <td>@file.Description</td>
                                             <td>@file.FileType</td>
@@ -86,6 +89,7 @@
                                                 
                                             </td>
                                         </tr>
+                                        counter--;
                                     }
                                 </tbody>
                             </table>
