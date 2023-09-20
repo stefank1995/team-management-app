@@ -25,7 +25,7 @@ namespace TeamManagementApp.Controllers
         private async Task<FileUploadViewModel> LoadAllFiles()
         {
             var viewModel = new FileUploadViewModel();
-            viewModel.FilesOnDatabase = await _context.FilesOnDatabase.ToListAsync();
+            viewModel.FilesOnDatabase = await _context.FilesOnDatabase.OrderByDescending(f => f.CreatedOn).ToListAsync();
             return viewModel;
         }
         public async Task<IActionResult> Index()

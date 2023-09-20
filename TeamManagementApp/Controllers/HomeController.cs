@@ -11,14 +11,12 @@ namespace TeamManagementApp.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
 
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<AppUser> userManager)
+        public HomeController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
-            _logger = logger;
             _context = context;
             _userManager = userManager;
         }
