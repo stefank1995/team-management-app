@@ -126,7 +126,7 @@ namespace TeamManagementApp.Controllers
         {
             await _context.KanbanData.ExecuteDeleteAsync();
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
     }

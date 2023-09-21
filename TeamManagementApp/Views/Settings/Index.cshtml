@@ -5,17 +5,17 @@
 <hr />
 <div class="container">
     <div class="form-group">
-        <label for="nightModeSwitch">Night Mode</label>
+        <label for="night-mode-toggle">Night Mode</label>
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="nightModeSwitch">
-            <label class="form-check-label" for="nightModeSwitch">Enable Night Mode</label>
+            <input type="checkbox" class="form-check-input" id="night-mode-toggle">
+            <label class="form-check-label" for="night-mode-toggle">Enable Night Mode</label>
         </div>
     </div>
     <div class="form-group">
-        <label for="swimlaneToggle">Swimlanes</label>
+        <label for="swimlanes-toggle">Swimlanes</label>
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="swimlaneToggle">
-            <label class="form-check-label" for="swimlaneToggle">Show Swimlanes</label>
+            <input type="checkbox" class="form-check-input" id="swimlanes-toggle">
+            <label class="form-check-label" for="swimlanes-toggle">Show Swimlanes</label>
         </div>
     </div>
 </div>
@@ -35,16 +35,63 @@
 
 <script>
     // JavaScript to toggle night mode
-    const nightModeSwitch = document.getElementById("nightModeSwitch");
-    const body = document.body;
+    //const nightModeSwitch = document.getElementById("nightModeSwitch");
+    //const body = document.body;
 
-    nightModeSwitch.addEventListener("change", function () {
-        if (this.checked) {
-            body.classList.add("night-mode");
-        } else {
-            body.classList.remove("night-mode");
+    //nightModeSwitch.addEventListener("change", function () {
+    //    if (nightModeSwitch.checked) {
+    //        body.classList.add("night-mode");
+    //    } else {
+    //        body.classList.remove("night-mode");
+    //    }
+    //});
+
+
+// Night Mode Toggle
+$('#night-mode-toggle').on('change', function() {
+    const nightModeEnabled = this.checked;
+    updateUserPreference('NightModeEnabled', nightModeEnabled);
+});
+
+// Swimlane Toggle
+$('#swimlanes-toggle').on('change', function () {
+    const swimlanesEnabled = this.checked;
+    updateUserPreference('SwimlanesEnabled', swimlanesEnabled);
+});
+
+// Function to update a specific user preference
+function updateUserPreference(preferenceName, preferenceValue) {
+    const userPreference = {
+        [preferenceName]: preferenceValue
+    };
+
+    // AJAX request to update the user preference
+    $.ajax({
+        url: '/Settings/UpdatePreferences', 
+        method: 'POST',
+        data: { userPreference: userPreference },
+        success: function(response) {
+            // Handle success, e.g., show a confirmation message
+            showConfirmationMessage('Preference updated successfully!');
+        },
+        error: function(error) {
+            // Handle error, e.g., display an error message
+            showErrorMessage('Failed to update preference. Please try again later.');
         }
     });
+}
+
+// Function to display a confirmation message
+function showConfirmationMessage(message) {
+    alert('Confirmation: ' + message);
+}
+
+// Function to display an error message
+function showErrorMessage(message) {
+    alert('Error: ' + message);
+}
+
+
 </script>
 
 

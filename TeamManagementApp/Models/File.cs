@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TeamManagementApp.Models
+﻿namespace TeamManagementApp.Models
 {
     public class File
     {
-        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string FileType { get; set; }
