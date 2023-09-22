@@ -12,7 +12,11 @@ namespace TeamManagementApp.Models
             get { return FirstName + " " + LastName; }
         }
 
-        //public UserPreferences UserPreferences { get; set; }
+        public UserPreferences UserPreferences { get; set; }
+        public AppUser() : base()
+        {
+            UserPreferences = new UserPreferences();
+        }
 
     }
 }

@@ -70,27 +70,9 @@ function updateUserPreference(preferenceName, preferenceValue) {
         url: '/Settings/UpdatePreferences', 
         method: 'POST',
         data: { userPreference: userPreference },
-        success: function(response) {
-            // Handle success, e.g., show a confirmation message
-            showConfirmationMessage('Preference updated successfully!');
-        },
-        error: function(error) {
-            // Handle error, e.g., display an error message
-            showErrorMessage('Failed to update preference. Please try again later.');
-        }
+        
     });
 }
-
-// Function to display a confirmation message
-function showConfirmationMessage(message) {
-    alert('Confirmation: ' + message);
-}
-
-// Function to display an error message
-function showErrorMessage(message) {
-    alert('Error: ' + message);
-}
-
 
 </script>
 

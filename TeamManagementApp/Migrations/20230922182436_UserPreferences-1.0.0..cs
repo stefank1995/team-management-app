@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TeamManagementApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class UserPreferences100 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -197,6 +197,26 @@ namespace TeamManagementApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserPreferences",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    NightModeEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    SwimlanesEnabled = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserPreferences", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserPreferences_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -235,6 +255,12 @@ namespace TeamManagementApp.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserPreferences_UserId",
+                table: "UserPreferences",
+                column: "UserId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -260,6 +286,9 @@ namespace TeamManagementApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "KanbanData");
+
+            migrationBuilder.DropTable(
+                name: "UserPreferences");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

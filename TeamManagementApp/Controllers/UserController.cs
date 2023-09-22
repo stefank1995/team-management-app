@@ -12,16 +12,13 @@ namespace TeamManagementApp.Controllers
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserController(ApplicationDbContext context, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+
+        public UserController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
-            _signInManager = signInManager;
             _userManager = userManager;
-            _roleManager = roleManager;
         }
 
         public async Task<IActionResult> Index()

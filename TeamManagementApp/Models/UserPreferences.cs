@@ -8,8 +8,8 @@ namespace TeamManagementApp.Models
         [ForeignKey("User")]
         public string UserId { get; set; }
         public AppUser User { get; set; }
-        public bool NightModeEnabled { get; set; }
-        public bool SwimlanesEnabled { get; set; }
+        public bool NightModeEnabled { get; set; } = false;
+        public bool SwimlanesEnabled { get; set; } = true;
 
         public UserPreferences()
         {
