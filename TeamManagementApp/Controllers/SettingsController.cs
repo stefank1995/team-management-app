@@ -11,12 +11,10 @@ namespace TeamManagementApp.Controllers
     public class SettingsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        public SettingsController(ApplicationDbContext context, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        public SettingsController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
-            _signInManager = signInManager;
             _userManager = userManager;
 
         }

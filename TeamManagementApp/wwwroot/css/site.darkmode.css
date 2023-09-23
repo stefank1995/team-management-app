@@ -1,0 +1,40 @@
+﻿
+    /* Dark Mode Styles */
+.dark-mode {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Light text color */
+}
+
+.dark-mode .container {
+    background-color: #444; /* Slightly lighter background for containers */
+    border: 1px solid #555; /* Border for containers in Dark Mode */
+}
+
+.dark-mode .form-check-label {
+    color: #fff; /* Light text color for labels in Dark Mode */
+}
+
+.dark-mode hr {
+    background-color: #555; /* Darker separator line */
+}
+
+
+
+/* Example: Dark Mode styles for buttons */
+.dark-mode .btn-primary {
+    background-color: #007bff; /* Dark Mode primary button background color */
+    border-color: #007bff; /* Dark Mode primary button border color */
+    color: #fff; /* Light text color for buttons */
+}
+
+/* Example: Dark Mode styles for links */
+.dark-mode a {
+    color: #17a2b8; /* Light link color in Dark Mode */
+}
+
+/* Example: Dark Mode styles for specific elements */
+.dark-mode .special-element {
+    /* Define styles for special elements in Dark Mode */
+}
+
+

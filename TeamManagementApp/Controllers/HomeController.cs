@@ -43,19 +43,20 @@ namespace TeamManagementApp.Controllers
         [HttpPost]
         public List<KanbanData> LoadCard()
         {
-            var users = _context.Users.Select(u => u.Id).ToList();
+            var userIds = _context.Users.Select(u => u.Id).ToList();
             var assignees = _context.KanbanData.Select(c => c.AssigneeId).ToList();
-            foreach (var user in users)
+            foreach (var userId in userIds)
             {
+                var user = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
                 int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.RankId) : 0;
-                if (_context.KanbanData.Where(c => c.AssigneeId == user).FirstOrDefault() == null)
+                if (_context.KanbanData.Where(c => c.AssigneeId == userId).FirstOrDefault() == null)
                 {
                     KanbanData card = new KanbanData()
                     {
-                        AssigneeId = user,
-                        Assignee = _context.Users.Where(u => u.Id == user).FirstOrDefault().FullName,
-                        AssignedBy = _context.Users.Where(u => u.Id == user).FirstOrDefault().FullName,
-                        AssignedById = _context.Users.Where(u => u.Id == user).FirstOrDefault().Id,
+                        AssigneeId = userId,
+                        Assignee = user.FullName,
+                        AssignedBy = user.FullName,
+                        AssignedById = userId,
                         RankId = intMax + 1,
                         Status = "Open",
                         Summary = System.String.Empty,
@@ -115,8 +116,8 @@ namespace TeamManagementApp.Controllers
             KanbanData card = _context.KanbanData.Where(c => c.RankId == cardNumber).FirstOrDefault();
             if (card != null)
             {
+                int deletedCardId = card.RankId;
                 _context.KanbanData.Remove(card);
-                int deletedCardId = _context.KanbanData.Where(c => c.RankId == cardNumber).FirstOrDefault().RankId;
                 List<KanbanData> updatedCards = _context.KanbanData.Where(c => c.RankId > deletedCardId).ToList();
 
                 foreach (KanbanData updatedCard in updatedCards)

@@ -11,14 +11,12 @@ namespace TeamManagementApp.Controllers
     public class RoleController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RoleController(ApplicationDbContext context, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public RoleController(ApplicationDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
-            _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
         }

@@ -12,13 +12,11 @@ namespace TeamManagementApp.Controllers
     public class FileController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
 
-        public FileController(ApplicationDbContext context, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        public FileController(ApplicationDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
-            _signInManager = signInManager;
             _userManager = userManager;
         }
 
