@@ -12,7 +12,7 @@ using TeamManagementApp.Data;
 namespace TeamManagementApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230922182436_UserPreferences-1.0.0.")]
+    [Migration("20230923191425_UserPreferences-1.0.0.")]
     partial class UserPreferences100
     {
         /// <inheritdoc />
@@ -322,7 +322,7 @@ namespace TeamManagementApp.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("NightModeEnabled")
+                    b.Property<bool>("DarkModeEnabled")
                         .HasColumnType("bit");
 
                     b.Property<bool>("SwimlanesEnabled")

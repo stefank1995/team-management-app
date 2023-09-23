@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject UserManager<AppUser> UserManager
+@{
     ViewData["Title"] = "App Settings";
 }
 <h4>App Settings</h4>
@@ -7,14 +8,14 @@
     <div class="form-group">
         <label for="night-mode-toggle">Night Mode</label>
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="night-mode-toggle">
+            <input type="checkbox" class="form-check-input" id="night-mode-toggle" @(UserManager.GetUserAsync(User).Result.UserPreferences.DarkModeEnabled ? "checked" : "")>
             <label class="form-check-label" for="night-mode-toggle">Enable Night Mode</label>
         </div>
     </div>
     <div class="form-group">
         <label for="swimlanes-toggle">Swimlanes</label>
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="swimlanes-toggle">
+            <input type="checkbox" class="form-check-input" id="swimlanes-toggle" @(UserManager.GetUserAsync(User).Result.UserPreferences.SwimlanesEnabled ? "checked" : "")>
             <label class="form-check-label" for="swimlanes-toggle">Show Swimlanes</label>
         </div>
     </div>
@@ -34,45 +35,31 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"></script>
 
 <script>
-    // JavaScript to toggle night mode
-    //const nightModeSwitch = document.getElementById("nightModeSwitch");
-    //const body = document.body;
-
-    //nightModeSwitch.addEventListener("change", function () {
-    //    if (nightModeSwitch.checked) {
-    //        body.classList.add("night-mode");
-    //    } else {
-    //        body.classList.remove("night-mode");
-    //    }
-    //});
-
-
-// Night Mode Toggle
-$('#night-mode-toggle').on('change', function() {
-    const nightModeEnabled = this.checked;
-    updateUserPreference('NightModeEnabled', nightModeEnabled);
-});
-
-// Swimlane Toggle
-$('#swimlanes-toggle').on('change', function () {
-    const swimlanesEnabled = this.checked;
-    updateUserPreference('SwimlanesEnabled', swimlanesEnabled);
-});
-
-// Function to update a specific user preference
-function updateUserPreference(preferenceName, preferenceValue) {
-    const userPreference = {
-        [preferenceName]: preferenceValue
-    };
-
-    // AJAX request to update the user preference
-    $.ajax({
-        url: '/Settings/UpdatePreferences', 
-        method: 'POST',
-        data: { userPreference: userPreference },
-        
+ 
+    // Night Mode Toggle
+    $('#night-mode-toggle').on('change', function () {
+        const nightModeEnabled = this.checked;
+        const swimlanesEnabled = $('#swimlanes-toggle').prop('checked'); // Get the current state of swimlanes toggle
+        updateUserPreferences({ NightModeEnabled: nightModeEnabled, SwimlanesEnabled: swimlanesEnabled });
     });
-}
+
+    // Swimlane Toggle
+    $('#swimlanes-toggle').on('change', function () {
+        const swimlanesEnabled = this.checked;
+        const nightModeEnabled = $('#night-mode-toggle').prop('checked'); // Get the current state of night mode toggle
+        updateUserPreferences({ NightModeEnabled: nightModeEnabled, SwimlanesEnabled: swimlanesEnabled });
+    });
+
+    // Function to update user preferences
+    function updateUserPreferences(preferences) {
+        // AJAX request to update the user preferences
+        $.ajax({
+            url: '/Settings/UpdatePreferences',
+            method: 'POST',
+            data: { userPreference: preferences },
+        });
+    }
+
 
 </script>
 

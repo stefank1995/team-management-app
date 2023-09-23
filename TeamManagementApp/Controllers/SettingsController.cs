@@ -33,7 +33,7 @@ namespace TeamManagementApp.Controllers
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (string.IsNullOrEmpty(userId))
                 {
-                    return Unauthorized(); // Return 401 Unauthorized if user not authenticated
+                    return Unauthorized(); // Return 401 Unauthorized if user is not authenticated
                 }
                 var user = await _context.Users.FindAsync(userId);
                 if (user == null)
@@ -42,10 +42,11 @@ namespace TeamManagementApp.Controllers
                 }
 
                 UserPreferences userPreferences = _context.UserPreferences.First(u => u.UserId == userId);
-                userPreferences.NightModeEnabled = userPreference.NightModeEnabled;
+                userPreferences.DarkModeEnabled = userPreference.DarkModeEnabled;
                 userPreferences.SwimlanesEnabled = userPreference.SwimlanesEnabled;
                 _context.UserPreferences.Update(userPreferences);
                 await _context.SaveChangesAsync();
+
 
                 return Ok(userPreferences);
             }

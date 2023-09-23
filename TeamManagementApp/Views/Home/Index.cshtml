@@ -28,9 +28,11 @@
 
 					</e-kanban-cardsettings>
 					<e-kanban-dialogsettings template="#dialogTemplate"></e-kanban-dialogsettings>
-
-					<e-kanban-swimlanesettings keyField="AssigneeId" textField="Assignee" showEmptyRow=true allowDragAndDrop="true"></e-kanban-swimlanesettings>
-
+					@if (@UserManager.GetUserAsync(User).Result.UserPreferences.SwimlanesEnabled)
+					{
+						<e-kanban-swimlanesettings keyField="AssigneeId" textField="Assignee" showEmptyRow=true allowDragAndDrop="true"></e-kanban-swimlanesettings>
+					}
+					
 					<e-kanban-stackedHeaders>
 						<e-kanban-stackedHeader text="To Do" keyFields="Open"></e-kanban-stackedHeader>
 						<e-kanban-stackedHeader text="Development Phase" keyFields="InProgress, Review"></e-kanban-stackedHeader>

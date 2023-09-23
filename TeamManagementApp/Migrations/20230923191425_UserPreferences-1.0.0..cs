@@ -203,7 +203,7 @@ namespace TeamManagementApp.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    NightModeEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    DarkModeEnabled = table.Column<bool>(type: "bit", nullable: false),
                     SwimlanesEnabled = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

@@ -319,7 +319,7 @@ namespace TeamManagementApp.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("NightModeEnabled")
+                    b.Property<bool>("DarkModeEnabled")
                         .HasColumnType("bit");
 
                     b.Property<bool>("SwimlanesEnabled")
