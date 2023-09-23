@@ -24,7 +24,18 @@ namespace TeamManagementApp.Controllers
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userPreference = _context.UserPreferences.FirstOrDefault(x => x.UserId == userId);
-            return View(userPreference);
+            if (userPreference != null)
+            {
+                ViewBag.DarkModeEnabled = userPreference.DarkModeEnabled;
+                ViewBag.SwimlanesEnabled = userPreference.SwimlanesEnabled;
+            }
+            else
+            {
+                ViewBag.DarkModeEnabled = false;
+                ViewBag.SwimlanesEnabled = true;
+            }
+
+            return View();
         }
 
         [HttpPost]

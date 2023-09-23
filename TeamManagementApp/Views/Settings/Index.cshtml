@@ -1,5 +1,4 @@
-﻿@model UserPreferences
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @inject UserManager<AppUser> UserManager
 @{
     ViewData["Title"] = "App Settings";
@@ -10,14 +9,14 @@
     <div class="form-group">
         <label for="darkmode-toggle">Dark Mode</label>
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="darkmode-toggle" @(Model.DarkModeEnabled ? "checked" : "")>
+            <input type="checkbox" class="form-check-input" id="darkmode-toggle" @(ViewBag.DarkModeEnabled ? "checked" : "")>
             <label class="form-check-label" for="darkmode-toggle">Enable Dark Mode</label>
         </div>
     </div>
     <div class="form-group">
         <label for="swimlanes-toggle">Swimlanes</label>
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="swimlanes-toggle" @(Model.SwimlanesEnabled ? "checked" : "")>
+            <input type="checkbox" class="form-check-input" id="swimlanes-toggle" @(ViewBag.SwimlanesEnabled ? "checked" : "")>
             <label class="form-check-label" for="swimlanes-toggle">Show Swimlanes</label>
         </div>
     </div>

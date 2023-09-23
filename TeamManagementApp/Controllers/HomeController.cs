@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.EJ2.Linq;
+using System.Security.Claims;
 using TeamManagementApp.Data;
 using TeamManagementApp.Models;
 
@@ -23,6 +24,18 @@ namespace TeamManagementApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userPreference = _context.UserPreferences.FirstOrDefault(x => x.UserId == userId);
+            if (userPreference != null)
+            {
+                ViewBag.DarkModeEnabled = userPreference.DarkModeEnabled;
+                ViewBag.SwimlanesEnabled = userPreference.SwimlanesEnabled;
+            }
+            else
+            {
+                ViewBag.DarkModeEnabled = false;
+                ViewBag.SwimlanesEnabled = true;
+            }
             var kanbanData = await _context.KanbanData.ToListAsync();
             return View(kanbanData);
         }

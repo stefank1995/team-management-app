@@ -28,7 +28,7 @@
 
 					</e-kanban-cardsettings>
 					<e-kanban-dialogsettings template="#dialogTemplate"></e-kanban-dialogsettings>
-					@if (@UserManager.GetUserAsync(User).Result.UserPreferences.SwimlanesEnabled)
+					@if (ViewBag.SwimlanesEnabled)
 					{
 						<e-kanban-swimlanesettings keyField="AssigneeId" textField="Assignee" showEmptyRow=true allowDragAndDrop="true"></e-kanban-swimlanesettings>
 					}
