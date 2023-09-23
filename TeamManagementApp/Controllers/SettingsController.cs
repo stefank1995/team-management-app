@@ -22,7 +22,9 @@ namespace TeamManagementApp.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userPreference = _context.UserPreferences.FirstOrDefault(x => x.UserId == userId);
+            return View(userPreference);
         }
 
         [HttpPost]

@@ -23,7 +23,6 @@ namespace TeamManagementApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-
             var kanbanData = await _context.KanbanData.ToListAsync();
             return View(kanbanData);
         }

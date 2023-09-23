@@ -1,4 +1,6 @@
-﻿@inject UserManager<AppUser> UserManager
+﻿@model UserPreferences
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
 @{
     ViewData["Title"] = "App Settings";
 }
@@ -6,16 +8,16 @@
 <hr />
 <div class="container">
     <div class="form-group">
-        <label for="night-mode-toggle">Night Mode</label>
+        <label for="darkmode-toggle">Dark Mode</label>
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="night-mode-toggle" @(UserManager.GetUserAsync(User).Result.UserPreferences.DarkModeEnabled ? "checked" : "")>
-            <label class="form-check-label" for="night-mode-toggle">Enable Night Mode</label>
+            <input type="checkbox" class="form-check-input" id="darkmode-toggle" @(Model.DarkModeEnabled ? "checked" : "")>
+            <label class="form-check-label" for="darkmode-toggle">Enable Dark Mode</label>
         </div>
     </div>
     <div class="form-group">
         <label for="swimlanes-toggle">Swimlanes</label>
         <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input" id="swimlanes-toggle" @(UserManager.GetUserAsync(User).Result.UserPreferences.SwimlanesEnabled ? "checked" : "")>
+            <input type="checkbox" class="form-check-input" id="swimlanes-toggle" @(Model.SwimlanesEnabled ? "checked" : "")>
             <label class="form-check-label" for="swimlanes-toggle">Show Swimlanes</label>
         </div>
     </div>
@@ -36,18 +38,18 @@
 
 <script>
  
-    // Night Mode Toggle
-    $('#night-mode-toggle').on('change', function () {
-        const nightModeEnabled = this.checked;
+    // Dark Mode Toggle
+    $('#darkmode-toggle').on('change', function () {
+        const darkModeEnabled = this.checked;
         const swimlanesEnabled = $('#swimlanes-toggle').prop('checked'); // Get the current state of swimlanes toggle
-        updateUserPreferences({ NightModeEnabled: nightModeEnabled, SwimlanesEnabled: swimlanesEnabled });
+        updateUserPreferences({ DarkModeEnabled: darkModeEnabled, SwimlanesEnabled: swimlanesEnabled });
     });
 
     // Swimlane Toggle
     $('#swimlanes-toggle').on('change', function () {
         const swimlanesEnabled = this.checked;
-        const nightModeEnabled = $('#night-mode-toggle').prop('checked'); // Get the current state of night mode toggle
-        updateUserPreferences({ NightModeEnabled: nightModeEnabled, SwimlanesEnabled: swimlanesEnabled });
+        const darkModeEnabled = $('#darkmode-toggle').prop('checked'); // Get the current state of dark mode toggle
+        updateUserPreferences({ DarkModeEnabled: darkModeEnabled, SwimlanesEnabled: swimlanesEnabled });
     });
 
     // Function to update user preferences
