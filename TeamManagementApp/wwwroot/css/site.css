@@ -22,6 +22,13 @@ body {
 .active-link {
     background-color: #f0f0f0; /* Greyish background color */
     color: #333; /* Text color for active link */
+    border: 1px solid #ccc;
+}
+
+.list-group-item.active {
+    background-color: #f0f0f0; /* Greyish background color */
+    color: #333; /* Text color for active link */
+    border: 1px solid #ccc;
 }
 
 

@@ -7,8 +7,8 @@
 
 
 <div style="width:100%; margin: 0 auto;">
-	<div class="">
-		<div class="board-container">
+	<div class="board-container">
+		<div class="board-header-container">
 			<h3>Kanban Board</h3>
 			<form id="reset-form" asp-area="" asp-controller="Home" asp-action="ResetBoard" method="post" onsubmit="return confirmReset();">
 				<button type="submit" class="btn btn-danger">Reset Board</button>
@@ -214,11 +214,18 @@
 
 
 
-	.board-container {
+	.board-header-container {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		padding: 20px;
+	}
+
+	.board-container {
+		flex-wrap: nowrap;
+		overflow-x: auto; /* Enable vertical scrolling */
+		min-width: 1000px; /* Set a maximum height to fit the screen */
+
 	}
 	 
 </style>
