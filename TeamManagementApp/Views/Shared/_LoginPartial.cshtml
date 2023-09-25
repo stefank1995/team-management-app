@@ -11,7 +11,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item dropdown">
-            <a class="nav-link text-dark dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Hello, @UserManager.GetUserAsync(User).Result.FirstName!
             </a>
             <div class="dropdown-menu custom-dropdown" aria-labelledby="userDropdown">
@@ -22,40 +22,19 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+            <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
 </ul>
 
 
-<style>
-    /* Custom styles for the dropdown */
-    .custom-dropdown {
-        width: auto; /* Adjust the width as needed */
-        background-color: #fff; /* Background color */
-        border: 1px solid #ccc; /* Border color */
-        border-radius: 4px; /* Rounded corners */
-    }
-
-    /* Custom styles for dropdown items */
-    .custom-dropdown-item {
-
-        padding: 8px 12px; /* Adjust padding as needed */
-        color: #333; /* Text color */
-    }
-
-        /* Hover effect for dropdown items */
-        .custom-dropdown-item:hover {
-            background-color: #f8f8f8; /* Background color on hover */
-        }
-</style>
 

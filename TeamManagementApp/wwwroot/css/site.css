@@ -108,6 +108,39 @@ body {
 }
 
 
+.nav-item{
+    color: grey;
+    border-bottom-color: black;
+}
+
+.nav-item.active {
+    color: black; /* Font color for the selected page */
+}
+
+/* Custom styles for the dropdown */
+.custom-dropdown {
+    width: auto; /* Adjust the width as needed */
+    background-color: #fff; /* Background color */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Custom styles for dropdown items */
+.custom-dropdown-item {
+    padding: 8px 12px; /* Adjust padding as needed */
+    color: grey; /* Text color */
+}
+
+/* Hover effect for dropdown items */
+.custom-dropdown-item:hover {
+    background-color: #f8f8f8; /* Background color on hover */
+}
+
+.card-title {
+    font-weight: 100;
+}
+
+
 
 
 
