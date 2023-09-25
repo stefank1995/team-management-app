@@ -7,14 +7,16 @@
 
 
 <div style="width:100%; margin: 0 auto;">
-	<div class="board-container">
-		<div class="board-header-container">
-			<h3>Kanban Board</h3>
+	<div class="card">
+		<div class="card-header d-flex justify-content-between align-items-center">
+			<h3 class="card-title">Kanban Board</h3>
 			<form id="reset-form" asp-area="" asp-controller="Home" asp-action="ResetBoard" method="post" onsubmit="return confirmReset();">
 				<button type="submit" class="btn btn-danger">Reset Board</button>
 			</form>
 		</div>
-		<div class="control-section">
+
+
+		<div class="card-body">
 			<div class="content-wrapper">
 				<ejs-kanban id="Kanban" keyField="Status" created="onKanbanCreated">
 					<e-data-manager url="/Home/LoadCard" updateUrl="/Home/UpdateCard" removeUrl="/Home/RemoveCard" insertUrl="/Home/InsertCard" adaptor="UrlAdaptor" crossDomain="false"></e-data-manager>
@@ -214,19 +216,40 @@
 
 
 
-	.board-header-container {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+
+
+	.card {
+		width: 100%; /* Adjust the width as needed */
+		margin: 0 auto;
+		overflow-x: auto; /* Enable horizontal scrolling */
+		max-height: 100%; /* Adjust the max height as needed */
+		border: 1px solid #ccc; /* Add a border for styling */
+	}
+
+	.card-header {
+		background-color: #f8f8f8;
 		padding: 20px;
+		border-bottom: 1px solid #ccc; /* Add a border for styling */
+	}
+
+	.card-title {
+		margin: 0;
+	}
+
+	.card-body {
+		flex-wrap: nowrap;
+		padding: 20px;
+		overflow-x: auto; /* Enable horizontal scrolling */
+		min-width: 1000px; /* Adjust the max height as needed */
+		max-height: 500px; /* Adjust the max height as needed */
+
 	}
 
 	.board-container {
-		flex-wrap: nowrap;
-		overflow-x: auto; /* Enable vertical scrolling */
-		min-width: 1000px; /* Set a maximum height to fit the screen */
-
+		min-width: 1000px;
+		/* Add any other styles you need for your board-container */
 	}
+
 	 
 </style>
 
