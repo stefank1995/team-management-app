@@ -304,7 +304,7 @@
 	});
 </script>
 
-@*<script>
+<script>
     document.getElementById('printButton').addEventListener('click', function () {
         printCardBody();
     });
@@ -329,14 +329,20 @@
         printWindow.print();
 
     }
-</script>*@
-
-
-
-<script>
-	document.getElementById('printButton').addEventListener('click', function () {
-		window.print();
-    });
-    
 </script>
+
+
+
+@*<script>
+	document.getElementById('printButton').addEventListener('click', function () {
+		// Hide unnecessary content before printing
+		document.getElementById('card-header-wrapper').style.display = 'none';
+
+		// Print the window
+		window.print();
+
+		// Show unnecessary content again after printing (optional)
+		document.getElementById('card-header-wrapper').style.display = 'block';
+	});
+</script>*@
 
