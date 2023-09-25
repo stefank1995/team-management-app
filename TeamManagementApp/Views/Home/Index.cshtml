@@ -7,16 +7,22 @@
 
 
 <div style="width:100%; margin: 0 auto;">
-	<div class="card">
-		<div id="card-header" class="card-header d-flex justify-content-between align-items-center">
-			<h3 class="card-title">Kanban Board</h3>
-			<form id="reset-form" asp-area="" asp-controller="Home" asp-action="ResetBoard" method="post" onsubmit="return confirmReset();">
-				<button type="submit" class="btn btn-danger">Reset Board</button>
-			</form>
+	<div id="card" class="card">
+		<div id="card-header-wrapper">
+			<div id="card-header" class="card-header d-flex justify-content-between align-items-center">
+				<h3 class="card-title">Kanban Board</h3>
+				<div class="d-flex justify-content-end align-items-center" >
+					<button id="printButton" class="btn btn-secondary" style="margin-right: 10px;">
+						<img src="/icons/printer32-darkmode.png" alt="Printer icon" style="width: 20px; height: 20px;">
+					</button>
+					<form id="reset-form" asp-area="" asp-controller="Home" asp-action="ResetBoard" method="post" onsubmit="return confirmReset();">
+						<button type="submit" class="btn btn-danger">Reset Board</button>
+					</form>
+				</div>
+			</div>
 		</div>
 
-
-		<div class="card-body">
+		<div id="card-body" class="card-body">
 			<div class="content-wrapper">
 				<ejs-kanban id="Kanban" keyField="Status" created="onKanbanCreated">
 					<e-data-manager url="/Home/LoadCard" updateUrl="/Home/UpdateCard" removeUrl="/Home/RemoveCard" insertUrl="/Home/InsertCard" adaptor="UrlAdaptor" crossDomain="false"></e-data-manager>
@@ -99,14 +105,7 @@
 	@foreach (var user in UserManager.Users.ToList())
 	{
 									<option value="@user.Id" selected>@user.FullName</option>
-		@*@if (user.Id == Model.AssigneeId)
-								{
-									<option value="@user.Id" selected>@user.FullName</option>
-								}
-								else
-								{
-									<option value="@user.Id">@user.FullName</option>
-								}*@
+
 
 	}
 						</select>
@@ -213,52 +212,53 @@
 		line-height: 1.6;
 	}
 
+	
 
 
+	
 
-
-
+	
 	.card {
-		width: 100%; /* Adjust the width as needed */
+		width: 100%;
 		margin: 0 auto;
-		overflow-x: auto; /* Enable horizontal scrolling */
-		max-height: 100%; /* Adjust the max height as needed */
-		border: 1px solid #ccc; /* Add a border for styling */
-	}
 
-	#card-header {
-		position: sticky;
-		top: 0;
-		background-color: #f8f8f8;
-		padding: 20px;
-		border-bottom: 1px solid #ccc;
-		z-index: 1; /* Ensures the header appears above other content */
-	}
-
-	.card-header {
-		background-color: #f8f8f8;
-		padding: 20px;
-		border-bottom: 1px solid #ccc; /* Add a border for styling */
+		overflow-x: auto;
+		max-height: 100%;
+		border: 1px solid #ccc;
+		position: relative;
 	}
 
 	.card-title {
 		margin: 0;
+		font-size: 20px;
+	}
+	
+	#card-header-wrapper {
+		position: sticky;
+		top: 0;
+		background-color: #f8f8f8;
+		z-index: 2; /* Higher z-index to appear above other content */
+		padding: 5px; 
+		border-bottom: 1px solid #ccc;
+		max-width: 100%;
 	}
 
+	#card-header {
+		background-color: #f8f8f8;
+		position: sticky;
+		top: 0;
+		border-bottom: none;
+		padding: 5px; /* Reduce top and bottom padding */
+	}
 	.card-body {
-		flex-wrap: nowrap;
-		padding: 20px 20px 20px; /* Added 70px padding to the top */
+		padding: 20px 0px 0px; 
 		overflow-x: auto;
 		min-width: 1000px;
 		max-height: 500px;
+
+
 	}
-
-
-	.board-container {
-		min-width: 1000px;
-		/* Add any other styles you need for your board-container */
-	}
-
+	
 	 
 </style>
 
@@ -292,5 +292,51 @@
 </script>
 
 
+<script>
+	// JavaScript to track horizontal scroll and adjust left position of the wrapper
+	var cardHeaderWrapper = document.getElementById('card-header-wrapper');
 
+	window.addEventListener('load', function () {
+		var scrollLeft = cardHeaderWrapper.scrollLeft;
+		cardHeaderWrapper.style.left = -scrollLeft + 'px';
+
+
+	});
+</script>
+
+@*<script>
+    document.getElementById('printButton').addEventListener('click', function () {
+        printCardBody();
+    });
+
+    function printCardBody() {
+        // Create a copy of the card body
+        const cardBody = document.querySelector('.card-body').cloneNode(true);
+
+        // Create a new page for printing
+        const printWindow = window.open('', '', 'width=600,height=600');
+        printWindow.document.open();
+        printWindow.document.write('<html><head><title>Print</title></head><body>');
+
+        // Add the card body content to the new page
+        printWindow.document.body.appendChild(cardBody);
+
+
+
+        // Close the new page and print
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+
+    }
+</script>*@
+
+
+
+<script>
+	document.getElementById('printButton').addEventListener('click', function () {
+		window.print();
+    });
+    
+</script>
 
