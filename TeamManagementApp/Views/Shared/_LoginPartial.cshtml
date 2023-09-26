@@ -10,18 +10,18 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item dropdown">
+        <li class="nav-item @(Context.Request.Path.StartsWithSegments("/Identity/Account/Manage") ? "active" : "") dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Hello, @UserManager.GetUserAsync(User).Result.FirstName!
+                @UserManager.GetUserAsync(User).Result.FullName
             </a>
             <div class="dropdown-menu custom-dropdown" aria-labelledby="userDropdown">
-                <a class="dropdown-item custom-dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Account</a>
+                <a class="dropdown-item custom-dropdown-item @(Context.Request.Path.StartsWithSegments("/Identity/Account/Manage") ? "active" : "")" asp-area="Identity" asp-page="/Account/Manage/Index">Account</a>
                 <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     <button id="logout" type="submit" class="dropdown-item custom-dropdown-item">Logout</button>
                 </form>
             </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item @(Context.Request.Path == "/Settings" || Context.Request.Path == "/Role" || Context.Request.Path == "/User" ? "active" : "")">
             <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
         </li>
     }

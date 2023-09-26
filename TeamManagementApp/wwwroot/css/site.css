@@ -108,15 +108,27 @@ body {
 }
 
 
-.nav-item{
+.nav-item {
     color: grey;
-    border-bottom-color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .nav-item.active {
     color: black; /* Font color for the selected page */
 }
 
+.navbar-nav .nav-item.active {
+    border-bottom: 2px solid dodgerblue;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    color: dodgerblue;
+}
+
+.navbar-toggler{
+    margin: 8px 2px;
+}
 /* Custom styles for the dropdown */
 .custom-dropdown {
     width: auto; /* Adjust the width as needed */
@@ -131,6 +143,11 @@ body {
     color: grey; /* Text color */
 }
 
+.custom-dropdown-item.active {
+    color: dodgerblue;
+    background-color: #fff;
+}
+
 /* Hover effect for dropdown items */
 .custom-dropdown-item:hover {
     background-color: #f8f8f8; /* Background color on hover */
@@ -138,6 +155,10 @@ body {
 
 .card-title {
     font-weight: 100;
+}
+
+.navbar-brand {
+    padding-bottom: 2px;
 }
 
 
