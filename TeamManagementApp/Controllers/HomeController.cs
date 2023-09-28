@@ -76,6 +76,7 @@ namespace TeamManagementApp.Controllers
         {
             var kanbanData = inputKanbanData.value;
             int intMax = _context.KanbanData.ToList().Count > 0 ? _context.KanbanData.ToList().Max(p => p.RankId) : 0;
+            var user = _userManager.GetUserAsync(User).Result;
 
             KanbanData card = new KanbanData()
             {
@@ -85,8 +86,8 @@ namespace TeamManagementApp.Controllers
                 Status = kanbanData.Status,
                 Summary = kanbanData.Summary,
                 Priority = kanbanData.Priority,
-                AssignedById = _userManager.GetUserAsync(User).Result.Id,
-                AssignedBy = _userManager.GetUserAsync(User).Result.FullName
+                AssignedById = user.Id,
+                AssignedBy = user.FullName
             };
             _context.KanbanData.Add(card);
             _context.SaveChanges();

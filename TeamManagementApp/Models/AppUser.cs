@@ -11,7 +11,7 @@ namespace TeamManagementApp.Models
         {
             get { return FirstName + " " + LastName; }
         }
-
+        public List<Team>? Teams { get; set; }
         public UserPreferences UserPreferences { get; set; }
         public AppUser() : base()
         {

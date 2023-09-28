@@ -10,6 +10,9 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        <li class="nav-item @(Context.Request.Path == "/" ? "" : "")">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><img src="/icons/bell32.png" alt="Notification 1" width="18"></a>
+        </li>
         <li class="nav-item @(Context.Request.Path.StartsWithSegments("/Identity/Account/Manage") ? "active" : "") dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 @UserManager.GetUserAsync(User).Result.FullName

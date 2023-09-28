@@ -21,7 +21,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div id="card-body" class="card-body">
 			<div class="content-wrapper">
 				<ejs-kanban id="Kanban" keyField="Status" created="onKanbanCreated">
@@ -263,7 +262,6 @@
 <script>
 	var kanbanObj;
 
-
 	function onKanbanCreated() {
 		kanbanObj = this;
 	}
@@ -303,30 +301,30 @@
 </script>
 
 <script>
-    document.getElementById('printButton').addEventListener('click', function () {
-        printCardBody();
-    });
+	document.getElementById('printButton').addEventListener('click', function () {
+		printCardBody();
+	});
 
-    function printCardBody() {
-        // Create a copy of the card body
-        const cardBody = document.querySelector('.card-body').cloneNode(true);
+	function printCardBody() {
+	   
+		const cardBody = document.querySelector('.card-body').cloneNode(true);
 
-        // Create a new page for printing
-        const printWindow = window.open('', '', 'width=600,height=600');
-        printWindow.document.open();
-        printWindow.document.write('<html><head><title>Print</title></head><body>');
+	  
+		const printWindow = window.open('', '', 'width=600,height=600');
+		printWindow.document.open();
+		printWindow.document.write('<html><head><title>Print</title></head><body>');
 
-        // Add the card body content to the new page
-        printWindow.document.body.appendChild(cardBody);
+		
+		printWindow.document.body.appendChild(cardBody);
 
 
 
-        // Close the new page and print
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
-        printWindow.print();
+	   
+		printWindow.document.write('</body></html>');
+		printWindow.document.close();
+		printWindow.print();
 
-    }
+	}
 </script>
 
 

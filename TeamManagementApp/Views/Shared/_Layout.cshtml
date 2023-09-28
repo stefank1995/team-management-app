@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TaskFlow</title>
+    <title>@ViewData["Title"] - TeamManagementApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TeamManagementApp.styles.css" asp-append-version="true" />
@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="padding: 0;">
             <div class="container-fluid">
                 
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/icons/kanban32.png" alt="Management icon"> TaskFlow</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/icons/kanban32.png" alt="Management icon"> TeamManagementApp</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,6 +30,12 @@
                         <li class="nav-item @(Context.Request.Path == "/File" ? "active" : "")">
                             <a class="nav-link" asp-area="" asp-controller="File" asp-action="Index">Files</a>
                         </li>
+                        <li class="nav-item @(Context.Request.Path == "/Team" ? "active" : "")">
+                            <a class="nav-link" asp-area="" asp-controller="Team" asp-action="Index">Teams</a>
+                        </li>
+                        <li class="nav-item @(Context.Request.Path == "/" ? "" : "")">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Chat</a>
+                        </li>
                         
                     </ul>
                     <partial name="_LoginPartial" />
@@ -38,7 +44,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-1">
             @RenderBody()
         </main>
     </div>
@@ -47,7 +53,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="icons">Icons sourced from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                <div class="year">&copy; 2023 - TaskFlow - <a href="https://github.com/stefank1995">Stefan Kolaric</a></div>
+                <div class="year">&copy; 2023 - TeamManagementApp - <a href="https://github.com/stefank1995">Stefan Kolaric</a></div>
             </div>
         </div>
     </footer>

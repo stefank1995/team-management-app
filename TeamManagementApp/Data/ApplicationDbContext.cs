@@ -15,6 +15,7 @@ namespace TeamManagementApp.Data
 
         public DbSet<FileOnDatabase> FilesOnDatabase { get; set; }
         public DbSet<KanbanData> KanbanData { get; set; }
+        public DbSet<Team> Teams { get; set; }
         public DbSet<UserPreferences> UserPreferences { get; set; }
 
 
