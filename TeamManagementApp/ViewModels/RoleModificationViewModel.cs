@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using TeamManagementApp.Models;
 
-namespace TeamManagementApp.Models
+namespace TeamManagementApp.ViewModels
 {
-    public class RoleEdit
+    public class RoleModificationViewModel
     {
         public IdentityRole Role { get; set; }
         public IEnumerable<AppUser> Members { get; set; }

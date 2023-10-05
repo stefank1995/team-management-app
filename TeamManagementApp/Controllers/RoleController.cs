@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using TeamManagementApp.Data;
 using TeamManagementApp.Models;
+using TeamManagementApp.ViewModels;
 
 namespace TeamManagementApp.Controllers
 {
@@ -77,7 +78,7 @@ namespace TeamManagementApp.Controllers
                 var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
                 list.Add(user);
             }
-            return View("~/Views/Settings/Role/UpdateRole.cshtml", new RoleEdit
+            return View("~/Views/Settings/Role/UpdateRole.cshtml", new RoleModificationViewModel
             {
                 Role = role,
                 Members = members,
