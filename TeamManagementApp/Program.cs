@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TeamManagementApp.Data;
 using TeamManagementApp.Extensions;
+using TeamManagementApp.Hubs;
 using TeamManagementApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,7 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["Syncfusion:LicenseKey"]);
 
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -47,6 +49,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.MapHub<TeamHub>("/chat");
+
 
 app.MigrateDatabase<ApplicationDbContext>((context, services) =>
 {

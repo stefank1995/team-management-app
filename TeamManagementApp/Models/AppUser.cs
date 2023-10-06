@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TeamManagementApp.Models
 {
@@ -11,7 +12,9 @@ namespace TeamManagementApp.Models
         {
             get { return FirstName + " " + LastName; }
         }
-        public List<Team>? Teams { get; set; }
+
+        [InverseProperty(nameof(Team.Members))]
+        public IList<Team> Teams { get; set; }
         public UserPreferences UserPreferences { get; set; }
         public AppUser() : base()
         {

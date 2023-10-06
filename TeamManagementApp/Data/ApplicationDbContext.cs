@@ -5,7 +5,6 @@ using TeamManagementApp.Models;
 
 namespace TeamManagementApp.Data
 {
-    //public class ApplicationDbContext : DbContext
 
     public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
@@ -24,6 +23,12 @@ namespace TeamManagementApp.Data
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
+
+            //many-to-many relationship configuration between users and teams
+            builder.Entity<AppUser>()
+                .HasMany(u => u.Teams)
+                .WithMany(t => t.Members)
+                .UsingEntity(j => j.ToTable("UserTeams"));
         }
     }
 

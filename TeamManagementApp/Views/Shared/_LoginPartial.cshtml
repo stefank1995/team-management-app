@@ -10,7 +10,7 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item @(Context.Request.Path == "/" ? "" : "")">
+        <li class="nav-item">
             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><img src="/icons/bell32.png" alt="Notification 1" width="18"></a>
         </li>
         <li class="nav-item @(Context.Request.Path.StartsWithSegments("/Identity/Account/Manage") ? "active" : "") dropdown">

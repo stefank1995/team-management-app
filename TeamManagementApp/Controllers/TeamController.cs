@@ -35,5 +35,7 @@ namespace TeamManagementApp.Controllers
             }
             return View(result);
         }
+
+        public IActionResult Create() => View("~/Views/Team/CreateTeam.cshtml");
     }
 }
