@@ -8,6 +8,11 @@ namespace TeamManagementApp.Models
         public string Name { get; set; }
         public string? Description { get; set; }
         [InverseProperty(nameof(AppUser.Teams))]
-        public IList<AppUser> Members { get; set; }
+        public IList<AppUser>? Members { get; set; }
+
+        public Team()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

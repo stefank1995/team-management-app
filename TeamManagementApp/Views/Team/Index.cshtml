@@ -1,86 +1,198 @@
-﻿
-<!-- Trigger button -->
-<button id="open-modal-btn" class="btn btn-primary">+</button>
+﻿@inject UserManager<AppUser> UserManager
+@using TeamManagementApp.Models
+@model List<Team>
+@{
+	ViewData["Title"] = "Teams";   
+}
 
-<!-- The Modal -->
-<div id="team-modal" class="modal">
-    <div class="modal-content">
-        <!-- Form -->
-        <div class="row justify-content-center">
-            <div>
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Create a Team</h5>
-                    </div>
-                    <div class="card-body">
-                        <form id="team-form">
-                            <div class="mb-3">
-                                <label for="team-name" class="form-label">Team Name:</label>
-                                <input type="text" class="form-control" id="team-name" name="team-name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="team-description" class="form-label">Team Description:</label>
-                                <textarea class="form-control" id="team-description" name="team-description" rows="4" required></textarea>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-success">Create</button>
-                                <!-- Close button -->
-                                <button id="close-modal-btn" class="btn btn-secondary">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+
+
+<div class="container-fluid container-full-height">
+	<div id="chat-page" class="row">
+		<div id="chat-teams" class="col-md-3 teams-section">
+			<!-- Team List and Buttons -->
+			<div class="mb-3">
+				<h4 class="card-title">Teams</h4>
+				<!-- Create a Team button -->
+				<button id="open-modal-btn" class="btn btn-primary">Create a Team</button>
+				<ul class="list-group team-list">
+					@foreach(var team in Model)
+					{
+						<li class="list-group-item team-list-item d-flex justify-content-between align-items-center">
+							<a href="#">team.Name</a>
+							<button class="btn btn-primary mb-2">+</button>
+							<button class="btn btn-danger mb-2">x</button>
+						</li>
+					}
+					<!-- Add more teams here -->
+				</ul>
+			</div>
+			<button class="btn btn-primary mb-2">Search Team</button>
+			
+		</div>
+		<div class="col-md-6">
+			<!-- Chat Area -->
+			<div id="chat-area" class="mb-3 card">
+				<div class="card-header">
+					<h4 class="card-title">Chat</h4>
+				</div>
+				<div id="chat-messages" class="card-body">
+					<!-- Chat messages will be displayed here -->
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+					text<br />
+
+					
+				</div>
+				
+			</div>
+			<!-- Input field and send button for sending messages -->
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Type your message" id="message-input">
+				<button class="btn btn-primary" id="send-message">Send</button>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div id="members-area" class="card">
+				<div class="card-header">
+					<h4 class="card-title">Team members</h4>
+				</div>
+				<div id="members-list" class="card-body">
+					@foreach (var user in UserManager.Users.ToList())
+					{
+						<text>@user.FullName<br /></text>
+					}
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
 </div>
 
 
-<style>
-    /* Styles for the modal */
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
-        z-index: 1;
-        justify-content: center; /* Center content vertically */
-        align-items: center; /* Center content horizontally */
-    }
+@*@Html.Partial("_CreateTeam")*@
+@*<partial name="_CreateTeam" />*@
 
-    .modal-content {
-        background-color: white;
-        padding: 0px;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        max-width: 400px;
-    }
+
+
+
+<style>
+	
+
+
+
+	.list-group {
+		max-height: 300px; /* Adjust the maximum height as needed */
+		overflow-y: auto;
+	}
+
+	#chat-page {
+		height: 90vh;
+	}
+
+	#chat-area {
+		height: 80vh;
+	}
+
+	#members-area {
+		height: 90vh;
+	}
+
+	#chat-messages {
+		max-height: 90%; /* Adjust the maximum height as needed */
+		min-height: 90%;
+		overflow-y: auto;
+	}
+
+	#members-list{
+		max-height: 100%; /* Adjust the maximum height as needed */
+		min-height: 100%;
+		overflow-y: auto;
+	}
+
+	#chat-teams {
+		max-height: 100%; /* Adjust the maximum height as needed */
+		min-height: 100%;
+		overflow-y: auto;
+	}
+
+	.container-full-height {
+		height: 95vh; /* 100% of the viewport height */
+	}
+
+	.teams-section {
+		background-color: #f8f9fa; /* Light gray background */
+		overflow-y: auto; /* Add a scrollbar when needed */
+		padding: 15px; /* Add some padding for better appearance */
+		border: 1px solid #dee2e6; 
+	}
+
+	.team-list {
+		max-height: calc(100% - 50px); /* Adjust the max height as needed */
+	}
+
+	.team-list-item {
+		/*border: none; /* Remove borders */*/
+	}
 
 </style>
 
 <script>
-    // JavaScript to show and hide the modal
-    const openModalBtn = document.getElementById('open-modal-btn');
-    const teamModal = document.getElementById('team-modal');
-    const closeModalBtn = document.getElementById('close-modal-btn');
+	// JavaScript to show and hide the modal
+	const openModalBtn = document.getElementById('open-modal-btn');
+	const teamModal = document.getElementById('team-modal');
+	const closeModalBtn = document.getElementById('close-modal-btn');
 
-    openModalBtn.addEventListener('click', function() {
-        teamModal.style.display = 'flex';
-    });
+	openModalBtn.addEventListener('click', function() {
+		teamModal.style.display = 'flex';
+	});
 
-    closeModalBtn.addEventListener('click', function() {
-        teamModal.style.display = 'none';
-    });
+	closeModalBtn.addEventListener('click', function() {
+		teamModal.style.display = 'none';
+	});
 
-    // Close the modal when clicking outside of it
-    teamModal.addEventListener('click', function(event) {
-        if (event.target === teamModal) {
-            teamModal.style.display = 'none';
-        }
-    });
+	// Close the modal when clicking outside of it
+	teamModal.addEventListener('click', function(event) {
+		if (event.target === teamModal) {
+			teamModal.style.display = 'none';
+		}
+	});
 </script>
+
+
+
 
 

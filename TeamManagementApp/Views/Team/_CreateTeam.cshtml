@@ -1,0 +1,68 @@
+﻿@using TeamManagementApp.Models
+@model Team
+
+<!-- The Modal -->
+<div id="team-modal" class="modal">
+	<div class="modal-content">
+		<!-- Form -->
+		<div class="row justify-content-center">
+			<div>
+				<div class="card">
+					<div class="card-header">
+						<h5 class="card-title">Create a Team</h5>
+					</div>
+					<div class="card-body">
+						<form asp-controller="Team" asp-action="Create" method="post">
+							<div class="mb-3">
+								<label for="team-name" class="form-label">Team Name:</label>
+								<input type="text" class="form-control" id="team-name" name="Name" required placeholder="Enter your team name here..." asp-for="Name">
+							</div>
+
+							<div class="mb-3">
+								<label for="team-description" class="form-label">Team Description:</label>
+								<textarea class="form-control resizable-textarea" id="team-description" name="Description" rows="4" required placeholder="Enter your team description here..." asp-for="Description"></textarea>
+							</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-success">Create</button>
+								<!-- Close button -->
+								<button id="close-modal-btn" class="btn btn-secondary">Close</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	/* Styles for the modal */
+	.modal {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
+		z-index: 1;
+		justify-content: center; /* Center content vertically */
+		align-items: center; /* Center content horizontally */
+	}
+
+	.modal-content {
+		background-color: white;
+		padding: 0px;
+		border-radius: 5px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		max-width: 400px;
+	}
+
+	.resizable-textarea {
+		resize: vertical; /* Allows vertical resizing */
+		min-height: 80px; /* Minimum height to start with */
+		max-height: 200px; /* Maximum height when expanded */
+		overflow-y: auto; /* Add a vertical scrollbar if necessary */
+	}
+</style>

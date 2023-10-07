@@ -90,10 +90,10 @@
 					<td class="custom-dialog-label">Assigned By:</td>
 					<td>
 						<select id="AssignedById" name="AssignedById" class="e-field" value="${AssignedById}">
-	@foreach (var user in UserManager.Users.ToList())
-	{
-									<option value="@user.Id" selected>@user.FullName</option>
-	}
+							@foreach (var user in UserManager.Users.ToList())
+							{
+								<option value="@user.Id" selected>@user.FullName</option>
+							}
 						</select>
 					</td>
 				</tr>
