@@ -101,12 +101,10 @@
 					<td class="custom-dialog-label">Assignee:</td>
 					<td>
 						<select id="AssigneeId" name="AssigneeId" class="e-field" value="${AssigneeId}">
-	@foreach (var user in UserManager.Users.ToList())
-	{
-									<option value="@user.Id" selected>@user.FullName</option>
-
-
-	}
+							@foreach (var user in UserManager.Users.ToList())
+							{
+								<option value="@user.Id" selected>@user.FullName</option>
+							}
 						</select>
 					</td>
 				</tr>
@@ -251,7 +249,7 @@
 		padding: 20px 0px 0px; 
 		overflow-x: auto;
 		min-width: 1000px;
-		max-height: 500px;
+		max-height: 525px;
 
 
 	}

@@ -46,17 +46,13 @@ namespace TeamManagementApp.Controllers
 			}
 			else
 			{
-				// ModelState is not valid, so gather and log validation errors.
 				foreach (var modelStateEntry in ModelState.Values)
 				{
 					foreach (var error in modelStateEntry.Errors)
 					{
-						// You can log or handle the validation error here.
 						Console.WriteLine($"Validation Error: {error.ErrorMessage}");
 					}
 				}
-
-				// Redirect to the same view or action to display validation errors.
 				return RedirectToAction("Index");
 			}
 

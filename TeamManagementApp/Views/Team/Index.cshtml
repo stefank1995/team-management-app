@@ -5,31 +5,27 @@
 	ViewData["Title"] = "Teams";   
 }
 
-
-
-
-
 <div class="container-fluid container-full-height">
 	<div id="chat-page" class="row">
 		<div id="chat-teams" class="col-md-3 teams-section">
 			<!-- Team List and Buttons -->
 			<div class="mb-3">
-				<h4 class="card-title">Teams</h4>
-				<!-- Create a Team button -->
-				<button id="open-modal-btn" class="btn btn-primary">Create a Team</button>
+				<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+					<h4 class="card-title">Teams</h4>
+					<!-- Create a Team button -->
+					<button id="open-modal-btn" class="btn btn-primary">Create New</button>
+				</div>
 				<ul class="list-group team-list">
 					@foreach(var team in Model)
 					{
 						<li class="list-group-item team-list-item d-flex justify-content-between align-items-center">
-							<a href="#">team.Name</a>
+							<a href="#">@team.Name</a>
 							<button class="btn btn-primary mb-2">+</button>
 							<button class="btn btn-danger mb-2">x</button>
 						</li>
 					}
-					<!-- Add more teams here -->
 				</ul>
 			</div>
-			<button class="btn btn-primary mb-2">Search Team</button>
 			
 		</div>
 		<div class="col-md-6">
@@ -103,7 +99,7 @@
 </div>
 
 
-@*@Html.Partial("_CreateTeam")*@
+@Html.Partial("_CreateTeam", new Team())
 @*<partial name="_CreateTeam" />*@
 
 
