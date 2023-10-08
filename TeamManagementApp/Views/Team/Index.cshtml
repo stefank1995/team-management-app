@@ -21,7 +21,11 @@
 						<li class="list-group-item team-list-item d-flex justify-content-between align-items-center">
 							<a href="#">@team.Name</a>
 							<button class="btn btn-primary mb-2">+</button>
-							<button class="btn btn-danger mb-2">x</button>
+							<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
+								<input type="hidden" name="id" value="@team.Id" />
+								<button type="submit" class="btn btn-danger mb-2">x</button>
+							</form>
+
 						</li>
 					}
 				</ul>
@@ -100,7 +104,6 @@
 
 
 @Html.Partial("_CreateTeam", new Team())
-@*<partial name="_CreateTeam" />*@
 
 
 
@@ -188,6 +191,26 @@
 	});
 </script>
 
+<script>
+	function confirmDelete(teamId) {
+		Swal.fire({
+			title: 'Are you sure?',
+			text: 'This action will delete the team. This cannot be undone.',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			cancelButtonText: 'Cancel',
+			reverseButtons: true
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// Submit the form with the corresponding teamId
+				document.getElementById('delete-team-' + teamId).submit();
+			}
+		});
+		return false; // Prevent form submission by default
+	}
+
+</script>
 
 
 

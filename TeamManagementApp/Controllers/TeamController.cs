@@ -21,12 +21,7 @@ namespace TeamManagementApp.Controllers
 		public async Task<IActionResult> Index()
 		{
 			var teams = await _context.Teams.ToListAsync();
-			List<Team> result = new List<Team>();
-			foreach (var team in teams)
-			{
-				result.Add(team);
-			}
-			return View(result);
+			return View(teams);
 		}
 
 
@@ -41,7 +36,7 @@ namespace TeamManagementApp.Controllers
 					Description = team.Description
 				};
 				_context.Teams.Add(newTeam);
-				_context.SaveChanges();
+				await _context.SaveChangesAsync();
 				return RedirectToAction("Index");
 			}
 			else
@@ -57,5 +52,25 @@ namespace TeamManagementApp.Controllers
 			}
 
 		}
+
+
+		[HttpPost]
+		public async Task<IActionResult> Delete(Guid id)
+		{
+			var team = await _context.Teams.FindAsync(id);
+			if (team != null)
+			{
+				_context.Teams.Remove(team);
+				await _context.SaveChangesAsync();
+
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				ModelState.AddModelError("", "No team found");
+				return RedirectToAction("Index");
+			}
+		}
+
 	}
 }
