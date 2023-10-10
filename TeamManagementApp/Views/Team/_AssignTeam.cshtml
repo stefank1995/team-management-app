@@ -2,7 +2,7 @@
 @model Team
 
 <!-- The Modal -->
-<div id="team-create-modal" class="modal">
+<div id="team-assign-modal" class="modal">
 	<div class="modal-content">
 		<!-- Form -->
 		<div class="row justify-content-center">
@@ -17,15 +17,10 @@
 								<label for="team-name" class="form-label">Team Name:</label>
 								<input type="text" class="form-control" id="team-name" name="Name" required placeholder="Enter your team name here..." asp-for="Name">
 							</div>
-
-							<div class="mb-3">
-								<label for="team-description" class="form-label">Team Description:</label>
-								<textarea class="form-control resizable-textarea" id="team-description" name="Description" rows="4" required placeholder="Enter your team description here..." asp-for="Description"></textarea>
-							</div>
 							<div class="text-center">
-								<button type="submit" class="btn btn-success">Create</button>
+								<button type="submit" class="btn btn-success">Confirm</button>
 								<!-- Close button -->
-								<button id="close-create-btn" class="btn btn-secondary">Close</button>
+								<button id="close-assign-btn" class="btn btn-secondary">Close</button>
 							</div>
 						</form>
 

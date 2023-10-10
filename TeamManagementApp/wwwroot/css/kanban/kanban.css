@@ -1,0 +1,72 @@
+﻿.prop-grid .row {
+    padding: 10px 0;
+}
+
+.e-kanban th.e-template {
+    text-align: center;
+}
+
+.e-kanban .e-card {
+    height: auto !important;
+}
+
+.e-kanban.e-rtl th.e-template {
+    text-align: right;
+}
+
+.e-kanban.e-rtl .header-template-wrap .header-text {
+    margin-right: 15px;
+}
+
+.e-kanban .card-template-wrap {
+    line-height: 1.2;
+    font-size: 12px;
+    height: 100%;
+    table-layout: fixed;
+    width: 100%;
+}
+
+    .e-kanban .card-template-wrap td {
+        background: none !important;
+        border: none !important;
+        height: auto !important;
+        padding: 2px;
+        line-height: 1.6;
+    }
+
+
+.card {
+    width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
+    max-height: 100%;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+
+
+#card-header-wrapper {
+    position: sticky;
+    top: 0;
+    background-color: #f8f8f8;
+    z-index: 2;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    max-width: 100%;
+}
+
+#card-header {
+    background-color: #f8f8f8;
+    position: sticky;
+    top: 0;
+    border-bottom: none;
+    padding: 5px;
+}
+
+.card-body {
+    padding: 20px 0px 0px;
+    overflow-x: auto;
+    min-width: 1000px;
+    max-height: 525px;
+}

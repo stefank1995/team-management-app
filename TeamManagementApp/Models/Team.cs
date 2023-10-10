@@ -9,6 +9,7 @@ namespace TeamManagementApp.Models
         public string? Description { get; set; }
         [InverseProperty(nameof(AppUser.Teams))]
         public IList<AppUser>? Members { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public Team()
         {
