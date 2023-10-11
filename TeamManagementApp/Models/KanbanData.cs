@@ -6,7 +6,7 @@ namespace TeamManagementApp.Models
     {
         [Key]
         public string Id { get; set; }
-        public string? Summary { get; set; }
+        public string Summary { get; set; } = string.Empty;
         public int RankId { get; set; }
         public string AssigneeId { get; set; }
         public string Assignee { get; set; }
