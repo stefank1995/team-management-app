@@ -6,67 +6,148 @@
 }
 
 <div class="container-fluid container-full-height">
+	<!-- Teams Page -->
 	<div id="chat-page" class="row">
+		<!-- Team List and Buttons -->
 		<div id="chat-teams" class="col-md-3 teams-section">
-			<!-- Team List and Buttons -->
 			<div class="mb-3">
 				<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
 					<h4 class="card-title">Teams</h4>
 					<!-- Create a Team button -->
 					<button id="open-create-btn" class="btn btn-primary">Create New</button>
+					@Html.Partial("_CreateTeam", new Team())
+				</div>
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" placeholder="Type a team name..." id="search-teams-input">
+					<button class="btn btn-primary">Search</button>
 				</div>
 				<ul class="list-group team-list">
-					@foreach(var team in Model)
+					@foreach (var team in Model)
 					{
 						<li class="list-group-item team-list-item d-flex justify-content-between align-items-center">
 							<a href="#">@team.Name</a>
-							<form id="assign-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Assign" method="post">
-								<input type="hidden" name="id" value="@team.Id" />
-								<button class="btn btn-primary">+</button>
-							</form>
-							
-							<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
-								<input type="hidden" name="id" value="@team.Id" />
-								<button type="submit" class="btn btn-danger mb-2">x</button>
-							</form>
+							<div class="btn-group">
+								<form id="assign-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Assign" method="post">
+									<input type="hidden" name="id" value="@team.Id" />
+									<button class="btn btn-primary">+</button>
+								</form>
+								@Html.Partial("_AssignTeam", new Team())
+								<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
+									<input type="hidden" name="id" value="@team.Id" />
+									<button type="submit" class="btn btn-danger">x</button>
+								</form>
+							</div>
 						</li>
 					}
+
+					
 				</ul>
+				
+
 			</div>
 			
 		</div>
+		<!-- Chat Area -->
 		<div class="col-md-6">
-			<!-- Chat Area -->
 			<div id="chat-area" class="mb-3 card">
 				<div class="card-header">
 					<h4 class="card-title">Chat</h4>
 				</div>
 				<div id="chat-messages" class="card-body">
 					<!-- Chat messages will be displayed here -->
-					text<br />
-					text<br />
-					text<br />
-					text<br />
-					text<br />
-					text<br />
-					text<br />
-					text<br />
-				
-
-					
+					<div class="chat-message">
+						<p class="user-name">Stefan Stefanovic</p>
+						<p class="message-content">Good morning, Nenad.</p>
+						<p class="message-time">09:00</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Nenad Nenadovic</p>
+						<p class="message-content">Hi Stefan, how's it going?</p>
+						<p class="message-time">09:05</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Stefan Stefanovic</p>
+						<p class="message-content">It's been a busy week. We closed a significant deal with Company X.</p>
+						<p class="message-time">09:10</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Stefan Stefanovic</p>
+						<p class="message-content">The team put in a lot of effort, and it paid off.</p>
+						<p class="message-time">09:15</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Stefan Stefanovic</p>
+						<p class="message-content">Now we need to focus on onboarding and ensuring a smooth transition.</p>
+						<p class="message-time">09:20</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Nenad Nenadovic</p>
+						<p class="message-content">That's fantastic news, Stefan! Congratulations to the team.</p>
+						<p class="message-time">09:25</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Nenad Nenadovic</p>
+						<p class="message-content">I'll coordinate with HR for the onboarding process.</p>
+						<p class="message-time">09:30</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Stefan Stefanovic</p>
+						<p class="message-content">Thanks, Nenad. It's a team effort that made it possible.</p>
+						<p class="message-time">09:35</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Stefan Stefanovic</p>
+						<p class="message-content">Also, we should review the marketing plan for the next quarter.</p>
+						<p class="message-time">09:40</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Stefan Stefanovic</p>
+						<p class="message-content">Are you available for a meeting tomorrow to discuss it?</p>
+						<p class="message-time">09:45</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Nenad Nenadovic</p>
+						<p class="message-content">Tomorrow works for me. Let's aim for a morning meeting.</p>
+						<p class="message-time">09:50</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Nenad Nenadovic</p>
+						<p class="message-content">Shall I book the conference room?</p>
+						<p class="message-time">09:55</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Stefan Stefanovic</p>
+						<p class="message-content">Yes, please do that, Nenad. Looking forward to it!</p>
+						<p class="message-time">10:00</p>
+					</div>
+					<div class="chat-message">
+						<p class="user-name">Nenad Nenadovic</p>
+						<p class="message-content">Great, I'll take care of it. See you tomorrow.</p>
+						<p class="message-time">10:05</p>
+					</div>
+					<div class="my-chat-message">
+						<p class="my-user-name">Stefan Kolaric</p>
+						<p class="message-content">Hello, world!</p>
+						<p class="message-time">10:10</p>
+					</div>
 				</div>
-				
 			</div>
 			<!-- Input field and send button for sending messages -->
-			<div class="input-group">
+			<div class="input-group mb-5">
 				<input type="text" class="form-control" placeholder="Type your message" id="message-input">
-				<button class="btn btn-primary" id="send-message">Send</button>
+				<button class="btn btn-primary">Send</button>
 			</div>
 		</div>
+
+		<!-- Team Members area -->
 		<div class="col-md-3">
 			<div id="members-area" class="card">
 				<div class="card-header">
 					<h4 class="card-title">Team members</h4>
+				</div>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Type a member name..." id="search-members-input">
+					<button class="btn btn-primary">Search</button>
 				</div>
 				<div id="members-list" class="card-body">
 					@foreach (var user in UserManager.Users)
@@ -74,30 +155,104 @@
 						<a href="#">@user.FullName<br /></a>
 					}
 				</div>
-				
 			</div>
-
 		</div>
 	</div>
 </div>
 
 
-@Html.Partial("_CreateTeam", new Team())
-@Html.Partial("_AssignTeam", new Team())
+
+<style>
+	.chat-message {
+		background-color: #ededed; /* Blue background color */
+		color: black; /* Text color */
+		border-top-right-radius: 10px; /* Rounded corners for the top-right */
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px; /* Rounded corners for the bottom-right */
+		margin: 5px 0; /* Spacing between messages */
+		padding: 8px; /* Padding inside the chat bubble */
+		display: table;
+		width: auto;
+	}
+
+	.user-name {
+		font-weight: bold;
+		margin: 0 0 5px; /* Space between user name and message */
+		color: #5DB8FF;
+	}
+
+	.message-content {
+		margin: 0 0 5px; /* Space between user name and message */
+		color: #000; /* Text color */
+	}
+
+	.message-time {
+		font-size: 12px;
+		color: #777; /* Color for time and date text */
+		text-align: right; /* Align to the right */
+		margin-top: -5px; /* Adjust vertical spacing */
+	}
+
+	.my-chat-message {
+		background-color: #a6d8ff; /* Blue background color */
+		color: fff; /* Text color */
+		border-top-left-radius: 10px; /* Rounded corners for the top-right */
+		border-bottom-right-radius: 10px;
+		border-bottom-left-radius: 10px; /* Rounded corners for the bottom-right */
+		margin: 5px 0; /* Spacing between messages */
+		padding: 8px; /* Padding inside the chat bubble */
+		display: table;
+		width: auto;
+		margin-left: auto; /* Align to the far right */
+	}
+
+
+	.my-user-name {
+		font-weight: bold;
+		display: none;
+		color: #ededed;
+	}
+
+	.chat-message p {
+		margin: 0; /* Remove default paragraph margin */
+	}
+
+
+
+</style>
+
+<script>
+	const chatMessages = document.querySelectorAll('.chat-message');
+
+	let previousUserName = null;
+
+	chatMessages.forEach((chatMessage, index) => {
+		const userNameElement = chatMessage.querySelector('.user-name');
+		const userName = userNameElement ? userNameElement.textContent : null;
+
+		if (userName === previousUserName) {
+			if (userNameElement) {
+				userNameElement.style.display = 'none';
+			}
+
+			// Set border-top-left-radius for the current message
+			chatMessage.style.borderTopLeftRadius = '10px';
+		} else {
+			// Add a margin-top of 10px for messages with a new user
+			chatMessage.style.marginTop = '10px';
+		}
+
+		previousUserName = userName;
+	});
+</script>
+
+
+
 
 
 
 
 <style>
-	
-
-
-
-	.list-group {
-		max-height: 300px; /* Adjust the maximum height as needed */
-		overflow-y: auto;
-	}
-
 	#chat-page {
 		height: 90vh;
 	}
@@ -117,8 +272,8 @@
 	}
 
 	#members-list{
-		max-height: 100%; /* Adjust the maximum height as needed */
-		min-height: 100%;
+		max-height: 85%; /* Adjust the maximum height as needed */
+		min-height: 85%;
 		overflow-y: auto;
 	}
 
@@ -141,6 +296,7 @@
 
 	.team-list {
 		max-height: calc(100% - 50px); /* Adjust the max height as needed */
+		overflow-y: auto;
 	}
 
 	.team-list-item {
@@ -244,6 +400,8 @@
 		});
 	});
 </script>
+
+
 
 
 
