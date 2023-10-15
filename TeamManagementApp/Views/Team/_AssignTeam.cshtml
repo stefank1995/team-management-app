@@ -9,27 +9,27 @@
 			<div>
 				<div class="card">
 					<div class="card-header" style="text-align: center;">
-						<h5 class="card-title">Create a Team</h5>
+						<h5 class="card-title">Assign a member to the team</h5>
 					</div>
 					<div class="card-body">
-						<form asp-controller="Team" asp-action="Create" method="post">
+						<form asp-controller="Team" asp-action="AssignMembers" method="post">
 							<div class="mb-3">
-								<label for="team-name" class="form-label">Team Name:</label>
-								<input type="text" class="form-control" id="team-name" name="Name" required placeholder="Enter your team name here..." asp-for="Name">
+								<label for="user-email" class="form-label">User's Email:</label>
+								<input type="email" class="form-control" id="user-email" name="" required placeholder="Enter user's email...">
 							</div>
 							<div class="text-center">
-								<button type="submit" class="btn btn-success">Confirm</button>
+								<button type="submit" class="btn btn-success">Send Invite</button>
 								<!-- Close button -->
 								<button id="close-assign-btn" class="btn btn-secondary">Close</button>
 							</div>
 						</form>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 
 <style>
 	/* Styles for the modal */

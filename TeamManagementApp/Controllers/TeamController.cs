@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using TeamManagementApp.Data;
 using TeamManagementApp.Models;
 
@@ -57,43 +56,7 @@ namespace TeamManagementApp.Controllers
 		}
 
 
-		[HttpPost]
-		public async Task<IActionResult> AssignMembers(Guid teamId, List<string> memberIds)
-		{
-			var team = await _context.Teams.FindAsync(teamId);
-			if (team == null)
-			{
-				return NotFound();
-			}
-			var members = await _context.Users
-				.Where(user => memberIds.Contains(user.Id))
-				.ToListAsync();
 
-			if (members == null || members.Count == 0)
-			{
-				return BadRequest("No valid members were selected.");
-			}
-
-			if (team.Members == null)
-			{
-				team.Members = new List<AppUser>();
-			}
-
-			foreach (var member in members)
-			{
-				team.Members.Add(member);
-			}
-
-			try
-			{
-				await _context.SaveChangesAsync();
-				return RedirectToAction("Index");
-			}
-			catch (Exception ex)
-			{
-				return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-			}
-		}
 
 
 		[HttpPost]
