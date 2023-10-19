@@ -1,6 +1,6 @@
 # Team Management App
 
-ASP.NET MVC Team Management App using Syncfusion, Bootstrap, EF Core as ORM, SQL Server as DB, Identity for Auth. Consists of two pages: Kanban Board page and File page.
+ASP.NET MVC Team Management App using Syncfusion, Bootstrap, EF Core as ORM, SQL Server as DB, Identity for Auth. Consists of five pages: Kanban Board page, File page, Teams Page, Account and Settings.
 
 ### Login Page
 Introducing a login page, built with Identity scaffolding, providing email and password-based authentication along with third-party login options like Google.
