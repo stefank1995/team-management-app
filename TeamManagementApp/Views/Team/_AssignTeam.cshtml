@@ -13,19 +13,17 @@
 					</div>
 					<div class="card-body">
 						<form asp-controller="Team" asp-action="AssignUserToTeam" method="post">
-	<div class="mb-3">
-		<label for="user-email" class="form-label">User's Email:</label>
-		<input type="email" class="form-control" id="user-email" name="userEmail" required placeholder="Enter user's email...">
-	</div>
-	<input type="hidden" id="teamId" name="teamId" /> <!-- Hidden field for teamId -->
-	<div class="text-center">
-		<button type="submit" class="btn btn-success">Assign</button>
-		<!-- Close button -->
-		<button id="close-assign-btn" class="btn btn-secondary">Close</button>
-	</div>
-</form>
-
-
+							<div class="mb-3">
+								<label for="user-email" class="form-label">User's Email:</label>
+								<input type="email" class="form-control" id="user-email" name="userEmail" required placeholder="Enter user's email...">
+							</div>
+							<input type="hidden" id="teamId" name="teamId" /> <!-- Hidden field for teamId -->
+							<div class="text-center">
+								<button type="submit" class="btn btn-success">Assign</button>
+								<!-- Close button -->
+								<button id="close-assign-btn" class="btn btn-secondary">Close</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -44,7 +42,7 @@
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
-		z-index: 1;
+		z-index: 3;
 		justify-content: center; /* Center content vertically */
 		align-items: center; /* Center content horizontally */
 	}

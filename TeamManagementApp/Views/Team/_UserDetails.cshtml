@@ -1,0 +1,59 @@
+﻿@using TeamManagementApp.Models
+@model AppUser
+
+<!-- The User Details Modal -->
+<div id="user-details-modal-@Model.Id" class="modal">
+    <div class="modal-content">
+        <!-- User Details -->
+        <div class="row justify-content-center">
+            <div>
+                <div class="card">
+                    <div class="card-header" style="text-align: center;">
+                        <h5 class="card-title">User Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Name:</strong> @Model.FullName</p>
+                        <p><strong>Email:</strong> @Model.Email</p>
+                        <!-- Add more user details here as needed -->
+                        <div class="text-center">
+                            <!-- Close button -->
+                            <button id="close-user-details-btn-@Model.Id" class="btn btn-secondary">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+	/* Styles for the modal */
+	.modal {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
+		z-index: 3;
+		justify-content: center; /* Center content vertically */
+		align-items: center; /* Center content horizontally */
+	}
+
+	.modal-content {
+		background-color: white;
+		padding: 0px;
+		border-radius: 5px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		max-width: 400px;
+	}
+
+	.resizable-textarea {
+		resize: vertical; /* Allows vertical resizing */
+		min-height: 80px; /* Minimum height to start with */
+		max-height: 200px; /* Maximum height when expanded */
+		overflow-y: auto; /* Add a vertical scrollbar if necessary */
+	}
+</style>

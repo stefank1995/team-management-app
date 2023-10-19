@@ -144,9 +144,11 @@
 				<div id="members-list" class="card-body">
 					@foreach (var user in UserManager.Users)
 					{
-						<a href="#">@user.FullName<br /></a>
+						<a href="#" class="user-details-link" data-user-id="@user.Id">@user.FullName<br /></a>
+						@Html.Partial("_UserDetails", user)
 					}
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -334,7 +336,7 @@
 	});
 
 	function openAssignModal() {
-		teamAssignModal.style.display = 'block';
+		teamAssignModal.style.display = 'flex';
 	}
 
 	closeAssignBtn.addEventListener('click', function () {
@@ -346,6 +348,57 @@
 	}
 </script>
 
+<script>
+	// Select all elements with the class 'user-details-link'
+	const userDetailsLinks = document.querySelectorAll('.user-details-link');
+
+	// Select all elements with the class 'close-user-details-btn'
+	const closeUserDetailsButtons = document.querySelectorAll('.close-user-details-btn');
+
+	// Add event listeners for each 'user-details-link'
+	userDetailsLinks.forEach(userDetailsLink => {
+		userDetailsLink.addEventListener('click', handleUserDetailsLinkClick);
+	});
+
+	// Add event listeners for each 'close-user-details-btn'
+	closeUserDetailsButtons.forEach(closeButton => {
+		closeButton.addEventListener('click', handleCloseUserDetailsClick);
+	});
+
+	// Event handler for 'user-details-link' clicks
+	function handleUserDetailsLinkClick(event) {
+		event.preventDefault(); // Prevent the default link behavior
+
+		// Get the 'data-user-id' attribute of the clicked link
+		const userId = event.currentTarget.getAttribute('data-user-id');
+
+		// Open the user details modal for the clicked user
+		openUserDetailsModal(userId);
+	}
+
+	// Function to open the user details modal for a specific user
+	function openUserDetailsModal(userId) {
+		// Construct the ID of the user details modal based on the user's ID
+		const modalId = `user-details-modal-${userId}`;
+		const userDetailsModal = document.getElementById(modalId);
+
+		if (userDetailsModal) {
+			userDetailsModal.style.display = 'flex';
+		}
+	}
+
+	// Event handler for 'close-user-details-btn' clicks
+	function handleCloseUserDetailsClick(event) {
+		const modalToClose = event.currentTarget.closest('.modal');
+
+		if (modalToClose) {
+			modalToClose.style.display = 'none';
+		}
+	}
+</script>
+
+
+
 
 <script>
 	function confirmDelete(teamId) {
@@ -356,7 +409,7 @@
 			showCancelButton: true,
 			confirmButtonText: 'Yes, delete it!',
 			cancelButtonText: 'Cancel',
-			reverseButtons: true
+			reverseButtons: false
 		}).then((result) => {
 			if (result.isConfirmed) {
 				// Submit the form with the corresponding teamId

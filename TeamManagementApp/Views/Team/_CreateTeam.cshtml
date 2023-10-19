@@ -17,13 +17,12 @@
 								<label for="team-name" class="form-label">Team Name:</label>
 								<input type="text" class="form-control" id="team-name" name="Name" required placeholder="Enter your team name here..." asp-for="Name">
 							</div>
-
 							<div class="mb-3">
 								<label for="team-description" class="form-label">Team Description:</label>
 								<textarea class="form-control resizable-textarea" id="team-description" name="Description" rows="4" required placeholder="Enter your team description here..." asp-for="Description"></textarea>
 							</div>
 							<div class="text-center">
-								<button type="submit" class="btn btn-primary">Create</button>
+								<button type="submit" class="btn btn-success">Create</button>
 								<!-- Close button -->
 								<button id="close-create-btn" class="btn btn-secondary">Close</button>
 							</div>
@@ -46,7 +45,7 @@
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
-		z-index: 1;
+		z-index: 3;
 		justify-content: center; /* Center content vertically */
 		align-items: center; /* Center content horizontally */
 	}
