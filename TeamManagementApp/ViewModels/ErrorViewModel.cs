@@ -1,4 +1,4 @@
-namespace TeamManagementApp.Models
+namespace TeamManagementApp.ViewModels
 {
     public class ErrorViewModel
     {

@@ -160,7 +160,7 @@ namespace TeamManagementApp.Controllers
         public async Task<IActionResult> ResetBoard()
         {
             await _context.KanbanData.ExecuteDeleteAsync();
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

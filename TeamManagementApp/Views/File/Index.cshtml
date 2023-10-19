@@ -76,14 +76,20 @@
                                             <td>@file.UploadedBy</td>
                                             <td class="text-center">
                                                 <div class="btn-group">
-                                                    <a type="button" class="btn btn-primary" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">Download</a>
+                                                    <a type="button" class="btn btn-primary" asp-controller="File" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">
+                                                        <img src="/icons/download.png" alt="remove team icon" style="width: 20px; height: 20px;">
+                                                    </a>
                                                     @if (file.UploadedById == UserManager.GetUserId(User))
                                                     {
-                                                        <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">Delete</a>
+                                                        <a type="button" class="btn btn-danger" asp-controller="File" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">
+                                                            <img src="/icons/remove32px.png" alt="remove team icon" style="width: 20px; height: 20px;">
+                                                        </a>
                                                     }
                                                     else
                                                     {
-                                                        <button type="button" class="btn btn-danger disabled" disabled>Delete</button>
+                                                        <button type="button" class="btn btn-danger disabled" disabled>
+                                                            <img src="/icons/remove32px.png" alt="remove team icon" style="width: 20px; height: 20px;">
+                                                        </button>
                                                     }
                                                 </div>
                                                 
