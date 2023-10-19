@@ -34,7 +34,7 @@ Aside from its main page the app has a File Management System page where employe
 The Settings page allows users to control preferences like dark mode, Kanban board swimlanes, and create or assign authorisation user roles, if the user is administratior.
 ![image](https://github.com/stefank1995/team-management-app/assets/132662524/3ef78f21-d3c3-4778-a14d-bde4cc097267)
 
-## Responsive UI
+### Responsive UI
 Responsive UI design adapts to various screen sizes, ensuring a seamless experience on any device.
 ![Responsive Main](https://github.com/stefank1995/team-management-app/assets/132662524/097bdda3-3282-43d7-8168-e59dd298b9a4)
 ![Responsive settings](https://github.com/stefank1995/team-management-app/assets/132662524/19ea3773-657f-4af8-8dcb-73cc2509bfaf)
