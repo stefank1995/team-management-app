@@ -47,7 +47,11 @@
 		<div class="col-md-6">
 			<div id="chat-area" class="mb-3 card">
 				<div class="card-header">
-					<h4 class="card-title">Chat</h4>
+					
+					<h4 class="card-title">
+						<img src="/icons/chat.png" alt="remove team icon" style="width: 20px; height: 20px;">
+						Chat
+					</h4>
 				</div>
 				<div id="chat-messages" class="card-body">
 					<!-- Chat messages will be displayed here -->
@@ -353,13 +357,8 @@
 </script>
 
 <script>
-	// Select all elements with the class 'user-details-link'
 	const userDetailsLinks = document.querySelectorAll('.user-details-link');
-
-	// Select all elements with the class 'close-user-details-btn'
 	const closeUserDetailsButtons = document.querySelectorAll('.close-user-details-btn');
-
-	// Add event listeners for each 'user-details-link'
 	userDetailsLinks.forEach(userDetailsLink => {
 		userDetailsLink.addEventListener('click', handleUserDetailsLinkClick);
 	});

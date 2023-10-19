@@ -9,15 +9,15 @@
             <div>
                 <div class="card">
                     <div class="card-header" style="text-align: center;">
-                        <h5 class="card-title">User Details</h5>
+                        <h5 class="card-title">User details</h5>
                     </div>
                     <div class="card-body">
                         <p><strong>Name:</strong> @Model.FullName</p>
                         <p><strong>Email:</strong> @Model.Email</p>
                         <!-- Add more user details here as needed -->
                         <div class="text-center">
-                            <!-- Close button -->
-                            <button id="close-user-details-btn-@Model.Id" class="btn btn-secondary">Close</button>
+							<button class="btn btn-danger">Remove member</button>
+                            <button id="close-user-details-btn" class="btn btn-secondary">Close</button>
                         </div>
                     </div>
                 </div>

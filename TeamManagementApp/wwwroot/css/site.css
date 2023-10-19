@@ -161,6 +161,13 @@ body {
     padding-bottom: 2px;
 }
 
+.resizable-textarea {
+    resize: vertical; /* Allows vertical resizing */
+    min-height: 80px; /* Minimum height to start with */
+    max-height: 200px; /* Maximum height when expanded */
+    overflow-y: auto; /* Add a vertical scrollbar if necessary */
+}
+
 
 
 
