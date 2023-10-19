@@ -45,6 +45,7 @@ Responsive UI design adapts to various screen sizes, ensuring a seamless experie
 * [Syncfusion](https://www.syncfusion.com/) - Used for some UI components
 * [Bootstrap](https://getbootstrap.com/) - Used for some UI components
 * [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) - Used to persist data
+* [SignalR](https://dotnet.microsoft.com/en-us/apps/aspnet/signalr) - Used for adding real-time functionality
 
 
 
