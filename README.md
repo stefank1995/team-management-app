@@ -25,7 +25,7 @@ Data persistence: All the Kanban data is being stored inside SQL Server database
 
 ### File Management System
 Aside from its main page the app has a File Management System page where employees can upload and download files that are necessary for the team. It tracks which employee uploaded the file and its upload date and time. The app has a role-based authorization so depending on the role that a signed-in user has, it will permit or prevent the user from deleting files that were uploaded from other employees. Files are store inside a Datatables table with pagination.
-![File](https://github.com/stefank1995/team-management-app/assets/132662524/657c250b-5696-4f5c-b3b8-01bb5aa67e7b)
+![File](https://github.com/stefank1995/team-management-app/assets/132662524/af41838d-1a9e-4389-a303-905c460be8a7)
 
 ### Teams
 (Work in progress)Teams page where users can create teams, assign team members, and engage in chat conversations specifically related to their chosen teams. The chat functionality is facilitated by SignalR, ensuring real-time communication and notification updates.
