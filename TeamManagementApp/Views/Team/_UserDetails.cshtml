@@ -8,15 +8,26 @@
         <div class="row justify-content-center">
             <div>
                 <div class="card">
-                    <div class="card-header" style="text-align: center;">
+                    <div class="card-header d-flex justify-content-between align-items-center" style="text-align: center;">
                         <h5 class="card-title">User details</h5>
+                        <button class="btn btn-danger">
+                            <img src="/icons/remove-user.png" alt="add member icon" style="width: 20px; height: 20px;">
+                        </button>
                     </div>
                     <div class="card-body">
                         <p><strong>Name:</strong> @Model.FullName</p>
                         <p><strong>Email:</strong> @Model.Email</p>
+                        <p><strong>Phone number:</strong> @Model.PhoneNumber</p>
+                        
+                        <!-- Checkbox for Admin Permission -->
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="adminPermissionCheckbox">
+                            <label class="form-check-label" for="adminPermissionCheckbox">Admin Permission</label>
+                        </div>
+                        
                         <!-- Add more user details here as needed -->
-                        <div class="text-center">
-							<button class="btn btn-danger">Remove member</button>
+                        <div class="text-center" style="margin-top: 20px;">
+                            <button class="btn btn-success">Apply</button>
                             <button id="close-user-details-btn" class="btn btn-secondary">Close</button>
                         </div>
                     </div>
@@ -25,6 +36,7 @@
         </div>
     </div>
 </div>
+
 
 
 <style>

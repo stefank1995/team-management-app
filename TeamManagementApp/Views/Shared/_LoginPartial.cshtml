@@ -11,7 +11,9 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><img src="/icons/bell32.png" alt="Notification 1" width="18"></a>
+            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                <img src="/icons/bell32.png" alt="notification icon" width="18">
+            </a>
         </li>
         <li class="nav-item @(Context.Request.Path.StartsWithSegments("/Identity/Account/Manage") ? "active" : "") dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,7 +27,12 @@
             </div>
         </li>
         <li class="nav-item @(Context.Request.Path == "/Settings" || Context.Request.Path == "/Role" || Context.Request.Path == "/User" ? "active" : "")">
-            <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+            <a class="nav-link d-none d-lg-inline-flex d-md-inline-flex d-sm-inline-flex" asp-controller="Settings" asp-action="Index">
+                <img src="/icons/settings.png" alt="settings icon" width="24">
+            </a>
+            <a class="nav-link d-lg-none d-md-none d-sm-none" asp-controller="Settings" asp-action="Index">
+                Settings
+            </a>
         </li>
     }
     else

@@ -129,6 +129,10 @@ body {
 .navbar-toggler{
     margin: 8px 2px;
 }
+
+.navbar-brand {
+    padding-bottom: 2px;
+}
 /* Custom styles for the dropdown */
 .custom-dropdown {
     width: auto; /* Adjust the width as needed */
@@ -155,10 +159,6 @@ body {
 
 .card-title {
     font-weight: 100;
-}
-
-.navbar-brand {
-    padding-bottom: 2px;
 }
 
 .resizable-textarea {

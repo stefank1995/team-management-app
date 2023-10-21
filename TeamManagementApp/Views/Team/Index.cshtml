@@ -24,7 +24,7 @@
 				<ul class="list-group team-list">
 					@foreach (var team in Model)
 					{
-						<li class="list-group-item team-list-item d-flex justify-content-between align-items-center">
+						<li class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Teams" && Context.Request.RouteValues["action"].ToString() == "#" ? "active-link" : "") d-flex justify-content-between align-items-center">
 							<a href="#">@team.Name</a>
 							<div class="btn-group">
 								<button id="open-assign-btn" class="btn btn-primary" data-team-id="@team.Id">
@@ -301,9 +301,6 @@
 		overflow-y: auto;
 	}
 
-	.team-list-item {
-		/*border: none; /* Remove borders */*/
-	}
 
 </style>
 
