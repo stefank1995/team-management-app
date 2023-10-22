@@ -9,6 +9,7 @@ using TeamManagementApp.Models;
 
 namespace TeamManagementApp.Controllers
 {
+    //Kanban Board Controller
     [Authorize]
     public class HomeController : Controller
     {
@@ -43,33 +44,30 @@ namespace TeamManagementApp.Controllers
         public async Task<List<KanbanData>> LoadCard()
         {
             var userIds = await _context.Users.Select(u => u.Id).ToListAsync();
-            var assignees = await _context.KanbanData.Select(c => c.AssigneeId).ToListAsync();
+            var existingAssigneeIds = await _context.KanbanData.Select(c => c.AssigneeId).ToListAsync();
 
-            foreach (var userId in userIds)
+            var newAssigneeIds = userIds.Except(existingAssigneeIds).ToList();
+
+            int intMax = await _context.KanbanData.AnyAsync() ? await _context.KanbanData.MaxAsync(p => p.RankId) : 0;
+
+            var newKanbanData = newAssigneeIds.Select(userId => new KanbanData
             {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-                int intMax = await _context.KanbanData.AnyAsync() ? await _context.KanbanData.MaxAsync(p => p.RankId) : 0;
+                AssigneeId = userId,
+                Assignee = _context.Users.FirstOrDefault(u => u.Id == userId)?.FullName,
+                AssignedBy = _context.Users.FirstOrDefault(u => u.Id == userId)?.FullName,
+                AssignedById = userId,
+                RankId = intMax + 1,
+                Status = "Open",
+                Summary = string.Empty,
+                Priority = "Low"
+            });
 
-                if (await _context.KanbanData.FirstOrDefaultAsync(c => c.AssigneeId == userId) == null)
-                {
-                    KanbanData card = new KanbanData()
-                    {
-                        AssigneeId = userId,
-                        Assignee = user.FullName,
-                        AssignedBy = user.FullName,
-                        AssignedById = userId,
-                        RankId = intMax + 1,
-                        Status = "Open",
-                        Summary = String.Empty,
-                        Priority = "Low"
-                    };
+            _context.KanbanData.AddRange(newKanbanData);
+            await _context.SaveChangesAsync();
 
-                    _context.KanbanData.Add(card);
-                    await _context.SaveChangesAsync();
-                }
-            }
             return await _context.KanbanData.ToListAsync();
         }
+
 
 
         [HttpPost]
