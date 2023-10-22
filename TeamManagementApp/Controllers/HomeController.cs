@@ -23,6 +23,12 @@ namespace TeamManagementApp.Controllers
             _userManager = userManager;
         }
 
+
+
+
+
+
+
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -40,9 +46,12 @@ namespace TeamManagementApp.Controllers
         }
 
 
+
         [HttpPost]
         public async Task<List<KanbanData>> LoadCard()
         {
+            //Optional code for setting default values for all the users without assignments
+            //<------->
             var userIds = await _context.Users.Select(u => u.Id).ToListAsync();
             var existingAssigneeIds = await _context.KanbanData.Select(c => c.AssigneeId).ToListAsync();
 
@@ -64,6 +73,7 @@ namespace TeamManagementApp.Controllers
 
             _context.KanbanData.AddRange(newKanbanData);
             await _context.SaveChangesAsync();
+            //<------/>
 
             return await _context.KanbanData.ToListAsync();
         }
@@ -95,6 +105,7 @@ namespace TeamManagementApp.Controllers
         }
 
 
+
         [HttpPost]
         public async Task<List<KanbanData>> UpdateCard([FromBody] Card<KanbanData> inputKanbanData)
         {
@@ -124,6 +135,7 @@ namespace TeamManagementApp.Controllers
         }
 
 
+
         [HttpPost]
         public async Task<List<KanbanData>> RemoveCard([FromBody] Card<KanbanData> selectedCard)
         {
@@ -135,23 +147,21 @@ namespace TeamManagementApp.Controllers
                 int deletedCardId = card.RankId;
                 _context.KanbanData.Remove(card);
 
-                List<KanbanData> updatedCards = await _context.KanbanData
-                    .Where(c => c.RankId > deletedCardId)
-                    .ToListAsync();
+                await _context.SaveChangesAsync();
 
-                foreach (KanbanData updatedCard in updatedCards)
-                {
-                    updatedCard.RankId--;
-                }
+                await _context.KanbanData
+                    .Where(c => c.RankId > deletedCardId)
+                    .ForEachAsync(updatedCard => updatedCard.RankId--);
+
+                return await _context.KanbanData.ToListAsync();
             }
             else
             {
                 throw new ArgumentNullException(nameof(card));
             }
-
-            await _context.SaveChangesAsync();
-            return await _context.KanbanData.ToListAsync();
         }
+
+
 
 
         [HttpPost]
