@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.EJ2.Linq;
 using System.Security.Claims;
 using TeamManagementApp.Data;
+using TeamManagementApp.Hubs;
 using TeamManagementApp.Models;
 
 namespace TeamManagementApp.Controllers
@@ -15,15 +17,15 @@ namespace TeamManagementApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IHubContext<KanbanHub> _hubContext;
 
 
-        public HomeController(ApplicationDbContext context, UserManager<AppUser> userManager)
+        public HomeController(ApplicationDbContext context, UserManager<AppUser> userManager, IHubContext<KanbanHub> hubContext)
         {
             _context = context;
             _userManager = userManager;
+            _hubContext = hubContext;
         }
-
-
 
 
 
@@ -50,6 +52,7 @@ namespace TeamManagementApp.Controllers
             {
                 _context.KanbanData.RemoveRange(tasksWithNonExistentUsers);
                 await _context.SaveChangesAsync();
+                await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
             }
             //<------/>
             var kanbanData = await _context.KanbanData.ToListAsync();
@@ -114,6 +117,7 @@ namespace TeamManagementApp.Controllers
             _context.KanbanData.Add(card);
             await _context.SaveChangesAsync();
 
+            await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
             return await _context.KanbanData.ToListAsync();
         }
 
@@ -143,7 +147,12 @@ namespace TeamManagementApp.Controllers
 
                 await _context.SaveChangesAsync();
             }
+            else
+            {
+                throw new ArgumentNullException();
+            }
 
+            await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
             return await _context.KanbanData.ToListAsync();
         }
 
@@ -166,6 +175,7 @@ namespace TeamManagementApp.Controllers
                     .Where(c => c.RankId > deletedCardId)
                     .ForEachAsync(updatedCard => updatedCard.RankId--);
 
+                await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
                 return await _context.KanbanData.ToListAsync();
             }
             else
@@ -182,6 +192,7 @@ namespace TeamManagementApp.Controllers
         {
             await _context.KanbanData.ExecuteDeleteAsync();
             await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
             return RedirectToAction("Index");
         }
 

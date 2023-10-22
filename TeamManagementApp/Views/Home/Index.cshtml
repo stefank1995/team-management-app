@@ -218,19 +218,47 @@
 	});
 </script>
 
+
+
+@*Work-in-progress*@
 <script>
-    var connection = new signalR.HubConnectionBuilder().withUrl("/kanbanHub").build();
+	var connection = new signalR.HubConnectionBuilder().withUrl("/kanbanHub").build();
 
-    connection.on("ReceiveUpdate", function () {
-        // Code to update the Kanban board (e.g., refresh data or manipulate DOM)
-    });
+	connection.on("ReceiveUpdate", function () {
+		refreshKanbanData();
+	});
 
-    connection.start().then(function () {
-        console.log("Connected to SignalR hub");
-    }).catch(function (err) {
-        console.error(err.toString());
-    });
+	connection.start().then(function () {
+		console.log("Connected to SignalR hub");
+	}).catch(function (err) {
+		console.error(err.toString());
+	});
+
+	// Function to refresh Kanban data when updates are received
+	function refreshKanbanData() {
+    // Fetch the updated Kanban data from the server using an HTTP request
+    fetch('/Home/LoadCard')
+        .then(response => response.json())
+        .then(data => {
+            updateKanbanBoard(data);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+	function updateKanbanBoard(data) {
+    if (kanbanObj) {
+        // Update the Kanban data source with the new data
+        kanbanObj.dataSource = data;
+
+        // Refresh the Kanban board to reflect the changes
+        kanbanObj.refresh();
+    }
+}
+
 </script>
+
 
 
 
