@@ -40,10 +40,23 @@ namespace TeamManagementApp.Controllers
                 ViewBag.SwimlanesEnabled = userPreference.SwimlanesEnabled;
             }
 
+            //Optional code to find and remove all tasks with non-existent users(e.g. past users)
+            //<------->
+            var tasksWithNonExistentUsers = _context.KanbanData
+                .Where(task => task.AssigneeId != null && !_context.Users.Any(u => u.Id == task.AssigneeId))
+                .ToList();
+
+            if (tasksWithNonExistentUsers.Any())
+            {
+                _context.KanbanData.RemoveRange(tasksWithNonExistentUsers);
+                await _context.SaveChangesAsync();
+            }
+            //<------/>
             var kanbanData = await _context.KanbanData.ToListAsync();
 
             return View(kanbanData);
         }
+
 
 
 
@@ -174,15 +187,3 @@ namespace TeamManagementApp.Controllers
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
