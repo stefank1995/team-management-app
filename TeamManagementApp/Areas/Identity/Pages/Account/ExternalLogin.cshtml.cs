@@ -163,9 +163,6 @@ namespace TeamManagementApp.Areas.Identity.Pages.Account
                 user.FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName) ?? info.Principal.FindFirstValue(ClaimTypes.Name);
                 user.LastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
 
-                //user.FirstName = Input.FirstName;
-                //user.LastName = Input.LastName;
-
                 await _userStore.SetUserNameAsync(user, ExternalEmail, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, ExternalEmail, CancellationToken.None);
 
