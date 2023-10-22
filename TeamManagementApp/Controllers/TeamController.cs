@@ -56,6 +56,24 @@ namespace TeamManagementApp.Controllers
 		}
 
 		[HttpPost]
+		public async Task<IActionResult> Delete(Guid id)
+		{
+			var team = await _context.Teams.FindAsync(id);
+			if (team != null)
+			{
+				_context.Teams.Remove(team);
+				await _context.SaveChangesAsync();
+
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				ModelState.AddModelError("", "No team found");
+				return RedirectToAction("Index");
+			}
+		}
+
+		[HttpPost]
 		public async Task<IActionResult> AssignUserToTeam(Guid teamId, string userEmail)
 		{
 			var team = await _context.Teams.FindAsync(teamId);
@@ -96,30 +114,27 @@ namespace TeamManagementApp.Controllers
 		}
 
 
-		[HttpPost]
-		public async Task<IActionResult> RemoveMember(Guid teamId, List<string> memberIds)
-		{
-			return RedirectToAction("Index");
-		}
+		//[HttpPost]
+		//public async Task<IActionResult> RemoveMember(Guid userId, Guid teamId)
+		//{
+		//	var user = await _context.Users.FindAsync(userId);
+		//	var team = await _context.Teams.FindAsync(teamId);
+		//	if (user != null)
+		//	{
+		//		var teamMembership = await _context.TeamMemberships
+		//			.FirstOrDefaultAsync(tm => tm.TeamId == teamId && tm.UserId == userId);
+
+		//		if (teamMembership != null)
+		//		{
+		//			_context.TeamMemberships.Remove(teamMembership);
+		//			await _context.SaveChangesAsync();
+		//		}
+		//	}
+		//	return RedirectToAction("Index");
+		//}
 
 
-		[HttpPost]
-		public async Task<IActionResult> Delete(Guid id)
-		{
-			var team = await _context.Teams.FindAsync(id);
-			if (team != null)
-			{
-				_context.Teams.Remove(team);
-				await _context.SaveChangesAsync();
 
-				return RedirectToAction("Index");
-			}
-			else
-			{
-				ModelState.AddModelError("", "No team found");
-				return RedirectToAction("Index");
-			}
-		}
 
 	}
 }
