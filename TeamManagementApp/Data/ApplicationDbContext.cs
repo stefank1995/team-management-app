@@ -17,6 +17,8 @@ namespace TeamManagementApp.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<UserPreferences> UserPreferences { get; set; }
 
+        //public DbSet<UserTeams> UserTeams { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -24,11 +26,25 @@ namespace TeamManagementApp.Data
 
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
 
-            //many-to-many relationship configuration between users and teams
+            //many - to - many relationship configuration between users and teams
             builder.Entity<AppUser>()
                 .HasMany(u => u.Teams)
                 .WithMany(t => t.Members)
                 .UsingEntity(j => j.ToTable("UserTeams"));
+
+
+            //builder.Entity<UserTeams>()
+            //    .HasKey(ut => new { ut.UserId, ut.TeamId });
+
+            //builder.Entity<UserTeams>()
+            //    .HasOne(ut => ut.User)
+            //    .WithMany(u => u.Teams)
+            //    .HasForeignKey(ut => ut.UserId);
+
+            //builder.Entity<UserTeams>()
+            //    .HasOne(ut => ut.Team)
+            //    .WithMany(t => t.Members)
+            //    .HasForeignKey(ut => ut.TeamId);
         }
     }
 
