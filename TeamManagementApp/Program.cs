@@ -24,6 +24,13 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 });
 
+builder.Services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+{
+    microsoftOptions.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"];
+    microsoftOptions.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"];
+    microsoftOptions.CallbackPath = new PathString("/signin-microsoft");
+});
+
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["Syncfusion:LicenseKey"]);
 
 builder.Services.AddSignalR();
@@ -50,8 +57,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.MapHub<TeamHub>("/chat");
-
+app.MapHub<KanbanHub>("/kanbanHub");
+app.MapHub<TeamHub>("/chatHub");
 
 app.MigrateDatabase<ApplicationDbContext>((context, services) =>
 {
