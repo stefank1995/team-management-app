@@ -221,50 +221,50 @@
 
 
 @*Work-in-progress*@
-<script>
-	var connection = new signalR.HubConnectionBuilder().withUrl("/kanbanHub").build();
+<!-- SignalR -->
+@section scripts {
+	<script src="~/js/signalr/dist/browser/signalr.js"></script>
+	<script>
+		var connection = new signalR.HubConnectionBuilder()
+			.withUrl("/kanbanHub")
+			.build();
 
-	connection.on("ReceiveUpdate", function () {
-		refreshKanbanData();
-	});
+		connection.on("ReceiveUpdate", function () {
+			console.log("ReceiveUpdate method called.");
+			refreshKanbanData();
+		});
 
-	connection.start().then(function () {
-		console.log("Connected to SignalR hub");
-	}).catch(function (err) {
-		console.error(err.toString());
-	});
+		connection.start().then(function () {
+			console.log("Connected to SignalR hub");
+		}).catch(function (err) {
+			console.error(err.toString());
+		});
 
-	// Function to refresh Kanban data when updates are received
-	function refreshKanbanData() {
-    // Fetch the updated Kanban data from the server using an HTTP request
-    fetch('/Home/LoadCard')
-        .then(response => response.json())
-        .then(data => {
-            updateKanbanBoard(data);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
+		// Function to refresh Kanban data when updates are received
+		function refreshKanbanData() {
+		// Fetch the updated Kanban data from the server using an HTTP request
+			fetch('/Home/LoadCard', {
+				method: 'POST'
+			})
+			.then(response => response.json())
+			.then(data => {
+				updateKanbanBoard(data);
+			})
+			.catch(error => {
+				console.error('Error fetching data:', error);
+			});
+	}
+
+		function updateKanbanBoard(data) {
+		if (kanbanObj) {
+			// Update the Kanban data source with the new data
+			kanbanObj.dataSource = data;
+
+			// Refresh the Kanban board to reflect the changes
+			kanbanObj.refresh();
+			console.log("Kanban board update received successfully");
+		}
+	}
+
+	</script>
 }
-
-	function updateKanbanBoard(data) {
-    if (kanbanObj) {
-        // Update the Kanban data source with the new data
-        kanbanObj.dataSource = data;
-
-        // Refresh the Kanban board to reflect the changes
-        kanbanObj.refresh();
-    }
-}
-
-</script>
-
-
-
-
-
-
-
-
-
-

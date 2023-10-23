@@ -4,9 +4,16 @@ namespace TeamManagementApp.Hubs
 {
 	public class KanbanHub : Hub
 	{
-		public async Task UpdateKanbanBoard()
+		public override async Task OnConnectedAsync()
 		{
-			await Clients.All.SendAsync("ReceiveUpdate");
+			Console.WriteLine($"Connection {Context.ConnectionId} made!");
+			await base.OnConnectedAsync();
+		}
+
+		public override async Task OnDisconnectedAsync(Exception? exception)
+		{
+			Console.WriteLine($"{Context.ConnectionId} disconnected!");
+			await base.OnDisconnectedAsync(exception);
 		}
 	}
 }

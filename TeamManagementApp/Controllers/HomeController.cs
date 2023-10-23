@@ -17,14 +17,14 @@ namespace TeamManagementApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IHubContext<KanbanHub> _hubContext;
+        private readonly IHubContext<KanbanHub> _kanbanHubContext;
 
 
-        public HomeController(ApplicationDbContext context, UserManager<AppUser> userManager, IHubContext<KanbanHub> hubContext)
+        public HomeController(ApplicationDbContext context, UserManager<AppUser> userManager, IHubContext<KanbanHub> kanbanHubContext)
         {
             _context = context;
             _userManager = userManager;
-            _hubContext = hubContext;
+            _kanbanHubContext = kanbanHubContext;
         }
 
 
@@ -52,7 +52,7 @@ namespace TeamManagementApp.Controllers
             {
                 _context.KanbanData.RemoveRange(tasksWithNonExistentUsers);
                 await _context.SaveChangesAsync();
-                await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
+                await _kanbanHubContext.Clients.All.SendAsync("ReceiveUpdate");
             }
             //<------/>
             var kanbanData = await _context.KanbanData.ToListAsync();
@@ -117,7 +117,7 @@ namespace TeamManagementApp.Controllers
             _context.KanbanData.Add(card);
             await _context.SaveChangesAsync();
 
-            await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
+            await _kanbanHubContext.Clients.All.SendAsync("ReceiveUpdate");
             return await _context.KanbanData.ToListAsync();
         }
 
@@ -152,7 +152,7 @@ namespace TeamManagementApp.Controllers
                 throw new ArgumentNullException();
             }
 
-            await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
+            await _kanbanHubContext.Clients.All.SendAsync("ReceiveUpdate");
             return await _context.KanbanData.ToListAsync();
         }
 
@@ -175,7 +175,7 @@ namespace TeamManagementApp.Controllers
                     .Where(c => c.RankId > deletedCardId)
                     .ForEachAsync(updatedCard => updatedCard.RankId--);
 
-                await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
+                await _kanbanHubContext.Clients.All.SendAsync("ReceiveUpdate");
                 return await _context.KanbanData.ToListAsync();
             }
             else
@@ -192,7 +192,7 @@ namespace TeamManagementApp.Controllers
         {
             await _context.KanbanData.ExecuteDeleteAsync();
             await _context.SaveChangesAsync();
-            await _hubContext.Clients.All.SendAsync("ReceiveUpdate");
+            await _kanbanHubContext.Clients.All.SendAsync("ReceiveUpdate");
             return RedirectToAction("Index");
         }
 
