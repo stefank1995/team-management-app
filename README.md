@@ -9,7 +9,11 @@ Introducing a login page, built with Identity scaffolding, providing email and p
 
 ### Kanban Board
 Kanban Board is at apps main page where tasks can be assigned to different employees which are derived from the list of users that are registered via third party single-sign-on authentication like Google or its own email and password based authentication - both created from scaffolding Identity API.
-![main](https://github.com/stefank1995/team-management-app/assets/132662524/47fd9dd1-ebdd-403e-8938-2a1583117949)
+![image](https://github.com/stefank1995/team-management-app/assets/132662524/3c7b930e-77c6-499e-b7e3-292fe8c20d8b)
+
+App has also a swimlanes toggle in the settings page. Kanban swimlanes provide a visual way to categorize and separate tasks within a project. This feature enhances organization and clarity, making it easier to manage and track progress.
+![image](https://github.com/stefank1995/team-management-app/assets/132662524/e8f23497-5a25-4b94-9919-056c46b939bc)
+
 
 
 Kanban board interface has been created using Syncfusion's Kanban Board. Tasks can be created by clicking the plus sign and filling the form that will pop up:
