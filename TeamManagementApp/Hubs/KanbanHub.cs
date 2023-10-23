@@ -2,6 +2,7 @@
 
 namespace TeamManagementApp.Hubs
 {
+	//Work-in-progress
 	public class KanbanHub : Hub
 	{
 		public override async Task OnConnectedAsync()

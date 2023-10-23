@@ -26,13 +26,13 @@ namespace TeamManagementApp.Data
 
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
 
+            //Work-in-progress
+            //<------>
             //many - to - many relationship configuration between users and teams
             builder.Entity<AppUser>()
                 .HasMany(u => u.Teams)
                 .WithMany(t => t.Members)
                 .UsingEntity(j => j.ToTable("UserTeams"));
-
-
             //builder.Entity<UserTeams>()
             //    .HasKey(ut => new { ut.UserId, ut.TeamId });
 
@@ -45,6 +45,7 @@ namespace TeamManagementApp.Data
             //    .HasOne(ut => ut.Team)
             //    .WithMany(t => t.Members)
             //    .HasForeignKey(ut => ut.TeamId);
+            //<-----/>
         }
     }
 
