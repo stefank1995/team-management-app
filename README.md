@@ -33,7 +33,7 @@ Aside from its main page the app has a File Management System page where employe
 (Work in progress)Teams page where users can create teams, assign team members, and engage in chat conversations specifically related to their chosen teams. The chat functionality is facilitated by SignalR, ensuring real-time communication and notification updates.
 
 ### Settings
-The Settings page allows users to control preferences like dark mode, Kanban board swimlanes, and create or assign authorisation user roles, if the user is administratior.
+The Settings page allows users to control preferences like dark mode, Kanban board swimlanes, and create or assign authorization user roles, if the user is administratior.
 ![image](https://github.com/stefank1995/team-management-app/assets/132662524/3ef78f21-d3c3-4778-a14d-bde4cc097267)
 
 ### Responsive UI
