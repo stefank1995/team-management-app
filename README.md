@@ -4,8 +4,7 @@ ASP.NET MVC Team Management App using Syncfusion, Bootstrap, EF Core as ORM, SQL
 
 ### Login Page
 Introducing a login page, built with Identity scaffolding, providing email and password-based authentication along with a third-party login options like Google and Microsoft.
-![Login](https://github.com/stefank1995/team-management-app/assets/132662524/90afa63d-39bd-4795-a390-94563bc158f5)
-
+![image](https://github.com/stefank1995/team-management-app/assets/132662524/ed730e39-877b-4f60-881b-affc7e5d17fc)
 
 ### Kanban Board
 Kanban Board is at apps main page where tasks can be assigned to different employees which are derived from the list of users that are registered via third party single-sign-on authentication like Google or its own email and password based authentication - both created from scaffolding Identity API.
@@ -13,8 +12,6 @@ Kanban Board is at apps main page where tasks can be assigned to different emplo
 
 App has also a swimlanes toggle in the settings page. Kanban swimlanes provide a visual way to categorize and separate tasks within a project. This feature enhances organization and clarity, making it easier to manage and track progress.
 ![image](https://github.com/stefank1995/team-management-app/assets/132662524/e8f23497-5a25-4b94-9919-056c46b939bc)
-
-
 
 Kanban board interface has been created using Syncfusion's Kanban Board. Tasks can be created by clicking the plus sign and filling the form that will pop up:
 ![Adding task](https://github.com/stefank1995/team-management-app/assets/132662524/69776d0d-3cf2-4145-94cb-aecf32beba2b)
