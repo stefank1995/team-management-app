@@ -8,10 +8,10 @@ Introducing a login page, built with Identity scaffolding, providing email and p
 
 ### Kanban Board
 Kanban Board is at apps main page where tasks can be assigned to different employees which are derived from the list of users that are registered via third party single-sign-on authentication like Google or its own email and password based authentication - both created from scaffolding Identity API.
-![image](https://github.com/stefank1995/team-management-app/assets/132662524/3c7b930e-77c6-499e-b7e3-292fe8c20d8b)
+![image](https://github.com/stefank1995/team-management-app/assets/132662524/ef22d018-e25b-41fb-9271-8f99cba42787)
 
 App has also a swimlanes toggle in the settings page. Kanban swimlanes provide a visual way to categorize and separate tasks within a project. This feature enhances organization and clarity, making it easier to manage and track progress.
-![image](https://github.com/stefank1995/team-management-app/assets/132662524/e8f23497-5a25-4b94-9919-056c46b939bc)
+![image](https://github.com/stefank1995/team-management-app/assets/132662524/a861d037-5f2d-40b4-8df9-b99c52dc3d67)
 
 Kanban board interface has been created using Syncfusion's Kanban Board. Tasks can be created by clicking the plus sign and filling the form that will pop up:
 ![Adding task](https://github.com/stefank1995/team-management-app/assets/132662524/69776d0d-3cf2-4145-94cb-aecf32beba2b)
@@ -27,7 +27,7 @@ Data persistence: All the Kanban data is being stored inside SQL Server database
 
 ### File Management System
 Aside from its main page the app has a File Management System page where employees can upload and download files that are necessary for the team. It tracks which employee uploaded the file and its upload date and time. The app has a role-based authorization so depending on the role that a signed-in user has, it will permit or prevent the user from deleting files that were uploaded from other employees. Files are stored inside a Datatables table with pagination.
-![File](https://github.com/stefank1995/team-management-app/assets/132662524/af41838d-1a9e-4389-a303-905c460be8a7)
+![image](https://github.com/stefank1995/team-management-app/assets/132662524/55128ef2-1f70-4345-85e8-353af59f91c2)
 
 ### Teams
 (Work in progress)Teams page where users can create teams, assign team members, and engage in chat conversations specifically related to their chosen teams. The chat functionality is facilitated by SignalR, ensuring real-time communication and notification updates.
