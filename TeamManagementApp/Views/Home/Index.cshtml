@@ -8,13 +8,13 @@
 
 @*kanban board html structure with syncfusion ui components*@
 <div style="width:100%; margin: 0 auto;">
-	<div id="card" class="card">
+	<div class="card">
 		<div id="card-header-wrapper">
-			<div id="card-header" class="card-header d-flex justify-content-between align-items-center">
+			<div class="card-header d-flex justify-content-between align-items-center">
 				<h4 class="card-title" >Kanban Board</h4>
 				<div class="d-flex justify-content-end align-items-center" >
 					<button id="printButton" class="btn btn-secondary" style="margin-right: 10px;">
-						<img src="/icons/printer32-darkmode.png" alt="Printer icon" style="width: 20px; height: 20px;">
+						<img src="/icons/printer.png" alt="Printer icon" style="width: 20px; height: 20px;">
 					</button>
 					<form id="reset-form" asp-area="" asp-controller="Home" asp-action="ResetBoard" method="post" onsubmit="return confirmReset();">
 						<button type="submit" class="btn btn-danger">
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="card-body" class="card-body">
+		<div class="card-body">
 			<div class="content-wrapper">
 				<ejs-kanban id="Kanban" keyField="Status" created="onKanbanCreated">
 					<e-data-manager url="/Home/LoadCard" updateUrl="/Home/UpdateCard" removeUrl="/Home/RemoveCard" insertUrl="/Home/InsertCard" adaptor="UrlAdaptor" crossDomain="false"></e-data-manager>
