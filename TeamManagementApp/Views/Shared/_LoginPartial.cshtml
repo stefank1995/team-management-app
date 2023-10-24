@@ -11,8 +11,11 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="Index">
+            <a class="nav-link d-none d-lg-inline-flex d-md-inline-flex d-sm-inline-flex" asp-controller="Home" asp-action="Index">
                 <img src="/icons/bell32.png" alt="notification icon" width="18">
+            </a>
+            <a class="nav-link d-lg-none d-md-none d-sm-none" asp-controller="Home" asp-action="Index">
+                Notifications
             </a>
         </li>
         <li class="nav-item @(Context.Request.Path.StartsWithSegments("/Identity/Account/Manage") ? "active" : "") dropdown">
