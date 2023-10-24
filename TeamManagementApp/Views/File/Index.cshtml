@@ -16,35 +16,42 @@
     <div class="row">
         <div class="col-md-3">
             <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Upload Files</h4>
-                    <hr />
-                    @if (ViewBag.Message != null)
-                    {
-                        <div class="alert alert-success alert-dismissible" style="margin-top: 10px">
-                            @ViewBag.Message
-                        </div>
-                    }
-                    <form method="post" enctype="multipart/form-data">
-                        <div class="form-group" style="margin-bottom: 20px">
-                            <label for="files">Choose File(s)</label>
-                            <input type="file" id="files" name="files" class="form-control-file" multiple required />
-                        </div>
-                        <div class="form-group">
-                            <label for="description">File Description</label>
-                            <textarea id="description" name="description" class="form-control resizable-textarea" autocomplete="off" placeholder="Enter File Description" required rows="4"></textarea>
-                        </div>
-                        <hr />
+                <form method="post" enctype="multipart/form-data">
+                    <div class="card-header">
+                        <h4 class="card-title">Upload Files</h4>
+                    </div>
+                
+                    <div class="card-body">
+                        @if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-success alert-dismissible" style="margin-top: 10px">
+                                @ViewBag.Message
+                            </div>
+                        }
+                    
+                            <div class="form-group" style="margin-bottom: 20px">
+                                <label for="files">Choose File(s)</label>
+                                <input type="file" id="files" name="files" class="form-control-file" multiple required />
+                            </div>
+                            <div class="form-group">
+                                <label for="description">File Description</label>
+                                <textarea id="description" name="description" class="form-control resizable-textarea" autocomplete="off" placeholder="Enter File Description" required rows="4"></textarea>
+                            </div>
+                                               
+                    
+                    </div>
+                    <div class="card-footer">
                         <button class="btn btn-secondary" type="submit" asp-controller="File" asp-action="UploadToDatabase">Upload</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-body">
+                <div class="card-header">
                     <h4 class="card-title text-center">Files on Database</h4>
-                    <hr />
+                </div>
+                <div class="card-body">
                     @if (Model.FilesOnDatabase.Count == 0)
                     {
                         <p>No Records Found</p>
