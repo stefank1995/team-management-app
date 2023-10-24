@@ -56,7 +56,7 @@
     max-width: 100%;
 }
 
-#card-header {
+.card-header {
     background-color: #f8f8f8;
     position: sticky;
     top: 0;
