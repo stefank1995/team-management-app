@@ -33,19 +33,7 @@ body {
 
 
 /*bootstrap button styles*/
-.btn-danger {
-    background-color: #f44336;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 0; /* border-radius to 0 for square corners */
-}
 
-    .btn-danger:hover {
-        background-color: #F28C85;
-    }
 
 
 .btn-primary {
@@ -55,29 +43,12 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 0; /* border-radius to 0 for square corners */
+    border-radius: 0;
 }
 
 .btn-primary:hover {
     background-color: #ADDBFF;
 }
-
-
-.btn-success {
-    background-color: #49B242;
-    color: #FFFFFF;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 0; /* border-radius to 0 for square corners */
-}
-
-.btn-success:hover {
-    background-color: #88F181;
-}
-
-
 
 .btn-secondary {
     background-color: #868686;
@@ -86,12 +57,42 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 0; /* border-radius to 0 for square corners */
+    border-radius: 0;
 }
 
 .btn-secondary:hover {
     background-color: #B8B8B8;
 }
+
+.btn-success {
+    background-color: #49B242;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.btn-success:hover {
+    background-color: #88F181;
+}
+
+.btn-danger {
+    background-color: #f44336;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+    .btn-danger:hover {
+        background-color: #F28C85;
+    }
+
+
 
 
 .footer-content {
