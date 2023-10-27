@@ -7,13 +7,13 @@ namespace TeamManagementApp.Hubs
 	{
 		public override async Task OnConnectedAsync()
 		{
-			Console.WriteLine($"Connection {Context.ConnectionId} made!");
+			Console.WriteLine($"Connection {Context.ConnectionId} to the KanbanHub made!");
 			await base.OnConnectedAsync();
 		}
 
 		public override async Task OnDisconnectedAsync(Exception? exception)
 		{
-			Console.WriteLine($"{Context.ConnectionId} disconnected!");
+			Console.WriteLine($"{Context.ConnectionId} with the KanbanHub disconnected!");
 			await base.OnDisconnectedAsync(exception);
 		}
 	}
