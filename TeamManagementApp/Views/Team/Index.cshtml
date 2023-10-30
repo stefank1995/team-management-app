@@ -14,31 +14,39 @@
 				<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
 					<h4 class="card-title">Teams</h4>
 					<!-- Create a Team button -->
-					<button id="open-create-btn" class="btn btn-primary">Create New</button>
+					<button id="open-create-btn" class="btn btn-primary">
+						<img src="/icons/add-group.png" alt="creat a team icon" style="width: 20px; height: 20px;">
+					</button>
 					@Html.Partial("_CreateTeam", new Team())
 				</div>
 				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<img src="/icons/magnifier.png" alt="search icon">
+						</span>
+					</div>
 					<input type="text" class="form-control" placeholder="Type a team name..." id="search-teams-input">
-					<button class="btn btn-primary">Search</button>
 				</div>
 				<ul class="list-group team-list">
 					@foreach (var team in Model)
 					{
-						<li class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Teams" && Context.Request.RouteValues["action"].ToString() == "#" ? "active-link" : "") d-flex justify-content-between align-items-center">
-							@team.Name
-							<div class="btn-group">
-								<button id="open-assign-btn" class="btn btn-primary" data-team-id="@team.Id">
-									<img src="/icons/add-user32px.png" alt="add member icon" style="width: 20px; height: 20px;">
-								</button>
-								@Html.Partial("_AssignTeam", team)
-								<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
-									<input type="hidden" name="id" value="@team.Id" />
-									<button type="submit" class="btn btn-danger">
-										<img src="/icons/remove32px.png" alt="remove team icon" style="width: 20px; height: 20px;">
+						<div class="team-container">
+							<li class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Teams" && Context.Request.RouteValues["action"].ToString() == "#" ? "active-link" : "") d-flex justify-content-between align-items-center">
+								@team.Name
+								<div class="btn-group">
+									<button id="open-assign-btn" class="btn btn-primary" data-team-id="@team.Id">
+										<img src="/icons/add-user32px.png" alt="add member icon" style="width: 20px; height: 20px;">
 									</button>
-								</form>
-							</div>
-						</li>
+									@Html.Partial("_AssignTeam", team)
+									<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
+										<input type="hidden" name="id" value="@team.Id" />
+										<button type="submit" class="btn btn-danger">
+											<img src="/icons/remove32px.png" alt="remove team icon" style="width: 20px; height: 20px;">
+										</button>
+									</form>
+								</div>
+							</li>
+				</div>
 					}
 				</ul>
 			</div>
@@ -135,7 +143,9 @@
 			<!-- Input field and send button for sending messages -->
 			<div class="input-group mb-5">
 				<input type="text" class="form-control" placeholder="Type your message" id="message-input">
-				<button class="btn btn-primary">Send</button>
+				<button class="btn btn-primary">
+					<img src="/icons/paper-plane.png" alt="send message icon" style="width: 20px; height: 20px;">
+				</button>
 			</div>
 		</div>
 
@@ -146,8 +156,12 @@
 					<h4 class="card-title">Team members</h4>
 				</div>
 				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<img src="/icons/magnifier.png" alt="search icon" >
+						</span>
+					</div>
 					<input type="text" class="form-control" placeholder="Type a member name..." id="search-members-input">
-					<button class="btn btn-primary">Search</button>
 				</div>
 				<div id="members-list" class="card-body">
 					@foreach (var user in UserManager.Users)
@@ -218,6 +232,7 @@
 	.chat-message p {
 		margin: 0; /* Remove default paragraph margin */
 	}
+
 
 
 
@@ -423,36 +438,56 @@
 
 </script>
 
-<!-- JavaScript to load members for the selected team and add the "active" class -->
+
 <script>
-	$(document).ready(function () {
-		// Event listener for team list items
-		$(".team-list-item").click(function () {
-			// Remove "active" class from all team list items
-			$(".team-list-item").removeClass("active");
+	// Function to filter and display team members based on the search input
+	function searchMembers() {
+		const searchInput = document.getElementById('search-members-input');
+		const membersList = document.getElementById('members-list');
+		const members = membersList.querySelectorAll('.user-details-link');
 
-			// Get the selected team's ID from the data attribute
-			var teamId = $(this).data("team-id");
+		const searchValue = searchInput.value.toLowerCase();
 
-			// Add "active" class to the clicked team list item
-			$(this).addClass("active");
-
-			// Make an AJAX request to retrieve members for the selected team
-			//$.ajax({
-			//	url: "/Team/GetMembers", // Replace with the actual server endpoint
-			//	method: "GET",
-			//	data: { teamId: teamId },
-			//	success: function (data) {
-			//		// Update the "members-list" with the retrieved members
-			//		$("#members-list").html(data);
-			//	},
-			//	error: function () {
-			//		alert("Error loading team members.");
-			//	}
-			//});
+		members.forEach(member => {
+			const memberName = member.textContent.toLowerCase();
+			if (memberName.includes(searchValue)) {
+				member.style.display = 'block';
+			} else {
+				member.style.display = 'none';
+			}
 		});
-	});
+	}
+
+	// Attach the searchMembers function to the input field's input event
+	const searchMembersInput = document.getElementById('search-members-input');
+	searchMembersInput.addEventListener('input', searchMembers);
 </script>
+
+<script>
+	// Function to filter and display teams based on the search input
+	function searchTeams() {
+		const searchInput = document.getElementById('search-teams-input');
+		const teamList = document.querySelector('.team-list');
+		const teams = teamList.querySelectorAll('.team-container');
+
+		const searchValue = searchInput.value.toLowerCase();
+
+		teams.forEach(team => {
+			const teamNameElement = team.querySelector('li').textContent.toLowerCase();
+			if (teamNameElement.includes(searchValue)) {
+				team.style.display = 'block';
+			} else {
+				team.style.display = 'none';
+			}
+		});
+	}
+
+	// Attach the searchTeams function to the input field's input event
+	const searchTeamsInput = document.getElementById('search-teams-input');
+	searchTeamsInput.addEventListener('input', searchTeams);
+</script>
+
+
 
 
 
