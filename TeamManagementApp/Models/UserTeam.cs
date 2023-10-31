@@ -2,6 +2,7 @@
 
 namespace TeamManagementApp.Models
 {
+	//junction table
 	public class UserTeam
 	{
 		[Key]

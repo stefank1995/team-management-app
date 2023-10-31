@@ -31,22 +31,22 @@
 					@foreach (var team in Model)
 					{
 						<div class="team-container">
-							<li class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Teams" && Context.Request.RouteValues["action"].ToString() == "#" ? "active-link" : "") d-flex justify-content-between align-items-center">
+						<li class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Teams" && Context.Request.RouteValues["action"].ToString() == "#" ? "active-link" : "") d-flex justify-content-between align-items-center" data-team-id="@team.Id">
 								@team.Name
-								<div class="btn-group">
-									<button id="open-assign-btn" class="btn btn-primary" data-team-id="@team.Id">
-										<img src="/icons/add-user32px.png" alt="add member icon" style="width: 20px; height: 20px;">
-									</button>
+							<div class="btn-group">
+								<button id="open-assign-btn" class="btn btn-primary">
+									<img src="/icons/add-user32px.png" alt="add member icon" style="width: 20px; height: 20px;">
+								</button>
 									@Html.Partial("_AssignTeam", team)
-									<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
-										<input type="hidden" name="id" value="@team.Id" />
-										<button type="submit" class="btn btn-danger">
-											<img src="/icons/remove32px.png" alt="remove team icon" style="width: 20px; height: 20px;">
-										</button>
-									</form>
-								</div>
-							</li>
-						</div>
+								<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
+									<input type="hidden" name="id" value="@team.Id" />
+									<button type="submit" class="btn btn-danger">
+										<img src="/icons/remove32px.png" alt="remove team icon" style="width: 20px; height: 20px;">
+									</button>
+								</form>
+							</div>
+						</li>
+				</div>
 					}
 				</ul>
 			</div>
@@ -499,7 +499,43 @@
 	searchTeamsInput.addEventListener('input', searchTeams);
 </script>
 
+<script>
+	const teamContainers = document.querySelectorAll('.team-container');
+	const membersList = document.getElementById('members-list');
 
+	teamContainers.forEach(teamContainer => {
+		teamContainer.addEventListener('click', () => {
+			// Remove the 'active' class from all team containers
+			teamContainers.forEach(tc => tc.classList.remove('active'));
+
+			// Add the 'active' class to the clicked team container
+			teamContainer.classList.add('active');
+
+			// Get the team ID from the data attribute
+			const teamId = teamContainer.getAttribute('data-team-id');
+
+			// Filter and display members of the selected team
+			filterMembersByTeamId(teamId);
+		});
+	});
+
+	function filterMembersByTeamId(teamId) {
+		const members = membersList.querySelectorAll('.user-details-link');
+		members.forEach(member => {
+			const userTeamId = member.getAttribute('data-user-team-id');
+			if (userTeamId === teamId) {
+				member.style.display = 'block';
+			} else {
+				member.style.display = 'none';
+			}
+		});
+	}
+
+	// Initial selection for the first team
+	if (teamContainers.length > 0) {
+		teamContainers[0].click(); // Trigger a click on the first team
+	}
+</script>
 
 
 
