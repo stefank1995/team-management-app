@@ -22,21 +22,6 @@ namespace TeamManagementApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AppUserTeam", b =>
-                {
-                    b.Property<string>("MembersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("TeamsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("MembersId", "TeamsId");
-
-                    b.HasIndex("TeamsId");
-
-                    b.ToTable("UserTeams", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -334,9 +319,8 @@ namespace TeamManagementApp.Migrations
 
             modelBuilder.Entity("TeamManagementApp.Models.Team", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -376,19 +360,22 @@ namespace TeamManagementApp.Migrations
                     b.ToTable("UserPreferences");
                 });
 
-            modelBuilder.Entity("AppUserTeam", b =>
+            modelBuilder.Entity("TeamManagementApp.Models.UserTeam", b =>
                 {
-                    b.HasOne("TeamManagementApp.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("MembersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasOne("TeamManagementApp.Models.Team", null)
-                        .WithMany()
-                        .HasForeignKey("TeamsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("TeamId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("UserTeams");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -453,10 +440,36 @@ namespace TeamManagementApp.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TeamManagementApp.Models.UserTeam", b =>
+                {
+                    b.HasOne("TeamManagementApp.Models.Team", "Team")
+                        .WithMany("Members")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TeamManagementApp.Models.AppUser", "AppUser")
+                        .WithMany("Teams")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Team");
+                });
+
             modelBuilder.Entity("TeamManagementApp.Models.AppUser", b =>
                 {
+                    b.Navigation("Teams");
+
                     b.Navigation("UserPreferences")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TeamManagementApp.Models.Team", b =>
+                {
+                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }
