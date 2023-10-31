@@ -46,7 +46,7 @@
 									</form>
 								</div>
 							</li>
-				</div>
+						</div>
 					}
 				</ul>
 			</div>
@@ -368,51 +368,65 @@
 	function closeAssignModal() {
 		teamAssignModal.style.display = 'none';
 	}
+
+	// Add event listener to close the modal when clicking outside of it
+	teamAssignModal.addEventListener('click', handleAssignModalClickOutside);
+
+	function handleAssignModalClickOutside(event) {
+		if (event.target === teamAssignModal) {
+			closeAssignModal();
+		}
+	}
 </script>
+
 
 <script>
 	const userDetailsLinks = document.querySelectorAll('.user-details-link');
-	const closeUserDetailsButtons = document.querySelectorAll('.close-user-details-btn');
 	userDetailsLinks.forEach(userDetailsLink => {
 		userDetailsLink.addEventListener('click', handleUserDetailsLinkClick);
-	});
-
-	// Add event listeners for each 'close-user-details-btn'
-	closeUserDetailsButtons.forEach(closeButton => {
-		closeButton.addEventListener('click', handleCloseUserDetailsClick);
 	});
 
 	// Event handler for 'user-details-link' clicks
 	function handleUserDetailsLinkClick(event) {
 		event.preventDefault(); // Prevent the default link behavior
 
-		// Get the 'data-user-id' attribute of the clicked link
-		const userId = event.currentTarget.getAttribute('data-user-id');
+		// Get the modal associated with the clicked link
+		const modal = event.currentTarget.nextElementSibling;
 
-		// Open the user details modal for the clicked user
-		openUserDetailsModal(userId);
-	}
-
-	// Function to open the user details modal for a specific user
-	function openUserDetailsModal(userId) {
-		// Construct the ID of the user details modal based on the user's ID
-		const modalId = `user-details-modal-${userId}`;
-		const userDetailsModal = document.getElementById(modalId);
-
-		if (userDetailsModal) {
-			userDetailsModal.style.display = 'flex';
+		if (modal) {
+			modal.style.display = 'flex';
 		}
 	}
+
+	// Add event listeners for close buttons within the modals
+	const closeUserDetailsButtons = document.querySelectorAll('#close-user-details-btn');
+	closeUserDetailsButtons.forEach(closeButton => {
+		closeButton.addEventListener('click', handleCloseUserDetailsClick);
+	});
 
 	// Event handler for 'close-user-details-btn' clicks
 	function handleCloseUserDetailsClick(event) {
-		const modalToClose = event.currentTarget.closest('.modal');
+		const modal = event.target.closest('.modal');
 
-		if (modalToClose) {
-			modalToClose.style.display = 'none';
+		if (modal) {
+			modal.style.display = 'none';
+		}
+	}
+
+	// Add event listener to close the modal when clicking outside of it
+	const modals = document.querySelectorAll('.modal');
+	modals.forEach(modal => {
+		modal.addEventListener('click', handleModalClickOutside);
+	});
+
+	function handleModalClickOutside(event) {
+		if (event.target === event.currentTarget) {
+			event.currentTarget.style.display = 'none';
 		}
 	}
 </script>
+
+
 
 
 
@@ -457,7 +471,6 @@
 			}
 		});
 	}
-
 	// Attach the searchMembers function to the input field's input event
 	const searchMembersInput = document.getElementById('search-members-input');
 	searchMembersInput.addEventListener('input', searchMembers);
@@ -481,7 +494,6 @@
 			}
 		});
 	}
-
 	// Attach the searchTeams function to the input field's input event
 	const searchTeamsInput = document.getElementById('search-teams-input');
 	searchTeamsInput.addEventListener('input', searchTeams);
