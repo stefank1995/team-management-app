@@ -72,47 +72,70 @@ namespace TeamManagementApp.Controllers
 			}
 		}
 
+		//Work-in-progress
+		[HttpGet]
+		public IActionResult GetTeamMembers(string teamId)
+		{
+			// Retrieve the members of the selected team based on teamId
+			var members = _context.UserTeams
+				.Where(ut => ut.TeamId == teamId)
+				.Select(ut => ut.AppUser)
+				.ToList();
+
+			return PartialView("_TeamMembers", members);
+		}
 
 
-		//[HttpPost]
-		//public async Task<IActionResult> AssignUserToTeam(Guid teamId, string userEmail)
-		//{
-		//	var team = await _context.Teams.FindAsync(teamId);
+		[HttpPost]
+		public async Task<IActionResult> AssignUserToTeam(string teamId, string userEmail)
+		{
+			var team = await _context.Teams.FindAsync(teamId);
 
-		//	if (team != null)
-		//	{
-		//		var user = await _userManager.FindByEmailAsync(userEmail);
-		//		if (user != null)
-		//		{
-		//			// Check if the user is not already a member of the team to avoid duplication
-		//			if (team.Members == null)
-		//			{
-		//				team.Members = new List<AppUser>();
-		//			}
+			if (team != null)
+			{
+				var user = await _userManager.FindByEmailAsync(userEmail);
 
-		//			if (!team.Members.Contains(user))
-		//			{
-		//				team.Members.Add(user);
-		//				await _context.SaveChangesAsync();
-		//				return RedirectToAction("Index");
-		//			}
-		//			else
-		//			{
-		//				ModelState.AddModelError("", "User is already a member of the team.");
-		//			}
-		//		}
-		//		else
-		//		{
-		//			ModelState.AddModelError("", "User not found. Please check the email address.");
-		//		}
-		//	}
-		//	else
-		//	{
-		//		ModelState.AddModelError("", "Team not found.");
-		//	}
+				if (user != null)
+				{
+					// Check if the user is not already a member of the team to avoid duplication
+					if (team.Members == null)
+					{
+						team.Members = new List<UserTeam>();
+					}
 
-		//	return RedirectToAction("Index");
-		//}
+					// Check if the user is not already a member of the team
+					if (!team.Members.Any(mt => mt.UserId == user.Id && mt.TeamId == team.Id))
+					{
+						var userTeam = new UserTeam
+						{
+							UserId = user.Id,
+							TeamId = team.Id,
+							IsAdmin = false // You can set this as needed
+						};
+
+						_context.UserTeams.Add(userTeam);
+						await _context.SaveChangesAsync();
+
+						return RedirectToAction("Index");
+					}
+					else
+					{
+						ModelState.AddModelError("", "User is already a member of the team.");
+					}
+				}
+				else
+				{
+					ModelState.AddModelError("", "User not found. Please check the email address.");
+				}
+			}
+			else
+			{
+				ModelState.AddModelError("", "Team not found.");
+			}
+
+			return RedirectToAction("Index");
+		}
+
 
 
 		//[HttpPost]

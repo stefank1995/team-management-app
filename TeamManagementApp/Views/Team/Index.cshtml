@@ -15,7 +15,7 @@
 					<h4 class="card-title">Teams</h4>
 					<!-- Create a Team button -->
 					<button id="open-create-btn" class="btn btn-primary">
-						<img src="/icons/add-group.png" alt="creat a team icon" style="width: 20px; height: 20px;">
+						<img src="/icons/add-group.png" alt="create a team icon" style="width: 20px; height: 20px;">
 					</button>
 					@Html.Partial("_CreateTeam", new Team())
 				</div>
@@ -31,22 +31,24 @@
 					@foreach (var team in Model)
 					{
 						<div class="team-container">
-						<li class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Teams" && Context.Request.RouteValues["action"].ToString() == "#" ? "active-link" : "") d-flex justify-content-between align-items-center" data-team-id="@team.Id">
-								@team.Name
-							<div class="btn-group">
-								<button id="open-assign-btn" class="btn btn-primary">
-									<img src="/icons/add-user32px.png" alt="add member icon" style="width: 20px; height: 20px;">
-								</button>
-									@Html.Partial("_AssignTeam", team)
-								<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
-									<input type="hidden" name="id" value="@team.Id" />
-									<button type="submit" class="btn btn-danger">
-										<img src="/icons/remove32px.png" alt="remove team icon" style="width: 20px; height: 20px;">
+							<li class="list-group-item list-group-item-action @(Context.Request.RouteValues["controller"].ToString() == "Teams" && Context.Request.RouteValues["action"].ToString() == "#" ? "active-link" : "") d-flex justify-content-between align-items-center" data-team-id="@team.Id">
+								<div class="team-name-container">
+									@team.Name
+								</div>	
+								<div class="btn-group">
+									<button id="open-assign-btn" class="btn btn-primary">
+										<img src="/icons/add-user32px.png" alt="add member icon" style="width: 20px; height: 20px;">
 									</button>
-								</form>
-							</div>
-						</li>
-				</div>
+										@Html.Partial("_AssignTeam", team)
+									<form id="delete-team-@team.Id" asp-area="" asp-controller="Team" asp-action="Delete" method="post" onsubmit="return confirmDelete('@team.Id');">
+										<input type="hidden" name="id" value="@team.Id" />
+										<button type="submit" class="btn btn-danger">
+											<img src="/icons/remove32px.png" alt="remove team icon" style="width: 20px; height: 20px;">
+										</button>
+									</form>
+								</div>
+							</li>
+						</div>
 					}
 				</ul>
 			</div>
@@ -163,12 +165,8 @@
 					</div>
 					<input type="text" class="form-control" placeholder="Type a member name..." id="search-members-input">
 				</div>
-				<div id="members-list" class="card-body">
-					@foreach (var user in UserManager.Users)
-					{
-						<a href="#" class="user-details-link" data-user-id="@user.Id">@user.FullName<br /></a>
-						@Html.Partial("_UserDetails", user)
-					}
+				<div id="team-members-placeholder">
+					@*@Html.Partial("_TeamMembers")*@
 				</div>
 
 			</div>
@@ -486,7 +484,7 @@
 		const searchValue = searchInput.value.toLowerCase();
 
 		teams.forEach(team => {
-			const teamNameElement = team.querySelector('li').textContent.toLowerCase();
+			const teamNameElement = team.querySelector('.team-name-container').textContent.toLowerCase();
 			if (teamNameElement.includes(searchValue)) {
 				team.style.display = 'block';
 			} else {
